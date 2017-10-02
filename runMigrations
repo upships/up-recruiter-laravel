@@ -1,0 +1,16 @@
+#!/bin/bash
+php artisan make:model Selection -mc &&
+php artisan make:model Country -mc &&
+php artisan make:model ShipDepartment -mc &&
+php artisan make:model SeamanType -mc &&
+php artisan make:model CompanyPhone -mc &&
+php artisan make:model CompanyOffice -mc &&
+php artisan make:model CompanyEmail -mc &&
+php artisan make:model DpType -mc &&
+php artisan make:model EducationLevel -mc &&
+php artisan make:model ProfileType -mc &&
+php artisan make:model ProfileTraining -mc &&
+php artisan make:model CertificateType -mc &&
+php artisan make:model LanguageLevel -mc &&
+php artisan make:model Settings -mc &&
+php artisan make:model CompanySettings -mc
