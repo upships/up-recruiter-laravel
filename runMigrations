@@ -1,16 +1,52 @@
 #!/bin/bash
-php artisan make:model Selection -mc &&
-php artisan make:model Country -mc &&
-php artisan make:model ShipDepartment -mc &&
-php artisan make:model SeamanType -mc &&
-php artisan make:model CompanyPhone -mc &&
-php artisan make:model CompanyOffice -mc &&
-php artisan make:model CompanyEmail -mc &&
-php artisan make:model DpType -mc &&
-php artisan make:model EducationLevel -mc &&
-php artisan make:model ProfileType -mc &&
-php artisan make:model ProfileTraining -mc &&
-php artisan make:model CertificateType -mc &&
-php artisan make:model LanguageLevel -mc &&
-php artisan make:model Settings -mc &&
-php artisan make:model CompanySettings -mc
+php artisan make:model Models/Profile/Profile &&
+php artisan make:model Models/Profile/ProfileCertificate &&
+php artisan make:model Models/Profile/ProfileDocument &&
+php artisan make:model Models/Profile/ProfileDocumentRequest &&
+php artisan make:model Models/Profile/ProfileEducation &&
+php artisan make:model Models/Profile/ProfileExtra &&
+php artisan make:model Models/Profile/ProfileFolder &&
+php artisan make:model Models/Profile/ProfileFolderItem &&
+php artisan make:model Models/Profile/ProfileLanguage &&
+php artisan make:model Models/Profile/ProfileShip &&
+php artisan make:model Models/Profile/ProfileTraining &&
+php artisan make:model Models/Profile/ProfileType &&
+php artisan make:model Models/Profile/ProfileWork &&
+php artisan make:model Models/Company/Company &&
+php artisan make:model Models/Company/CompanyEmail &&
+php artisan make:model Models/Company/CompanyOffice &&
+php artisan make:model Models/Company/CompanyPhone &&
+php artisan make:model Models/Company/CompanySetting &&
+php artisan make:model Models/Company/Ship &&
+php artisan make:model Models/Company/Crew &&
+php artisan make:model Models/Company/CrewMember &&
+
+php artisan make:model Models/Data/ProfileType &&
+php artisan make:model Models/Data/CompanyType &&
+php artisan make:model Models/Data/SeamanBookType &&
+php artisan make:model Models/Data/SeamanType &&
+php artisan make:model Models/Data/ShipType &&
+php artisan make:model Models/Data/ShipDepartment &&
+php artisan make:model Models/Data/StcwRegulation &&
+php artisan make:model Models/Data/Training &&
+php artisan make:model Models/Data/DpType &&
+php artisan make:model Models/Data/Currency &&
+php artisan make:model Models/Data/DocumentType &&
+php artisan make:model Models/Data/Country &&
+php artisan make:model Models/Data/EducationLevel &&
+php artisan make:model Models/Data/CertificateType &&
+php artisan make:model Models/Data/Language &&
+php artisan make:model Models/Data/LanguageLevel &&
+php artisan make:model Models/Data/Position &&
+
+php artisan make:model Models/Job/Job &&
+php artisan make:model Models/Job/JobBenefit &&
+php artisan make:model Models/Job/JobRequisite &&
+php artisan make:model Models/Job/JobSeamanBookType &&
+php artisan make:model Models/Job/JobStcwRegulation &&
+php artisan make:model Models/Job/JobTraining &&
+
+php artisan make:model Models/Profile/SeamanBook &&
+php artisan make:model Models/Profile/Dp &&
+php artisan make:model Models/Profile/Coc &&
+php artisan make:model Models/Profile/CocStcwRegulation
