@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateShipsTable extends Migration
+class CreateJobShipTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,14 @@ class CreateShipsTable extends Migration
      */
     public function up()
     {
-        Schema::create('ships', function (Blueprint $table) {
+        Schema::create('job_ship_types', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
 
-            $table->integer('company_id');
             $table->integer('ship_type_id');
-            $table->integer('country_id');    // country_id
+            $table->integer('job_id');
 
-            $table->string('name');
-
+            $table->integer('years')->nullable();
         });
     }
 
@@ -33,6 +31,6 @@ class CreateShipsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ships');
+        Schema::dropIfExists('job_ship_types');
     }
 }
