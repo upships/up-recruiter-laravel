@@ -11,7 +11,7 @@
 
 		            <div class="form-group">
 		            	<label for='bookCategoryCode' >Sigla</label>
-		                <input type="text" name="bookCategoryCode" class="form-control" placeholder="Código CIR" value="{bookCategoryCode}" />
+		                <input type="text" name="bookCategoryCode" class="form-control" placeholder="Código CIR" value="{{$seaman_book_type->code}}" />
 		            </div>
 
 		            <div class="form-group">

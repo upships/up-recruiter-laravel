@@ -35,3 +35,7 @@
     <script src="/theme/assets/js/dashboard.js" type="text/javascript"></script>
     <script src="/theme/assets/js/scripts.js" type="text/javascript"></script>
     <!-- END PAGE LEVEL JS -->
+
+    <!-- Vue.js and Axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue"></script>

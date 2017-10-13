@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Job;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class JobRequisiteController extends Controller
+use App\Models\Job\Job;
+use App\Models\Job\JobRequirement;
+
+class JobRequirementController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,7 +38,9 @@ class JobRequisiteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $requirement = JobRequirement::create($request->all());
+        
+        return response()->toJson($requirement);
     }
 
     /**

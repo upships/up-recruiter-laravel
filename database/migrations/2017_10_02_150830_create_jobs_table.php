@@ -19,15 +19,16 @@ class CreateJobsTable extends Migration
 
             $table->integer('company_id');
             $table->integer('country_id')->nullable();
-            $table->integer('position_id');
             $table->integer('recruiter_id');
+
+            $table->integer('position_id');
             $table->integer('ship_type_id')->nullable();
 
-            $table->string('instructions');
+            $table->string('instructions')->nullable();
             $table->integer('status')->default(0);  // 0 - not published, 1 - published, 2 - archived, 666 - cancelled
             $table->integer('step')->default(0);
 
-            $table->datetime('expires_on');
+            $table->datetime('expires_on')->nullable();
 
             $table->text('description')->nullable();
             

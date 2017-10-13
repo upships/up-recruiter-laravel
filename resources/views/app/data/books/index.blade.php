@@ -49,13 +49,13 @@
 						        </form>
 							</div>
 								
-							{bookCategories}
+							@foreach($seaman_book_types as $seaman_book_type)
 								<a class="list-group-item" href="/data/main/bookCategory/{bookCategoryId}">
 							        {bookCategoryFullLabel}
 							        <br/>
 							        <small><i>{bookCategoryDepartmentLabel}</i></small>
 								</a>
-							{/bookCategories}
+							@endforeach
 							</div>
 						</div>
 					</div>
@@ -105,8 +105,8 @@
 							</div>
 								
 							{stcwRegulations}
-								<a class="list-group-item" href="/data/main/stcwRegulation/{stcwRegulationId}">
-							        {stcwRegulation}
+								<a class="list-group-item" href="/data/main/stcwRegulation/{{$stcw_regulation->id}}">
+							        {{$stcw_regulation->regulation}}
 								</a>
 							{/stcwRegulations}
 							</div>

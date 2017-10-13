@@ -4,20 +4,20 @@
 		<div class="list-group">
 			<div class="list-group-item">
 				<h3 class="list-group-item-heading m-b-10">
-				<a href="#" data-type="select" data-pk="{jobId}" data-url="/api/jobs/update" data-name="positionId" data-title="Selecione a função" class="editables" data-source="/api/positions/editor" data-value='{positionId}' >{jobPositionLabel}</a>
+				<a href="#" data-type="select" data-pk="{{$job->id}}" data-url="/api/jobs/update" data-name="positionId" data-title="Selecione a função" class="editables" data-source="/api/positions/editor" data-value='{position->id}' >{$job->position->label}</a>
 				</h3>
 
 				<ul class="list-inline">
 					<li>
-						<i class='fa fa-clock-o' ></i> Postada em {jobDate}
+						<i class='fa fa-clock-o' ></i> Postada em {{$job->date}}
 					</li>
 					<li>
 						Por {userName}
 					</li>
 
-					<li class="pull-right">
+					<li class="float-right">
 						Privacidade: 
-						<a href="#" data-type="select" data-pk="{jobId}" data-url="/api/jobs/update" data-name="jobPrivacy" data-title="Privacidade" class="editables" data-source="/api/data/privacyLevels" data-value='{jobPrivacy}' >{jobPrivacyLabel}</a>
+						<a href="#" data-type="select" data-pk="{{$job->id}}" data-url="/api/jobs/update" data-name="jobPrivacy" data-title="Privacidade" class="editables" data-source="/api/data/privacyLevels" data-value='{jobPrivacy}' >{{$job->privacy_label}}</a>
 					</li>
 				</ul>
 			</div>
@@ -25,11 +25,11 @@
 
 				<ul class="list-inline">
 					<li>
-						<a href="/jobs/conclude/{jobId}" class="btn btn-success btn-fill" ><i class='fa fa-check' ></i> Iniciar processo seletivo</a>
+						<a href="/jobs/conclude/{{$job->id}}" class="btn btn-success btn-fill" ><i class='fa fa-check' ></i> Iniciar processo seletivo</a>
 					</li>
 
 					<li class="hidden-sm hidden-xs">
-						<a href="/jobs/share/{jobId}" class="btn btn-primary" ><i class='fa fa-share' ></i> Compartilhar</a>
+						<a href="/jobs/share/{{$job->id}}" class="btn btn-primary" ><i class='fa fa-share' ></i> Compartilhar</a>
 					</li>
 
 					<li>
@@ -38,8 +38,8 @@
 						</a>
 					</li>
 
-					<li class="pull-right">
-						<a href="/jobs/edit/{jobId}" class="btn btn-default btn-fill" ><i class='fa fa-pencil-square-o' ></i> Editar</a>
+					<li class="float-right">
+						<a href="/jobs/edit/{{$job->id}}" class="btn btn-default btn-fill" ><i class='fa fa-pencil-square-o' ></i> Editar</a>
 					</li>
 					
 					<li class="clearfix"></li>
@@ -200,20 +200,20 @@
 
 								<div class="form-group">
 								Candidatura: 
-									<a href="#" data-type="select" data-pk="{jobId}" 
+									<a href="#" data-type="select" data-pk="{{$job->id}}" 
 									data-url="/api/jobs/update" data-name="applicationType" 
 									data-title="Recrutamento" class="editables" data-source="/api/data/applicationTypes" data-value='{applicationType}' >{applicationTypeLabel}</a>
 								</div>
 
 								<div class="form-group">
-									Enviar para: <a href="#" data-type="text" data-pk="{jobId}" data-url="/api/jobs/update" data-name="applyTo" data-title="Envio de currículo" class="editables" >{applyTo}</a>
+									Enviar para: <a href="#" data-type="text" data-pk="{{$job->id}}" data-url="/api/jobs/update" data-name="applyTo" data-title="Envio de currículo" class="editables" >{applyTo}</a>
 								</div>
 							</div>
 
 							<div class="list-group-item">
 								<h4 class="list-group-item-heading">Requisito de ingl&ecirc;s</h4>
 
-								<a href="#" data-type="select" data-pk="{jobId}" data-url="/api/jobs/update" data-name="jobEnglish" data-title="Selecione o nível de inglês" class="editables" data-source="/api/data/englishLevels" data-value='{jobLanguage}' >{jobLanguageLabel}</a>
+								<a href="#" data-type="select" data-pk="{{$job->id}}" data-url="/api/jobs/update" data-name="jobEnglish" data-title="Selecione o nível de inglês" class="editables" data-source="/api/data/englishLevels" data-value='{jobLanguage}' >{{$job->language->label}}</a>
 							</div>
 
 							<div class="list-group-item">
@@ -221,7 +221,7 @@
 
 								<ul class="list-inline">
 									{jobBookCategories}
-									<li><u>{bookCategoryCode}</u></li>
+									<li><u>{{$seaman_book_type->code}}</u></li>
 									{/jobBookCategories}
 								</ul>
 							</div>
@@ -229,8 +229,8 @@
 								<h4>STCW</h4>
 
 								<ul class="list-inline">
-									{jobStcwRegulations}
-									<li><u>{stcwRegulation}</u></li>
+									@foreach($job->stcw_regulations as $job_stcw_regulation)
+									<li><u>{{$stcw_regulation->regulation}}</u></li>
 									{/jobStcwRegulations}
 								</ul>
 							</div>
@@ -238,28 +238,28 @@
 								<h4>Cursos &amp; Certificados</h4>
 
 								<ul class="list-inline">
-									{jobTrainings}
+									@foreach($job->trainings as $training)
 									<li>
-										<button class="btn btn-default btn-sm">{jobTrainingLabel}</button>
+										<button class="btn btn-default btn-sm">{{$training->label}}</button>
 									</li>
-									{/jobTrainings}
+									@endforeach
 								</ul>
 							</div>
 							<div class="list-group-item">
 								<h4>Experi&ecirc;ncia necess&aacute;ria</h4>
 
-								<a href="#" data-type="text" data-pk="{jobId}" data-url="/api/jobs/update" data-name="jobExperience" data-title="Informe a experiência" class="editables" >{jobExperience}</a>
+								<a href="#" data-type="text" data-pk="{{$job->id}}" data-url="/api/jobs/update" data-name="jobExperience" data-title="Informe a experiência" class="editables" >{jobExperience}</a>
 
 							</div>
 							<div class="list-group-item">
 								<h4>Outros</h4>
 
 								<ul>
-								{jobRequisites}
+								{jobRequirements}
 									<li>
-										<a href="#" data-type="text" data-pk="{jobReqId}" data-url="/api/jobs/updateRequisite" data-title="Requisito" class="editables" >{jobRequisiteValue}</a>
+										<a href="#" data-type="text" data-pk="{{$requirement->id}}" data-url="/api/jobs/updateRequirement" data-title="Requisito" class="editables" >{{$requirement->value}}</a>
 									</li>
-								{/jobRequisites}
+								{/jobRequirements}
 								</ul>
 							</div>
 						</div>
@@ -269,9 +269,9 @@
 								<h4 class="list-group-item-heading">Benef&iacute;cios</h4>
 								
 								<ul>
-								{jobBenefits}
+								@foreach($job->benefits as $benefit)
 									<li>
-										<a href="#" data-type="text" data-pk="{jobBenId}" data-url="/api/jobs/updateBenefit" data-title="Benefício" class="editables" >{jobBenefitValue}</a>
+										<a href="#" data-type="text" data-pk="{{$benefit->id}}" data-url="/api/jobs/updateBenefit" data-title="Benefício" class="editables" >{{$benefit->value}}</a>
 									</li>
 								{/jobBenefits}
 								</ul>
@@ -295,27 +295,27 @@
 							<div class="list-group-item">
 								<h4 class="list-group-item-heading">Informa&ccedil;&otilde;es</h4>
 
-								<a href="#" data-type="text" data-pk="{jobId}" data-url="/api/jobs/update" data-name="jobDescription" data-title="Descrição da vaga" class="editables" >{jobDescription}</a>
+								<a href="#" data-type="text" data-pk="{{$job->id}}" data-url="/api/jobs/update" data-name="jobDescription" data-title="Descrição da vaga" class="editables" >{{$job->description}}</a>
 
 								<h4>Escala</h4>
 
-								<a href="#" data-type="text" data-pk="{jobId}" data-url="/api/jobs/update" data-name="jobSchedule" data-title="Escala" class="editables" >{jobSchedule}</a>
+								<a href="#" data-type="text" data-pk="{{$job->id}}" data-url="/api/jobs/update" data-name="jobSchedule" data-title="Escala" class="editables" >{{$job->rotation}}</a>
 
 								<h4>Informa&ccedil;&otilde;es extras</h4>
 								
-								<a href="#" data-type="text" data-pk="{jobId}" data-url="/api/jobs/update" data-name="jobExtra" data-title="Informações complementares" class="editables" >{jobExtra}</a>
+								<a href="#" data-type="text" data-pk="{{$job->id}}" data-url="/api/jobs/update" data-name="jobExtra" data-title="Informações complementares" class="editables" >{{$job->extra}}</a>
 
 							</div>
 							<div class="list-group-item">
 								<h4>N&uacute;mero de vagas</h4>
 								
-								<a href="#" data-type="text" data-pk="{jobId}" data-url="/api/jobs/update" data-name="jobVacancies" data-title="Número de vagas" class="editables" >{jobVacancies}</a>
+								<a href="#" data-type="text" data-pk="{{$job->id}}" data-url="/api/jobs/update" data-name="jobVacancies" data-title="Número de vagas" class="editables" >{{$job->vacancies}}}</a>
 
 							</div>
 							<div class="list-group-item">
 								<h4>Embarca&ccedil;&atilde;o</h4>
 
-								<a href="#" data-type="select" data-pk="{jobId}" data-url="/api/jobs/update" data-name="shipTypeLabel" data-title="Selecione a embarcação" class="editables" data-source="/api/ships/editor" data-value='{shipTypeId}' >{shipTypeLabel}</a>
+								<a href="#" data-type="select" data-pk="{{$job->id}}" data-url="/api/jobs/update" data-name="shipTypeLabel" data-title="Selecione a embarcação" class="editables" data-source="/api/ships/editor" data-value='{shipTypeId}' >{shipTypeLabel}</a>
 
 							</div>
 							<div class="list-group-item">
@@ -332,7 +332,7 @@
 							<div class="list-group-item">
 								<h4>Local</h4>
 								
-								<a href="#" data-type="text" data-pk="{jobId}" data-url="/api/jobs/update" data-name="{jobLocation}" data-title="Informe o local" class="editables" >{jobLocation}</a>
+								<a href="#" data-type="text" data-pk="{{$job->id}}" data-url="/api/jobs/update" data-name="{{$job->location}}" data-title="Informe o local" class="editables" >{{$job->location}}</a>
 							</div>
 						</div>
 
@@ -352,11 +352,11 @@
 
 				<ul class="list-inline">
 					<li>
-						<a href="/jobs/disable/{jobId}" class="btn btn-warning" ><i class='fa fa-eye-slash' ></i> Desativar</a>
+						<a href="/jobs/disable/{{$job->id}}" class="btn btn-warning" ><i class='fa fa-eye-slash' ></i> Desativar</a>
 					</li>
 					
-					<li class="pull-right">
-						<a href="#delete" onclick="deleteJob({jobId},true)" class="btn btn-danger" ><i class='fa fa-times' ></i> Excluir</a>
+					<li class="float-right">
+						<a href="#delete" onclick="deleteJob({{$job->id}},true)" class="btn btn-danger" ><i class='fa fa-times' ></i> Excluir</a>
 					</li>
 				</ul>
 			</div>
@@ -368,7 +368,7 @@
 
   	<div class='list-group-item resultsItem clearfix' id='profile-{{:profileId}}'>
 
-	    <div class="pull-right">
+	    <div class="float-right">
 	      <ul class="list-inline">
 	        <li class="profileLoadingIcons" id="profileLoadingIcon-{{:profileId}}">
 	          <i class="fa fa-spinner fa-spin"></i>
@@ -420,17 +420,17 @@
 	      
 	      	<li><a href="/recruiting/sendMessage/{{:profileId}}" class="btn btn-default btn-sm" title="Enviar e-mail (nova janela)" target="_blank" ><i class="fa fa-envelope-o"></i></a></li>
 
-	      	<li class="pull-right">
+	      	<li class="float-right">
 				<a href="/jobs/changeApplicantStatus/{{:jobId}}/{{:applicationId}}/100" class="btn btn-warning btn-sm"><i class="fa fa-user-times"></i> Deselecionar</a>
 			</li>
 
-			<li class="pull-right">
+			<li class="float-right">
 				<a href="#" onclick="removeApplicant({{:applicationId}})" class="btn btn-danger btn-sm" >
 					<i class="fa fa-times"></i> Eliminar
 				</a>
 			</li>
 
-	      	<li class="pull-right">
+	      	<li class="float-right">
 	      		<a href="/profiles/view/{{:profileId}}" target="_blank" class="btn btn-default btn-sm" title="Ver perfil (nova janela)" >
 	      		Perfil completo
 	      		</a>
@@ -467,7 +467,7 @@
 <script id="removedApplicantsTemplate" type="text/x-jsrender" >
 
 	<div class='list-group-item resultsItem clearfix' id='profile-{{:profileId}}'>
-	    <div class="pull-right">
+	    <div class="float-right">
 	      <ul class="list-inline">
 	        <li class="profileLoadingIcons" id="profileLoadingIcon-{{:profileId}}">
 	          <i class="fa fa-spinner fa-spin"></i>
@@ -525,7 +525,7 @@
 	      
 	      	<li><a href="/recruiting/sendMessage/{{:profileId}}" class="btn btn-default btn-sm" title="Enviar e-mail (nova janela)" target="_blank" ><i class="fa fa-envelope-o"></i></a></li>
 
-	      	<li class="pull-right">
+	      	<li class="float-right">
 	      		<a href="/profiles/view/{{:profileId}}" target="_blank" class="btn btn-default btn-sm" title="Ver perfil (nova janela)" >
 	      		Perfil completo
 	      		</a>
@@ -585,7 +585,7 @@
 
 		id='profile-{{:profileId}}'>
 
-	    <div class="pull-right">
+	    <div class="float-right">
 	      <ul class="list-inline">
 	        <li class="profileLoadingIcons" id="profileLoadingIcon-{{:profileId}}">
 	          <i class="fa fa-spinner fa-spin"></i>
@@ -660,7 +660,7 @@
 					<i class="fa fa-thumbs-up"></i> Pr&eacute;-selecionar
 				</a>
 			</li>
-			<li class="pull-right">
+			<li class="float-right">
 				<a href="#" onclick="removeApplicant({{:applicationId}})" class="btn btn-danger btn-sm" >
 					<i class="fa fa-times"></i> Eliminar
 				</a>
@@ -668,7 +668,7 @@
 	      
 	      	<li><a href="/recruiting/sendMessage/{{:profileId}}" class="btn btn-default btn-sm" title="Enviar e-mail (nova janela)" target="_blank" ><i class="fa fa-envelope-o"></i></a></li>
 
-	      	<li class="pull-right">
+	      	<li class="float-right">
 	      		<a href="/profiles/view/{{:profileId}}" target="_blank" class="btn btn-default btn-sm" title="Ver perfil (nova janela)" >
 	      		Perfil completo
 	      		</a>
@@ -682,7 +682,7 @@
 
 <script>
 
-var jobId = {jobId};
+var jobId = {{$job->id}};
 
 function removeApplicant(applicationId)	{
 	var response = prompt('Type the following to confirm: ' + applicationId);

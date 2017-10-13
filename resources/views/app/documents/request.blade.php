@@ -69,7 +69,7 @@
 
 				<ul class="list-inline clearfix">
 					<li><button type="submit" class="btn btn-success" >Solicitar documentos</button></li>
-					<li class="pull-right">
+					<li class="float-right">
 						<a href="/selections/view/{selectionId}" class="btn btn-default" ><i class='fa fa-times' ></i> Cancelar</a>
 					</li>
 					<li class="clearfix"></li>
@@ -83,7 +83,7 @@
 
 <script id="customDocumentTemplate" type="text/x-jsrender">
 	<div class="form-group clearfix" id="customDocumentTypeContainer-{{:itemId}}" >
-		<a href="#deleteItem-{{:itemId}}" onclick="deleteCustomDocument('{{:itemId}}')" title="Remover" class="pull-right" >
+		<a href="#deleteItem-{{:itemId}}" onclick="deleteCustomDocument('{{:itemId}}')" title="Remover" class="float-right" >
 			<small>
 				<i class="fa fa-times"></i> Remover
 			</small>

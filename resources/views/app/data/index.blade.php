@@ -50,8 +50,8 @@
 				            </div>
 								<!-- fim: adicionar nova categoria -->
 				            {positions}
-				            <a class="list-group-item" href="/data/main/editposition/{positionId}" >
-								{positionLabel} [{positionId}]
+				            <a class="list-group-item" href="/data/main/editposition/{position->id}" >
+								{positionLabel} [{position->id}]
 				            </a>
 				            {/positions}
 				        </div>
@@ -118,9 +118,9 @@
 		                    <li class="list-group-item" >
 		                        <div class="row" >
 		                            <div class="col-sm-2" >
-		                                <a href="/data/main/edittraining/{trainingId}" class="btn btn-sm btn-default"><i class="fa fa-pencil-square-o"></i></a> {trainingLabel}
+		                                <a href="/data/main/edittraining/{{$training->id}}" class="btn btn-sm btn-default"><i class="fa fa-pencil-square-o"></i></a> {{$training->label}}
 		                            </div>
-		                            <div class="col-sm-6" >{trainingDescription}</div>
+		                            <div class="col-sm-6" >{{$training->description}}</div>
 		                        </div>
 		                    </li>
 						{/trainings}                    

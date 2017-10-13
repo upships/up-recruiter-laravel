@@ -1,514 +1,807 @@
-<form method="post" action="/jobs/editAction" role="form" enctype="multipart/form-data" >
+@extends('layouts.master')
+@section('page-title','Vagas em aberto')
 
-<div class="row">
-    <div class="col-lg-12">
-      <div class="list-group">
-        <div class="list-group-item">
-            <h3 class="list-group-item-heading">Editar vaga {jobPositionLabel}</h3>
-        </div>
-        <div class="list-group-item">
+@section('content')
+  
+  <h2>Modificar vaga</h2>
 
-            <ul class="list-inline">
-                <li>
-                    <button class="btn btn-success btn-fill"><i class='fa fa-save'></i> Salvar modifica&ccedil;&otilde;es</button>
-                </li>
-                <li class="pull-right">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class='fa fa-ellipsis-v'></i></span>
-                      </button>
-                      <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a href="/config/data" target="_blank" >Adicionar dados</a></li>
-                        <li><a href="/companies/add" target="_blank" >Adicionar empresas</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="/jobs"><i class="fa fa-times"></i> Cancelar</a></li>
-                      </ul>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-  </div>
-</div>
-    <input type="hidden" name="jobId" value="{jobId}" />
+<form method="post" action="/job/{{$job->id}}" >
+  
+  {{method_field('PATCH')}}
+  {{csfr_field()}}
 
-    <br/>
+  <div class="row">
+    <div class="col">
 
-<div class="row">
-    <div class="col-lg-7 col-md-6 col-sm-12 col-xs-12">
+      <div class="card card-default">
+        <div class="card-body">
 
-      <div class="panel panel-default">
-          <div class="panel-heading">
-              <h4 class="panel-title" >Dados b&aacute;sicos</h4>
-          </div>
-          <div class="panel-body">
+          @if($job->status == 0)
+            <a class="btn btn-success" href='/job/{{job->id}}/activate' >
+              <i class='fa fa-send'></i> Publicar vaga
+            </a>
+          @else
 
-              <div class="form-group" >
-                  <label for="position" >T&iacute;tulo da Vaga</label>
-                  <select class="form-control basicData" name="position" id="positions" >                  
-                      {positions}                         
-                          <option value="{allPositions_positionId}" id='jobPosition-{allPositions_positionId}' >{allPositions_positionLabel}</option>
-                      {/positions}
-                  </select>
+            <a class="btn btn-default" href='/job/{{job->id}}' >
+              <i class='fa fa-angle-left'></i> Finalizar
+            </a>
+
+          @endif
+
+            <div class="float-right">
+              <div class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class='fa fa-ellipsis-v'></i></span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                  <li><a href="/data" target="_blank" >Adicionar dados</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="/job"><i class="fa fa-times"></i> Cancelar</a></li>
+                </ul>
               </div>
+            </div>
 
-              <div class="form-group" >
-                  <label for="companyId" >Empresa</label>
-                  <select class="form-control basicData" name="companyId" id='companies' >
-                      {companies}
-                      <option value="{allCompanies_companyId}" >{allCompanies_companyName}</option>
-                      {/companies}
-                  </select>
-              </div>
-          </div>
+        </div>
       </div>
+      
+      <div class="card card-default">
+        <div class="card-body">
+          <div class="row" >
+            
+            @if($job->status > 0)
+            
+              <div class="col">
 
-      <div class="panel panel-default">
-          <div class="panel-heading">
-              <h4 class="panel-title" >Envio de curr&iacute;culo / Dados de contato</h4>
+                <div class="form-group">
+                  <label for="position" >Status</label>
+
+                  <select class="form-control" name="status" >
+                      <option value="{{$job->status}}">{{$job->status_label}}</option>
+                      <option value="0">Inativa</option>
+                      <option value="1">Ativa</option>
+                      <option value="2">Encerrada</option>
+                  </select>
+                
+                </div>
+
+              </div>
+            @endif
+
+          <div class="col">
+            <div class="form-group">
+              <label for="privacy" >Privacidade</label>
+
+              <select class="form-control" name="privacy" >
+                  <option value="{{$job->privacy}}">{{$job->privacy_label}}</option>
+                  <option value="1">Aberta</option>
+                  <option value="2">Confidencial</option>
+                  <option value="3">Secreta</option>
+              </select>
+            
+            </div>
           </div>
-          <div class="panel-body">
-            <div>
-              <input type="hidden" name="applicationType" value="{applicationType}">
+          
+          <div class="col">
+            <small class="text-muted">Data</small>
+            <h4>{{$job->date}}</h4>
+          </div>
 
-              <!-- Nav tabs -->
-              <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active">
-                  <a href="#platform" onclick="selectApplicationTab(3)" class="applicationTypeTrigger-3" id='applicationPlatformTrigger' aria-controls="byPlatform" role="tab" data-toggle="tab"><i class='fa fa-th'></i> Pelo site</a>
+          <div class="col">
+            <div class="form-group">
+              <label for="privacy" >Validade</label>
+              <input type="date" class="form-control" name="expiration_date" value="{{$job->expiration_date}}" >
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-default my-2">
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label for="position" >Fun&ccedil;&atilde;o</label>
+
+              <select class="form-control select2" >
+                  <option value="{{$job->position->id}}">{{$job->position->label}}</option>
+
+                  @foreach($positions as $position)
+                    <option value="{{$position->id}}">{{$position->label}}</option>
+                  @endforeach
+              </select>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="form-group">
+              <label for="ship_type" >Embarca&ccedil;&atilde;o</label>
+
+              <select class="form-control select2" >
+                  
+                  <option value="{{$job->ship_type->id}}">{{$job->ship_type->label}}</option>
+
+                  @foreach($ship_types as $ship_type)
+                    <option value="{{$ship_type->id}}">{{$ship_type->label}}</option>
+                  @endforeach
+
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <div class="card card-default my-2">
+        <div class="card-body">
+          
+          <h3>Requisitos profissionais</h3>
+
+          <div class="row">
+            <div class="col">
+              <h4>Experi&ecirc;ncia em embarca&ccedil;&otilde;es</h4>
+
+              <ul class="list-group" >
+                @foreach($job->ship_requirements as $ship_requirement)
+                <li class="list-group-item" id="jobRequirement-{{$ship_requirement->id}}" >
+                  <a href="#djr" class="float-right" title="Apagar requisito" @click="deleteShipRequirement({{$ship_requirement->id}})" ><i class="fa fa-times"></i></a>
+                  
+                  {{$ship_requirement->type->label}}
+
+                  <span class="float-right">{{$ship_requirement->months}} meses</span>
+
                 </li>
-                <li role="presentation" >
-                  <a href="#email" onclick="selectApplicationTab(1)" class="applicationTypeTrigger-1" id='applicationEmailTrigger' aria-controls="email" role="tab" data-toggle="tab"><i class='fa fa-envelope'></i> E-mail</a>
-                </li>
-                <li role="presentation">
-                  <a href="#link" id='applicationLinkTrigger' onclick="selectApplicationTab(0)" class="applicationTypeTrigger-0" aria-controls="link" role="tab" data-toggle="tab"><i class='fa fa-chrome'></i> Link</a>
-                </li>
-                <li role="presentation">
-                  <a href="#phone" id='applicationPhoneTrigger' onclick="selectApplicationTab(2)" class="applicationTypeTrigger-2" aria-controls="phone" role="tab" data-toggle="tab"><i class='fa fa-phone'></i> Telefone</a>
-                </li>
+                @endforeach
               </ul>
 
-              <!-- Tab panes -->
-              <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="platform">
-                  <p>
-                    <h4>
-                      Os usu&aacute;rios se candidatar&atilde;o atrav&eacute;s do VagasEmbarcado.com e todo o processo pode ser gerenciado pelo site, sem a necessidade de e-mails.
-                    </h4>
-                  </p>
+              <h4>Inserir requisito de embarca&ccedil;&atilde;o</h4>
+              
+              <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <label for="ship_type" >Embarca&ccedil;&atilde;o</label>
+                    <select class="form-control select2" >
+                      @foreach($ship_types as $ship_type)
+                        <option value="{{$ship_type->id}}">{{$ship_type->label}}</option>
+                      @endforeach
+                    </select>
+                  </div>
                 </div>
-                <div role="tabpanel" class="tab-pane" id="email">
-                  <p>
-
-                    <div class="form-group" >
-                      <label for='applicationEmail' >Endere&ccedil;o de e-mail</label>
-                      <input type="email" name="applicationEmail" class="form-control applicationMethodField" id='applicationType-1' value="{applyTo}" >
-                    </div>
-
-                    <div class="form-group">
-                      <label>
-                        <input type="radio" name='applicationEmailType' value="0" checked> Assunto personalizado pelo usu&aacute;rio
-                      </label>
-                    </div>
-
-                    <div class="form-group">
-                      <label>
-                        <input type="radio" name='applicationEmailType' id='applicationEmailSubjectToggler' value="1" > Assunto fixo
-                      </label>
-                    </div>                      
-
-                    <div class="form-group hiddenCards" id='applicationEmailTitle'>
-                      <label for='applicationEmailTitle' >Insira o assunto</label>
-                      <input type="text" name="applicationEmailTitle" class="form-control" value="{applicationEmailTitle}">
-                    </div>
-
-
-                    <hr/>
-                    <h5>Idioma do e-mail</h5>
-
-                    <div class="form-group">
-                      <label>
-                        <input type="radio" name='applicationLanguage' value="0" > Portugu&ecirc;s
-                      </label>
-                    </div>
-
-                    <div class="form-group">
-                      <label>
-                        <input type="radio" name='applicationLanguage' value="1" > Ingl&ecirc;s
-                      </label>
-                    </div>
-                    
-                    <div class="form-group">
-                      <label>
-                        <input type="radio" name='applicationLanguage' value="2" > Ambos
-                      </label>
-                    </div>
-
-                    <h5>Instru&ccedil;&otilde;es para o e-mail (se houver)</h5>
-                    <div class="form-group">
-                      <input type="text" name="applicationInfo" class="form-control" placeholder='Ex: Enviar CV e certificados' value="{applicationInfo}">
-                    </div>                          
-
-                  </p>
+                <div class="col">
+                  <div class="form-group">
+                    <label for="ship_experience" >Tempo (em n&uacute;mero de meses)</label>
+                    <input type="text" class="form-control" id="ship_experience" placeholder="Ex.: 12" >
+                  </div>
                 </div>
-                <div role="tabpanel" class="tab-pane" id="link">
-                  <p>
-                    <div class="form-group" >
-                      <label for="applicationLink" >Coloque apenas o link</label>
-                      <input type="text" name="applicationLink" class="form-control applicationMethodField" id='applicationType-0' >
-                    </div>
-                  </p>
+              </div>
+
+            </div>
+
+            <div class="col">
+              <h4>Outros</h4>
+
+              <ul class="list-group" id='jobRequirementsList'>
+                @foreach($job->requirements as $requirement)
+                <li class="list-group-item" id="jobRequirement-{{$requirement->id}}" >
+                  <a href="#djr" class="float-right" title="Apagar requisito" @click="deleteRequirement({{$requirement->id}})" ><i class="fa fa-times"></i></a>
+                  
+                  {{$requirement->label}}
+                </li>
+                @endforeach
+              </ul>
+
+              <h4>Inserir requisito de experi&ecirc;ncia</h4>
+              
+              <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <label for="new_requirement" >Requisito</label>
+                    <input type="text" class="form-control" id="new_requirement" >
+                  </div>
                 </div>
-                <div role="tabpanel" class="tab-pane" id="phone">
-                  <p>
-                    <div class="form-group" >
-                      <label for="applicationPhone" >Insira o telefone</label>
-                      <input type="text" name="applicationPhone" class="form-control applicationMethodField" id='applicationType-2' >
-                    </div>
-                  </p>                    
-                </div>
+              </div>
+
+            </div>
+
+            <div class="col">
+              <p><small class="text-muted">Ingl&ecirc;s</small></p>
+
+              <div class="form-group">
+                <label for="privacy" >N&iacute;vel de ingl&ecirc;s</label>
+
+                <select class="form-control" name="english_level" >
+                    <option value="{{$job->english_level}}">{{$job->english_level_label}}</option>
+                    <option value="0">Not required</option>
+                    <option value="1">Basic</option>
+                    <option value="2">Intermediate</option>
+                    <option value="3">Advanced</option>
+                    <option value="4">Fluent</option>
+                </select>
               </div>
 
             </div>
 
           </div>
         </div>
+      </div>
 
-        <h3>Mais informa&ccedil;&otilde;es</h3>
+      <div class="card card-default my-2">
+        <div class="card-body">
+          <h3>Requisitos de documenta&ccedil;&atilde;o</h3>
 
-         <!-- Descrição -->
-        <div class="panel panel-default">
-          <div class="panel-body">
+          <div class="row">
 
-            <h4>Descri&ccedil;&atilde;o</h4>
+            <div class="col">
+              <p><small class="text-muted">Certificados</small></p>
 
-            <div class="form-group" >
-                <label for="jobDescription" >Descri&ccedil;&atilde;o da vaga</label>
-                <textarea name="jobDescription" class="form-control" >{jobDescription}</textarea>
+              <ul class="list-group" >
+              {@foreach($job->trainings as $training)}
+                <li class="list-group-item" id="jobTraining-{{$training->id}}" >
+                  <a href="#djt" class="float-right" title="Apagar certificado" @click="deleteTraining({{$training->id}})" ><i class="fa fa-times"></i></a>
+                  {{$training->label}}
+                </li>
+              {@endforeach}
+              </ul>
+
+              <br/>
+
+              <p><small class="text-muted">Inserir novo certificado</small></p>
+
+              <div class="form-group">
+                
+                <select id="trainingsSelector" v-bind="newTraining" class="select2" >
+                  
+                  <option id='trainings0' value="0">Novo certificado</option>
+
+                  @foreach($trainings as $training)
+                      <option value="{{$training->id}}" >{{$training->label}} - {{$training->description}}</option>
+                  @endforeach
+                </select>
+
+              </div>
+
+              <button type="button" @click="insertTraining" class="btn btn-default btn-xs" >
+                <i class="fa fa-plus"></i> certificado
+              </button>
+
+              <a href="#" class="float-right" @click="createTraining" >Criar certificado</a>
             </div>
 
-            <h4>Requisitos</h4>
+            <div class="col">
+              <p><small class="text-muted">Categorias CIR</small></p>
 
-            <div class="list-group" id='jobRequisitesList'>
+              <ul class="list-group" id='jobBookCategories'>
+                @foreach($job->seaman_book_types as $job_seaman_book_type)
+                  <li class="card-body" id="jobBookCategory-{{$job_seaman_book_type->id}}" >
+                    <a href="#djt" class="float-right" title="Apagar certificado" @click="deleteJobBookCategory({{$job_seaman_book_type->id}})" ><i class="fa fa-times"></i></a>
+                    {{$job_seaman_book_type->type->code}}
+                  </li>
+                @endforeach
+              </ul>
 
-                <div class="hidden">
-                    <div class="list-group-item jobRequisitesItem" id='requisiteOne'>
-                        <div class="form-group" >
-                            <label for="jobRequisites" >Requisito da vaga</label>
-                            <input name="jobRequisites[]" type="text" class="form-control jobRequisiteItemInput" />                                    
-                        </div>
-                    </div>
-                </div>
+              <br/>
+              <p><small class="text-muted">Inserir categoria CIR</small></p>
 
-                {jobRequisites}
-                <div class="list-group-item jobRequisitesItem" id='jobRequisiteItem-{jobReqId}' >
-                    <a href="#deleteRequisite-{jobReqId}" onclick="$('jobRequisiteItem-{jobReqId}').remove()" class="pull-right text-danger"><i class='fa fa-times'></i></a>
-                    <div class="form-group" >
-                        <label for="jobRequisites" >Requisito da vaga</label>
-                        <input name="jobRequisites[]" type="text" class="form-control jobRequisiteItemInput" value="{jobRequisiteValue}" />                                    
-                    </div>
-                </div>
-                {/jobRequisites}
+              <div class="form-group">
+                <select  class="select2" >
+                  <option id='bookCategories0' value="0">Categorias CIR</option>
+
+                  {@foreach($seaman_book_types as $seaman_book_type)}
+                      <option value="{{bookCategoryId}}" >{{$seaman_book_type->code}}</option>
+                  {@endforeach}
+                </select>
+              </div>
+
+              <button type="button" @click="insertJobBookCategory({{job->id}})" class="btn btn-default btn-xs" >
+                <i class="fa fa-plus"></i> cat. CIR
+              </button>
+
             </div>
-            
-            <hr/>
+            <div class="col">
+              
+              <p><small class="text-muted">Regras STCW</small></p>
 
-            <button type='button' class="btn btn-default btn-sm" id='addRequisiteBtn'><i class='fa fa-plus' ></i> Adicionar requisito</button>
+              <ul class="list-group" >
+                {@foreach($job->stcw_regulations as $job_stcw_regulation)}
+                  <li class="card-body" id="jobStcwRegulation-{{$job_stcw_regulation->id}}" >
+                    <a href="#djt" class="float-right" title="Apagar certificado" @click="deleteJobStcwRegulation({{$job_stcw_regulation->id}})" ><i class="fa fa-times"></i></a>
+                    {{$job_stcw_regulation->regulation}}
+                  </li>
+                @endforeach
+              </ul>
 
-            <h4>Benef&iacute;cios</h4>
+              <br/>
+              <p><small class="text-muted">Inserir regra STCW</small></p>
 
-            <div class="list-group" id='jobBenefitsList'>
-                <div class="hidden">
-                    <div class="list-group-item jobBenefitsItem" id='benefitOne'>
-                        <div class="form-group" >
-                            <label for="jobBenefits" >Benef&iacute;cio</label>
-                            <input name="jobBenefits[]" type="text" class="form-control" />                                    
-                        </div>
-                    </div>
-                </div>
+              <div class="form-group">
+                <select id="stcwRegulationsSelector" >
+                  <option value="0">Regras STCW</option>
 
-                {jobBenefits}
-                    <div class="list-group-item jobBenefitsItem" >
-                        <div class="form-group" >
-                            <label for="jobBenefits" >Benef&iacute;cio</label>
-                            <input name="jobBenefits[]" type="text" class="form-control jobBenefitItemInput" value="{jobBenefitValue}" /> 
-                        </div>
-                    </div>
-                {/jobBenefits}
-            </div>
+                  @foreach($stcw_regulations as $stcw_regulation)
+                      <option value="{{$stcw_regulation->id}}" >{{$stcw_regulation->regulation}}</option>
+                  @endforeach
+                </select>
+              </div>
 
-            <hr/>
+              <button type="button" @click="insertJobStcwRegulation" class="btn btn-default btn-xs" >
+                <i class="fa fa-plus"></i> STCW
+              </button>
 
-            <button type='button' class="btn btn-default btn-sm" id='addBenefitBtn'><i class='fa fa-plus' ></i> Adicionar benef&iacute;cios
-            </button>
-
-            <div class="form-group" >
-                <label for="jobSchedule" >Escala</label>
-                <input type="text" name="jobSchedule" class="form-control" value='{jobSchedule}'/>
-            </div>
-
-            <div class="form-group" >
-                <label for="jobLocation" >Local</label>
-                <input type="text" name="jobLocation" class="form-control" value='{jobLocation}' />
-            </div>
-
-            <div class="form-group" >
-                <label for="jobExtra" >Informa&ccedil;&otilde;es extras</label>
-                <input type="text" name="jobExtra" class="form-control" value='{jobExtra}' />
-            </div>
-
-            <div class="form-group" >
-                <label for="jobDate" >Data da postagem</label>
-                <input type="text" name="jobDate" class="form-control jobDatepicker" id="jobDate" value="{jobDateFull}"/>
             </div>
 
           </div>
         </div>
-    </div>
-    <div class="col-lg-5 col-md-6 col-sm-12 col-xs-12">
+      </div>
 
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title" >Dados extras</h4>
+      <div class="card card-default my-2">
+        <div class="card-body">
+          <h3>Sal&aacute;rio &amp; Benef&iacute;cios</h3>
+
+          <div class="row">
+            <div class="col">
+              
+              <p><small class="text-muted">Benef&iacute;cios</small></p>
+
+              <ul class="list-group" id='jobBenefitsList'>
+                {@foreach($job->benefits as $benefit)}
+                <li class="card-body" id="jobBenefit-{{$benefit->id}}" >
+                  <a href="#djr" class="float-right" title="Apagar requisito" @click="deleteBenefit({{$benefit->id}})" ><i class="fa fa-times"></i></a>
+                  {{$benefit->value}}
+                </li>
+                @endforeach
+              </ul>
+
+              <br/>
+              <p><small class="text-muted">Inserir novo benef&iacute;cio</small></p>
+
+              <div class="input-group">
+                <input type="text" class="form-control" name="newBenefit" id="newBenefit" placeholder="Novo benefício" >
+                <span class="input-group-btn">
+                  <button type="button" @click="insertBenefit" class="btn btn-default" >
+                    <i class="fa fa-plus"></i> benef&iacute;cio
+                  </button>
+                </span>
+              </div>
             </div>
-            <div class="panel-body">
 
-                 <!-- Idioma (inglês) -->
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="jobLanguageHeading">
-                      <h4 class="panel-title">
-                        <a role="button" data-toggle="collapse"  href="#jobLanguageArea" aria-expanded="false" aria-controls="collapseOne">
-                          <i class='fa fa-angle-down'></i> <i class='fa fa-language'></i> Requisito de ingl&ecirc;s
-                        </a>
-                      </h4>
-                    </div>
-                    <div id="jobLanguageArea" class="panel-collapse collapse jobData in" role="tabpanel" aria-labelledby="jobLanguageHeading">
-                      <div class="panel-body">
-
-                        <div class="form-group">
-                            <label>
-                                <input type="radio" value="0" name="jobLanguage">&nbsp;&nbsp;N&atilde;o informado / aplic&aacute;vel
-                            </label>
-                        </div>
-
-                        <div class="form-group">
-                            <label>
-                                <input type="radio" value="1" name="jobLanguage">&nbsp;&nbsp;B&aacute;sico
-                            </label>
-                        </div>
-
-                        <div class="form-group">
-                            <label>
-                                <input type="radio" value="2" name="jobLanguage">&nbsp;&nbsp;Intermedi&aacute;rio
-                            </label>
-                        </div>
-
-                        <div class="form-group">
-                            <label>
-                                <input type="radio" value="3" name="jobLanguage">&nbsp;&nbsp;Avan&ccedil;ado
-                            </label>
-                        </div>
-
-                        <div class="form-group">
-                            <label>
-                                <input type="radio" value="4" name="jobLanguage">&nbsp;&nbsp;Fluente
-                            </label>
-                        </div>
-
-                      </div>
-                    </div>
-                </div>
-
-
-
-                 <!-- Marcadores -->
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="jobFlagsHeading">
-                      <h4 class="panel-title">
-                        <a role="button" data-toggle="collapse"  href="#jobFlagsArea" aria-expanded="false" aria-controls="collapseOne">
-                          <i class='fa fa-angle-down'></i> <i class='fa fa-tags'></i> Marcadores (freelance, internacional, etc.)
-                        </a>
-                      </h4>
-                    </div>
-                    <div id="jobFlagsArea" class="panel-collapse collapse jobData in" role="tabpanel" aria-labelledby="jobFlagsHeading">
-                      <div class="panel-body">
-
-                        {flags}                         
-                            <div class="form-group">
-                                <label>
-                                    <input type="checkbox" value="{flagId}" name="flags[]">&nbsp;&nbsp;{flagLabel}
-                                </label>
-                            </div>                    
-                        {/flags}
-
-                      </div>
-                    </div>
-                </div>
-
-
-                 <!-- Embarcação -->
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="shipTypeHeading">
-                      <h4 class="panel-title">
-                        <a role="button" data-toggle="collapse"  href="#shipTypeArea2" aria-expanded="false" aria-controls="collapseOne">
-                          <i class='fa fa-angle-down'></i> <i class='fa fa-ship'></i> Embarca&ccedil;&atilde;o
-                        </a>
-                      </h4>
-                    </div>
-                    <div id="shipTypeArea2" class="panel-collapse collapse jobData in" role="tabpanel" aria-labelledby="shipTypeHeading">
-                      <div class="panel-body">
-
-                        <div class="form-group">
-                            <label>
-                                <input type="radio" value="0" name="shipTypeId">&nbsp;&nbsp;N&atilde;o informado / aplic&aacute;vel
-                            </label>
-                        </div>
-
-                        {shipsTypes}
-                        <div class="form-group">
-                            
-                            <label>
-                                <input type="radio" value="{allShips_shipTypeId}" name="shipTypeId">&nbsp;&nbsp;{allShips_shipTypeLabel}
-                            </label>
-                            
-                        </div>
-                        {/shipsTypes}
-
-                      </div>
-                    </div>
-                </div>
-
-
-                 <!-- Experiencia / Salario / Num. de Vagas -->
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="jobExpHeading">
-                      <h4 class="panel-title">
-                        <a role="button" data-toggle="collapse"  href="#jobExpArea" aria-expanded="false" aria-controls="collapseOne">
-                          <i class='fa fa-angle-down'></i> <i class='fa fa-money'></i> Experi&ecirc;ncia / Sal&aacute;rio / Num. de vagas
-                        </a>
-                      </h4>
-                    </div>
-                    <div id="jobExpArea" class="panel-collapse collapse jobData in" role="tabpanel" aria-labelledby="jobExpHeading">
-                      <div class="panel-body">
-
-                        <div class="form-group" >
-                            <label for="name" >Experi&ecirc;ncia m&iacute;nima (Em branco: indiferente)</label>             
-                            <input type="text" name="experience" class="form-control" id="experience" value='{jobExperience}' />
-                        </div>
-
-                        <div class="form-group" >
-                            <label for="name" >Sal&aacute;rio (Em branco: A Combinar)</label>
-                            <div class="input-group">
-                                <div class="input-group-addon">R$</div>
-                                <input type="text" name="sallary" class="form-control" id="sallary" value='{sallary_number}'/>
-                            </div>
-                        </div>
-
-                        <div class="form-group" >
-                            <label for="vacancies" >N&uacute;mero de vagas (se houver a informa&ccedil;&atilde;o)</label>    
-                            <div class="input-group">
-                                <input type="text" name="jobVacancies" class="form-control" id="vacancies" value='{jobVacancies}' />
-                                <div class="input-group-addon">vagas</div>
-                            </div>
-                        </div>
-
-                      </div>
-                    </div>
-                </div>
-
-                 <!-- Cursos -->
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="jobCoursesHeading">
-                      <h4 class="panel-title">
-                        <a role="button" data-toggle="collapse"  href="#jobCoursesArea" aria-expanded="false" aria-controls="collapseOne">
-                          <i class='fa fa-angle-down'></i> <i class='fa fa-graduation-cap'></i> Cursos
-                        </a>
-                      </h4>
-                    </div>
-                    <div id="jobCoursesArea" class="panel-collapse collapse jobData in" role="tabpanel" aria-labelledby="jobCoursesHeading">
-                      <div class="panel-body">
-
-                        <ul class="list-unstyled">
-                            {trainings}
-                                <li>
-                                    <label >
-                                        <input type="checkbox" name="trainings[]" value="{trainingId}" />&nbsp;
-                                        {trainingLabel} - {trainingDescription}                  
-                                    </label>
-                                </li>
-                            {/trainings}
-                        </ul>
-
-                      </div>
-                    </div>
-                </div>
-
-
-
-            </div>
+          </div>
         </div>
 
-    </div>
-</div>
+      </div>
+    
+      <div class="card card-default my-2">
+        <div class="card-body">
+          <h3>Extras</h3>
 
-<div class="row">
-    <div class="col-lg-12 col-md-12">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <a href="/jobs" class="btn btn-danger" ><i class="fa fa-times"></i> Cancelar</a> {applicationType}
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="description" >Descrição da vaga</label>
+                <textarea class="form-control" name="description" id="description" placeholder="Descrição da vaga">{{$job->description}}</textarea>
+              </div>
             </div>
+
+            <div class="col">
+
+              <div class="form-group">
+                <label for="rotation" >Escala</label>
+                <input class="form-control" name="rotation" id="rotation" placeholder="Ex.: 28x28, 56x56" value="{{$job->rotation}}" >
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="form-group">
+                <label for="location" >Local de atua&ccedil;&atilde;o</label>
+                <input class="form-control" name="location" id="location" placeholder="Ex.: Rio de Janeiro, Bacia de Santos" value="{{$job->rotation}}" >
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="form-group">
+                <label for="vacancies" >N&uacute;mero de vagas</label>
+                <input class="form-control" name="vacancies" id="vacancies" placeholder="Ex.: Rio de Janeiro, Bacia de Santos" value="{{$job->vacancies}}" >
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="form-group">
+                <label for="extra" >Informa&ccedil;&otilde;es extras</label>
+                <input class="form-control" name="extra" id="extra" placeholder="Ex.: Rio de Janeiro, Bacia de Santos" value="{{$job->extra}}" >
+              </div>
+            </div>
+          
+          </div>
         </div>
+      </div>
+
+      <div class="card card-default my-2">
+        <div class="card-body">
+          <button type="submit" class="btn btn-success" >Salvar altera&ccedil;&otilde;es</button>
+          <a href="/job/{{$job->id}}" class="btn btn-default float-right" ><i class="fa fa-reload"></i> Voltar</a>
+        </div>
+      </div>
+
     </div>
-</div>
+  </div>
 
 
 </form>
 
 <script>
 
-$(document).ready(function(){
+function deleteTraining(jobTrainingId, job->id) {{
+
+  $.getJSON('/api/job/deleteTraining/' + jobTrainingId + '/yes', function(response) {{
+      return response;
+  }}).done( function(response) {{
+
+        // Delete item from DOM
+        $('#jobTraining-' + jobTrainingId).remove();
+
+    }}
+  );
+}}
+
+function insertTraining(job->id) {{
+
+    var trainingId = $('#trainingsSelector').val();
+
+    if(trainingId > 0)  {{
+
+        var data = {{trainingId: trainingId, job->id: job->id}};
+
+        // Add training
+
+        $.post('/api/job/insertTraining', data, function(response) {{
+
+            return response;
+
+        }}).done(function(response)  {{
+
+              if(response.error === false)  {{
+
+                  renderTraining(response);
+                  $('#trainingsSelector').select2().val(0).trigger('change').select2({{width: '100%'}});
+              }}
+              else {{
+
+                  alert('error');
+              }}
+        }});
+    }}
+    else {{
+
+      alert('Selecione um certificado');
+    }}
     
-    $('.hiddenCards').hide();
 
-    // Verifica se a vaga possui requisitos, benefícios e marcadores
-    var jobHasRequisites = '{jobHasRequisites}';
-    var jobHasBenefits = '{jobHasBenefits}';
-    var jobHasFlags = '{jobHasFlags}';
+}}
 
-    if(jobHasBenefits == '')
-    {
-        $('#jobBenefitsList').append("<div class='list-group-item' >Nenhum benef&iacute;cio informado</div>");
-    }
+function renderTraining(training) {{
 
-    if(jobHasRequisites == '')
-    {
-        $('#jobRequisitesList').append("<div class='list-group-item' >Nenhum requisito informado</div>");
-    }
+    var trainingItemTemplate = $.templates("#trainingItemTemplate");
+    var requiredTrainingsOutput = trainingItemTemplate.render(training);
+    $("#requiredTrainings").append(requiredTrainingsOutput);
 
-    // seleciona a Função atual
-    selectCurrentPosition('{positionId}');
+    console.log(training);
+}}
 
-    // seleciona a Empresa atual
-    selectCurrentCompany('{companyId}');
 
-    // seleciona o requisito de idioma
-    selectEnglishRequisite('{jobLanguage}');
+function deleteRequirement(jobReqId, job->id) {{
 
-    // Seleciona os marcadores
-    selectFlags('{jobFlagsInline}');
+  $.getJSON('/api/job/deleteRequirement/' + jobReqId + '/yes', function(response) {{
+      return response;
+  }}).done( function(response) {{
 
-    // Seleciona a embarcação
-    selectShip('{shipTypeId}');
+        // Delete item from DOM
+        $('#jobRequirement-' + jobReqId).remove();
 
-    // Seleciona os cursos exigidos
-    selectCourses('{job_trainingsInline}');
+    }}
+  );
+}}
 
-    // Seleciona a aba inicial do tipo de candidatura
-    selectInitialTab('{applicationType}');
+function insertRequirement(job->id) {{
 
-    // Seleciona o idioma de envio de currículo
-    selectApplicationLanguage('{applicationLanguage}');
+    var  jobRequirementValue  = $('#newRequirement').val();
 
-    // Seleciona o tipo de e-mail a ser enviado
-    selectApplicationEmailType('{applicationEmailType}');
-}); 
+    if(jobRequirementValue.length > 0)  {{
+
+        var data = {{jobRequirementValue: jobRequirementValue, job->id: job->id}};
+
+        // Add jobRequirement
+
+        $.post('/api/job/insertRequirement', data, function(response) {{
+
+            return response;
+
+        }}).done(function(response)  {{
+
+              if(response.error === false)  {{
+
+                  renderJobRequirement(response);
+                  
+                  // Clean the field
+                  $('#newRequirement').val('');
+              }}
+              else {{
+
+                  alert('error');
+              }}
+        }});
+    }}
+    else {{
+
+      alert('Insira um texto');
+    }}
+}}
+
+function renderJobRequirement(jobRequirement) {{
+
+    var jobRequirementItemTemplate = $.templates("#jobRequirementItemTemplate");
+    var requiredJobRequirementsOutput = jobRequirementItemTemplate.render(jobRequirement);
+    $("#jobRequirementsList").append(requiredJobRequirementsOutput);
+}}
+
+
+
+
+
+
+function deleteBenefit(jobBenId, job->id) {{
+
+  $.getJSON('/api/job/deleteBenefit/' + jobBenId + '/yes', function(response) {{
+      return response;
+  }}).done( function(response) {{
+
+        // Delete item from DOM
+        $('#jobBenefit-' + jobBenId).remove();
+
+    }}
+  );
+}}
+
+function insertBenefit(job->id) {{
+
+    var  jobBenefitValue  = $('#newBenefit').val();
+
+    if(jobBenefitValue.length > 0)  {{
+
+        var data = {{jobBenefitValue: jobBenefitValue, job->id: job->id}};
+
+        // Add jobBenefit
+
+        $.post('/api/job/insertBenefit', data, function(response) {{
+
+            return response;
+
+        }}).done(function(response)  {{
+
+              if(response.error === false)  {{
+
+                  renderJobBenefit(response);
+                  
+                  // Clean the field
+                  $('#newBenefit').val('');
+              }}
+              else {{
+
+                  alert('error');
+              }}
+        }});
+    }}
+    else {{
+
+      alert('Insira um texto');
+    }}
+}}
+
+function renderJobBenefit(jobBenefit) {{
+
+    var jobBenefitItemTemplate = $.templates("#jobBenefitItemTemplate");
+    var requiredJobBenefitsOutput = jobBenefitItemTemplate.render(jobBenefit);
+    $("#jobBenefitsList").append(requiredJobBenefitsOutput);
+}}
+
+
+
+
+
+function deleteJobStcwRegulation(jobStcwRegulationId, job->id) {{
+
+  $.getJSON('/api/job/deleteStcwRegulation/' + jobStcwRegulationId + '/yes', function(response) {{
+      return response;
+  }}).done( function(response) {{
+
+        // Delete item from DOM
+        $('#jobStcwRegulation-' + jobStcwRegulationId).remove();
+
+    }}
+  );
+}}
+
+function insertJobStcwRegulation(job->id) {{
+
+    var  stcwRegulationId  = $('#stcwRegulationsSelector').val();
+
+    if(stcwRegulationId.length > 0)  {{
+
+        var data = {{stcwRegulationId: stcwRegulationId, job->id: job->id}};
+
+        // Add jobStcwRegulation
+
+        $.post('/api/job/insertStcwRegulation', data, function(response) {{
+
+            return response;
+
+        }}).done(function(response)  {{
+
+              if(response.error === false)  {{
+
+                  renderJobJobStcwRegulation(response);
+                  
+                  // Clean the field
+                  $('#stcwRegulationsSelector').select2().val(0).trigger('change').select2({{width: '100%'}});
+              }}
+              else {{
+
+                  alert('error');
+              }}
+        }});
+    }}
+    else {{
+
+      alert('Insira um texto');
+    }}
+}}
+
+function renderJobJobStcwRegulation(jobStcwRegulation) {{
+
+    var jobStcwRegulationItemTemplate = $.templates("#jobStcwRegulationItemTemplate");
+    var requiredJobJobStcwRegulationsOutput = jobStcwRegulationItemTemplate.render(jobStcwRegulation);
+    $("#jobStcwRegulations").append(requiredJobJobStcwRegulationsOutput);
+}}
+
+
+
+
+
+function deleteJobBookCategory(jobBookCategoryId, job->id) {{
+
+  $.getJSON('/api/job/deleteBookCategory/' + jobBookCategoryId + '/yes', function(response) {{
+      return response;
+  }}).done( function(response) {{
+
+        // Delete item from DOM
+        $('#jobBookCategory-' + jobBookCategoryId).remove();
+
+    }}
+  );
+}}
+
+function insertJobBookCategory(job->id) {{
+
+    var  bookCategoryId  = $('#bookCategoriesSelector').val();
+
+    if(bookCategoryId.length > 0)  {{
+
+        var data = {{bookCategoryId: bookCategoryId, job->id: job->id}};
+
+        // Add jobBookCategory
+
+        $.post('/api/job/insertBookCategory', data, function(response) {{
+
+            return response;
+
+        }}).done(function(response)  {{
+
+              if(response.error === false)  {{
+
+                  renderJobJobBookCategory(response);
+                  
+                  // Clean the field
+                  $('#bookCategoriesSelector').select2().val(0).trigger('change').select2({{width: '100%'}});
+              }}
+              else {{
+
+                  alert('error');
+              }}
+        }});
+    }}
+    else {{
+
+      alert('Insira um texto');
+    }}
+}}
+
+function renderJobJobBookCategory(jobBookCategory) {{
+
+    var jobBookCategoryItemTemplate = $.templates("#jobBookCategoryItemTemplate");
+    var requiredJobJobBookCategorysOutput = jobBookCategoryItemTemplate.render(jobBookCategory);
+    $("#jobBookCategories").append(requiredJobJobBookCategorysOutput);
+}}
+
+$(document).ready(function(){{
+    
+    $('.editables').editable();
+
+    var jobStatus = {{jobStatus}};
+
+    if(jobStatus > 0)  {{
+      $('.newJobOptions').remove();
+    }}
+    else {{
+      $('.runningJobOptions').remove();
+    }}
+
+    // $('.editables2').editable(
+    //         {{
+    //             select2: {{
+    //               allowClear: true,
+    //               width: 200,
+    //               multiple: true,
+    //               placeholder: 'Insira um certificado',
+    //             }}
+    //          }});
+
+    // $('#trainingsSelector').select2({{
+    //     //placeholder: 'Selecione um certificado para incluir',
+    //     width: '100%',
+    //     allowClear: true,
+    // }});
+
+    // $('.hiddenCards').hide();
+
+    // // Verifica se a vaga possui requisitos, benefícios e marcadores
+    // var jobHasRequirements = '{{jobHasRequirements}}';
+    // var jobHasBenefits = '{{jobHasBenefits}}';
+    // var jobHasFlags = '{{jobHasFlags}}';
+
+    // if(jobHasBenefits == '')
+    // {{
+    //     $('#jobBenefitsList').append("<div class='card-body' >Nenhum benef&iacute;cio informado</div>");
+    // }}
+
+    // if(jobHasRequirements == '')
+    // {{
+    //     $('#jobRequirementsList').append("<div class='card-body' >Nenhum requisito informado</div>");
+    // }}
+
+    // //
+    // var applicationType = '{{applicationType}}';
+    // var applyTo = '{{applyTo}}';
+
+    // selectApplicationTab(applicationType);
+    // $('#applicationType-' + applicationType).val(applyTo);
+
+    // // seleciona a Função atual
+    // selectCurrentPosition('{{position->id}}');
+
+    // // seleciona a Empresa atual
+    // selectCurrentCompany('{{companyId}}');
+
+    // // seleciona o requisito de idioma
+    // selectEnglishRequirement('{{jobLanguage}}');
+
+    // // Seleciona os marcadores
+    // selectFlags('{{jobFlagsInline}}');
+
+    // // Seleciona a embarcação
+    // selectShip('{{shipTypeId}}');
+
+    // // Seleciona os cursos exigidos
+    // selectTrainings('{{job_trainings_inline}}');
+
+    // // Seleciona a aba inicial do tipo de candidatura
+    // selectInitialTab('{{applicationType}}');
+
+    // // Seleciona o idioma de envio de currículo
+    // selectApplicationLanguage('{{applicationLanguage}}');
+
+    // // Seleciona o tipo de e-mail a ser enviado
+    // selectApplicationEmailType('{{applicationEmailType}}');
+
+
+}}); 
+
 </script>

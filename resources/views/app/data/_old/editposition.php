@@ -6,7 +6,7 @@
 
 <form method="post" action="/data/main/editposition_action" role="form" enctype="multipart/form-data">
 
-    <input type="hidden" name="positionId" value="{positionId}" >
+    <input type="hidden" name="positionId" value="{position->id}" >
     <div class="row" >
         <div class="col-lg-8 col-md-8 col-sm-12" >
         
@@ -24,7 +24,7 @@
                    <button type="submit" class="btn btn-success"><i class="icon-floppy-disk" ></i> Salvar</button> 
                    <a href="/data" class="btn btn-default" >Cancelar</a>
 
-                   <a href="/data/main/deleteposition/{positionId}" class="btn btn-warning pull-right" >Excluir</a>
+                   <a href="/data/main/deleteposition/{position->id}" class="btn btn-warning float-right" >Excluir</a>
                 </li>
             </ul>
         </div>

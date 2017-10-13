@@ -13,7 +13,7 @@
         <li class="list-group-item" >
             <button type="submit" class="btn btn-success"><i class="icon-floppy-disk" ></i>Salvar</button> 
             <a href="/manager/system" class="btn btn-default" >Cancelar</a> 
-            <a href="/manager/system/deletecat/{categoryId}" class="btn btn-warning pull-right" >Excluir</a>
+            <a href="/manager/system/deletecat/{categoryId}" class="btn btn-warning float-right" >Excluir</a>
         </li>
     </ul>    
 </form>

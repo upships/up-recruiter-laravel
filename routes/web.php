@@ -13,7 +13,7 @@
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+
 
 Route::group(['prefix' => 'data', 'middleware' => 'auth'], function()	{
 
@@ -111,6 +111,11 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function()	{
 });
 
 Route::group(['middleware' => 'auth'], function()	{
+
+	Route::get('/', function()	{
+
+		return redirect()->route('home');
+	});
 
 	Route::get('dashboard', 'HomeController@index')->name('home');
 

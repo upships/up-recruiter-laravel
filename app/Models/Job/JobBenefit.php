@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class JobBenefit extends Model
 {
+	protected $fillable = ['job_id', 'label'];
+	
     public function job()	{
 
     	return $this->belongsTo('App\Models\Job\Job');

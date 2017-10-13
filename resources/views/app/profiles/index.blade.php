@@ -44,9 +44,9 @@
         <label for="bookCategoryId" class="control-label">Categorias CIR</label>
         <select class="select2" multiple data-placeholder="Selecione cat. CIR..." name="bookCategoryId" id="bookCategoryId">
           <option value="">Selecione uma categoria</option>
-          {bookCategories}
-          <option value="{bookCategoryId}">{bookCategoryCode} - {bookCategoryLabel}</option>
-          {/bookCategories}
+          @foreach($seaman_book_types as $seaman_book_type)
+          <option value="{bookCategoryId}">{{$seaman_book_type->code}} - {bookCategoryLabel}</option>
+          @endforeach
         </select>
       </div>
 
@@ -65,7 +65,7 @@
         <select class="select2" multiple data-placeholder="Selecione um certificado..." name="requiredCertificates" id="requiredCertificates">
           <option value="">Nenhum</option>
           {trainings}
-          <option value="{trainingId}">{trainingLabel}</option>
+          <option value="{{$training->id}}">{{$training->label}}</option>
           {/trainings}
         </select>
       </div>
@@ -196,7 +196,7 @@
     
       <div class="list-group-item">
 
-        <div class='dropdown pull-right' >
+        <div class='dropdown float-right' >
           <a href='#' class='dropdown-toggle btn btn-default' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true' >
               <i class='fa fa-folder-open-o'></i> Pastas <span class="caret"></span>
           </a>
@@ -350,7 +350,7 @@ function filter()
 {
     $('.filterLoadingMessage').show();
 
-    // Object containing the requisites of the request
+    // Object containing the requirements of the request
     var request = {};
     var initialRequest = {};  // Request to list basic matching profiles (all from position or book category)
 
@@ -398,7 +398,7 @@ function filter()
     if(requiredCertificatesArr !== null)
     {
       var requiredCertificates = arrayToObj(requiredCertificatesArr);
-      //requisites['certificates'] = requiredCertificates;
+      //requirements['certificates'] = requiredCertificates;
 
       request.requiredCertificates = requiredCertificates;
     }
@@ -760,7 +760,7 @@ $(document).ready(function()
 
   /*
   // Select position
-  var positionId = '{positionId}';
+  var positionId = '{position->id}';
   var duration = '{duration}';
   var shipTypeId = '{shipTypeId}';
 

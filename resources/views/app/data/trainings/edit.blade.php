@@ -6,18 +6,18 @@
 
 <form method="post" action="/data/trainings/editAction" role="form">
 
-    <input type="hidden" name="trainingId" value="{trainingId}" >
+    <input type="hidden" name="trainingId" value="{{$training->id}}" >
     <ul class="list-group" >
         <li class="list-group-item" >
             <div class="row">
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label for='label'>Sigla do curso</label>
-                        <input type="text" name="label" id="label" class="form-control" value="{trainingLabel}" />
+                        <input type="text" name="label" id="label" class="form-control" value="{{$training->label}}" />
                     </div>
                     <div class="form-group">
                         <label for='description'>Nome do curso</label>
-                        <input type="text" name="description" id="description" class="form-control" value="{trainingDescription}" />
+                        <input type="text" name="description" id="description" class="form-control" value="{{$training->description}}" />
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -35,7 +35,7 @@
         <li class="list-group-item" >
             <button type="submit" class="btn btn-success"><i class="icon-floppy-disk" ></i>Salvar</button> 
             <a href="/manager/system" class="btn btn-default" >Cancelar</a> 
-            <a href="/manager/system/deletetraining/{trainingId}" class="btn btn-warning pull-right" >Excluir</a>
+            <a href="/manager/system/deletetraining/{{$training->id}}" class="btn btn-warning float-right" >Excluir</a>
         </li>
     </ul>    
 </form>

@@ -1,5 +1,5 @@
 <form method="post" action="/jobs/publishAction" role="form" enctype="multipart/form-data" id='newJobForm' >
-  <input type="hidden" name="jobId" value="{jobId}">
+  <input type="hidden" name="jobId" value="{{$job->id}}">
 
   <div class="row">
     <div class="col-lg-12">
@@ -7,15 +7,15 @@
 
       <div class="list-group m-b-10">
         <div class="list-group-item">
-          <p>Vaga para <b>{jobPositionLabel}</b></p>
+          <p>Vaga para <b>{$job->position->label}</b></p>
 
           <ul class="list-inline">
             <li>
               <b>Requisitos</b>
               <ul>
-              {jobRequisites}
-                <li>{jobRequisiteValue}</li>
-              {/jobRequisites}
+              {jobRequirements}
+                <li>{{$requirement->value}}</li>
+              {/jobRequirements}
               </ul>
             </li>
             <li>
@@ -24,21 +24,21 @@
             </li>
             <li>
               <b>Ingl&ecirc;s</b><br/>
-              {jobLanguageLabel}
+              {{$job->language->label}}
             </li>
             <li>
               <b>Categorias CIR</b>
               <ul class="list-inline">
                 {jobBookCategories}
-                <li><u>{bookCategoryCode}</u></li>
+                <li><u>{{$seaman_book_type->code}}</u></li>
                 {/jobBookCategories}
               </ul>
             </li>
             <li>
               Regras STCW
               <ul>
-              {jobStcwRegulations}
-                <li><u>{stcwRegulation}</u></li>
+              @foreach($job->stcw_regulations as $job_stcw_regulation)
+                <li><u>{{$stcw_regulation->regulation}}</u></li>
               {/jobStcwRegulations}
               </ul>
             </li>
@@ -50,7 +50,7 @@
             <li>
                 <button class="btn btn-primary btn-fill btn-lg"><i class='fa fa-send'></i> Publicar</button>
             </li>
-            <li class="pull-right">
+            <li class="float-right">
               <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class='fa fa-ellipsis-v'></i></span>
@@ -118,7 +118,7 @@
 
               <div class="form-group" >
                 <label for="jobDate" >Data de validade (padr&atilde;o: 14 dias)</label>
-                <input type="text" name="jobExpires" class="form-control" id="jobDate" value="{jobExpires}"/>
+                <input type="text" name="jobExpires" class="form-control" id="jobDate" value="{{$job->expires}}"/>
               </div>
             </div>
           </div>

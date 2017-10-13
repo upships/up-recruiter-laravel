@@ -10,7 +10,7 @@
 					<h2>Finalizar processo seletivo</h2>
 					
 					<ul class="list-inline clearfix">					
-						<li class="pull-right">
+						<li class="float-right">
 							<a href="javascript:history.go(-1)" class="btn btn-default" ><i class='fa fa-times' ></i> Cancelar</a>
 						</li>
 						<li class="clearfix"></li>

@@ -1,15 +1,15 @@
 <form method="post" action="/jobs/concludeAction" >
-	<input type="hidden" name="jobId" value="{jobId}">
+	<input type="hidden" name="jobId" value="{{$job->id}}">
 
 	<div class="row m-b-10">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
 			<div class="list-group">
 				<div class="list-group-item">
-					<h3 class="list-group-item-heading">Iniciando processo seletivo para {jobPositionLabel}</h3>
+					<h3 class="list-group-item-heading">Iniciando processo seletivo para {$job->position->label}</h3>
 					<ul class="list-inline">
 						<li>
-							<i class='fa fa-clock-o' ></i> Postada em {jobDate}
+							<i class='fa fa-clock-o' ></i> Postada em {{$job->date}}
 						</li>
 						<li>
 							<i class="fa fa-users"></i> {applicationCount} candidatos
@@ -29,8 +29,8 @@
 		                	</label>
 						</li>
 
-						<li class="pull-right">
-							<a href="/jobs/view/{jobId}" class="btn btn-default btn-lg btn-fill" ><i class='fa fa-undo' ></i> Voltar</a>
+						<li class="float-right">
+							<a href="/jobs/view/{{$job->id}}" class="btn btn-default btn-lg btn-fill" ><i class='fa fa-undo' ></i> Voltar</a>
 						</li>
 
 						<li class="clearfix"></li>
@@ -123,8 +123,8 @@
 						<button type="submit" class="btn btn-success btn-fill btn-lg" ><i class='fa fa-check' ></i> Iniciar processo seletivo</button>
 					</li>
 
-					<li class="pull-right">
-						<a href="/jobs/view/{jobId}" class="btn btn-default btn-lg btn-fill" ><i class='fa fa-undo' ></i> Voltar</a>
+					<li class="float-right">
+						<a href="/jobs/view/{{$job->id}}" class="btn btn-default btn-lg btn-fill" ><i class='fa fa-undo' ></i> Voltar</a>
 					</li>
 
 					<li class="clearfix"></li>

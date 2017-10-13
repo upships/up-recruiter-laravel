@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Job;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\Data\Position;
+use App\Models\Data\ShipType;
+
 class JobController extends Controller
 {
     /**
@@ -24,7 +27,11 @@ class JobController extends Controller
      */
     public function create()
     {
-        //
+
+        $positions = Position::all();
+        $ship_types = ShipType::all();
+
+        return view('app.jobs.add', compact('positions', 'ship_types'));
     }
 
     /**
@@ -35,7 +42,17 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, ['position_id' => 'required']);
+
+        $job = Job::create([
+                                'position_id' => $request->input('position_id'),
+                                'company_id' => auth()->user()->recruiter->id,
+                                'ship_type_id' => $request->input('ship_type_id')
+                            ]);
+
+        event(new \App\Events\JobCreated($job));
+
+        return redirect('/job/' . $job->id)->with('message','Vaga adicionada');
     }
 
     /**
@@ -44,9 +61,9 @@ class JobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Job $job)
     {
-        //
+        return view('app.jobs.view', compact('job'));
     }
 
     /**
@@ -57,7 +74,15 @@ class JobController extends Controller
      */
     public function edit($id)
     {
-        //
+        
+        $positions = Position::all();
+        $ship_types = ShipType::all();
+
+        $stcw_regulations = App\Models\Data\StcwRegulation::all();
+        $seaman_book_categories = App\Models\Data\SeamanBookCategory::all();
+        $trainings = App\Models\Data\Training::all();
+
+        return view('app.jobs.view', compact('job', 'positions', 'ship_types', 'stcw_regulations', 'seaman_book_categories', 'trainings'));
     }
 
     /**
@@ -67,9 +92,11 @@ class JobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Job $job)
     {
-        //
+        $job->update($request->all());
+
+        return redirect('/job/' . $job->id);
     }
 
     /**

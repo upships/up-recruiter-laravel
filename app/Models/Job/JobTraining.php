@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class JobTraining extends Model
 {
+	protected $fillable = ['job_id', 'training_id'];
+
     public function job()	{
 
     	return $this->belongsTo('App\Models\Job\Job');

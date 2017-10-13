@@ -17,7 +17,7 @@
 								Inserir candidatos
 							</button>
 						</li>
-						<li class="pull-right">
+						<li class="float-right">
 							<a href="javascript:history.go(-1)" class="btn btn-default" >
 								<i class='fa fa-times' ></i> Cancelar
 							</a>

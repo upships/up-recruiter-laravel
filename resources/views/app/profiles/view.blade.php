@@ -5,7 +5,7 @@
           <!-- meta -->
           <div class="box-layout meta bottom">
             <div class="col-sm-6 clearfix">
-              <span class="img-wrapper pull-left m-r-15"><img src="{profilePhoto}" alt="" style="width:64px" class="br-radius"></span>
+              <span class="img-wrapper float-left m-r-15"><img src="{profilePhoto}" alt="" style="width:64px" class="br-radius"></span>
               <div class="media-body">
                 <h3 class="text-white mb-2 m-t-10 ellipsis">{userName}</h3>
                 <h5 class="text-white">
@@ -38,7 +38,7 @@
           </a>
         </li>
 
-        <li class="pull-right">
+        <li class="float-right">
           <div class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle btn btn-primary" href="#">
               <i class="fa fa-external-link"></i> Exportar Curr&iacute;culo <span class="caret"></span></a>
@@ -90,7 +90,7 @@
                     <h3 class="m-b-0 list-group-item-heading">CIR</h3>
 
                     Categoria
-                    <h4 class="m-t-0">{bookCategoryCode}</h4>
+                    <h4 class="m-t-0">{{$seaman_book_type->code}}</h4>
 
                     N&uacute;mero
                     <h4 class="m-t-0">{bookNumber}</h4>
@@ -110,7 +110,7 @@
                     <ul class="list-inline">
                       {cocRegulations}
                       <li class="btn btn-sm btn-default">
-                        {stcwRegulation} 
+                        {{$stcw_regulation->regulation}} 
                       </li>
                       {/cocRegulations}
                     </ul>

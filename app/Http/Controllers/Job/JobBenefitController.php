@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Job;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\Job\Job;
+use App\Models\Job\JobBenefit;
+
 class JobBenefitController extends Controller
 {
     /**
@@ -35,7 +38,9 @@ class JobBenefitController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $item = JobBenefit::create($request->all());
+
+        return response()->toJson($item);
     }
 
     /**
@@ -78,8 +83,10 @@ class JobBenefitController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(JobBenefit $benefit)
     {
-        //
+        $benefit->delete();
+
+        return true;
     }
 }

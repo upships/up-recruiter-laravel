@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateJobRequisitesTable extends Migration
+class CreateJobRequirementsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -29,6 +29,6 @@ class CreateJobRequisitesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('job_requisites');
+        Schema::dropIfExists('job_requirements');
     }
 }

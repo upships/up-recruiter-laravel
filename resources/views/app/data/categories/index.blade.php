@@ -20,7 +20,7 @@
 					</div>
 
 		            {categories}
-		            <a href='#loadCat-{categoryId}' onclick="loadCategory('{categoryId}',true)" class="list-group-item categories category-{categoryId}">{categoryLabel} <i class='fa fa-arrow-right pull-right' ></i></a>
+		            <a href='#loadCat-{categoryId}' onclick="loadCategory('{categoryId}',true)" class="list-group-item categories category-{categoryId}">{categoryLabel} <i class='fa fa-arrow-right float-right' ></i></a>
 		            {/categories}		            
 		    	</div>
 
@@ -31,7 +31,7 @@
 
 		<div class="list-group" id='loadCategoryHere'>
 			<a href="#addPosition" class="list-group-item" id='addPositionTrigger'>
-				<i class='fa fa-plus'></i> Adicionar posi&ccedil;&atilde;o <i class='fa fa-arrow-right pull-right' ></i>
+				<i class='fa fa-plus'></i> Adicionar posi&ccedil;&atilde;o <i class='fa fa-arrow-right float-right' ></i>
 			</a>
 			<div class="list-group-item" id='categoryEditor'>
 				<ul class="list-inline">
@@ -74,7 +74,7 @@
 
 <script id="categoryPositionsListTemplate" type="text/x-jsrender">
 	<div class='list-group-item categoryPositions' id='category-{{:categoryId}}'>
-		<a class='pull-right' href='#' onclick='removeFromCategory({{:positionId}})'>
+		<a class='float-right' href='#' onclick='removeFromCategory({{:positionId}})'>
 		<i class='fa fa-times'></i></a>
 		{{:positionLabel}}
 	</div>

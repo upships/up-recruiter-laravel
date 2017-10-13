@@ -9,7 +9,7 @@
 			<div class="list-group-item clearfix">
 				({languageId}) {languageLabel}
 					
-				<a href="/data/main/editlanguage/{languageId}" class="btn btn-default btn-sm pull-right" target="_blank" >
+				<a href="/data/main/editlanguage/{languageId}" class="btn btn-default btn-sm float-right" target="_blank" >
 					editar
 				</a>
 			</div>

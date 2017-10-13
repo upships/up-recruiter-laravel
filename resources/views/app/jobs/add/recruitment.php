@@ -1,5 +1,5 @@
 <form method="post" action="/jobs/addRecruitmentAction" role="form" enctype="multipart/form-data" id='newJobForm' >
-	<input type="hidden" name="jobId" value="{jobId}">
+	<input type="hidden" name="jobId" value="{{$job->id}}">
 
   <div class="row">
       <div class="col-lg-12">
@@ -15,7 +15,7 @@
                       <li>
                           <button class="btn btn-success btn-fill"><i class='fa fa-save'></i> Salvar &amp; Continuar</button>
                       </li>
-                      <li class="pull-right">
+                      <li class="float-right">
                           <div class="btn-group">
                             <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               <i class='fa fa-ellipsis-v'></i></span>

@@ -18,7 +18,7 @@ class CreateJobExperiencesTable extends Migration
             $table->timestamps();
 
             $table->integer('job_id');
-            $table->string('text');
+            $table->string('value');
 
         });
     }

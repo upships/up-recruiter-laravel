@@ -1,6 +1,6 @@
 <div id="vge-app" >
 
-	<h3>{jobPositionLabel}</h3>
+	<h3>{$job->position->label}</h3>
 
 	<div class="row">
 
@@ -107,7 +107,7 @@
 		        				// },
 		        			},
 
-		        job_id: {jobId},
+		        job_id: {{$job->id}},
 		    },
 
 		    watch: {

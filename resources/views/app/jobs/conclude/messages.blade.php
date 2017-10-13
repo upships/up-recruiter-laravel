@@ -1,8 +1,8 @@
 <form method="post" action="/jobs/concludeMessagesAction" >
-	<input type="hidden" name="jobId" value="{jobId}">
+	<input type="hidden" name="jobId" value="{{$job->id}}">
 	<input type="hidden" name="companyName" value="{companyName}">
 	<input type="hidden" name="companyEmail" value="{companyEmail}">
-	<input type="hidden" name="jobPositionLabel" value="{jobPositionLabel}">
+	<input type="hidden" name="jobPositionLabel" value="{$job->position->label}">
 	<input type="hidden" name="selectionId" value="{selectionId}">
 
 	<div class="row m-b-10">
@@ -10,7 +10,7 @@
 
 			<div class="list-group">
 				<div class="list-group-item">
-					<h3 class="list-group-item-heading">Mensagem aos candidatos a {jobPositionLabel}</h3>
+					<h3 class="list-group-item-heading">Mensagem aos candidatos a {$job->position->label}</h3>
 				</div>
 				<div class="list-group-item">
 
@@ -20,7 +20,7 @@
 								<i class='fa fa-send' ></i> Enviar mensagens e prosseguir</button>
 						</li>
 
-						<li class="pull-right">
+						<li class="float-right">
 							<a href="/selections/view/{selectionId}" class="btn btn-default btn-lg btn-fill" >
 								N&atilde;o enviar <i class='fa fa-angle-right' ></i><i class='fa fa-angle-right' ></i>
 							</a>
@@ -171,7 +171,7 @@
 						</button>
 					</li>
 
-					<li class="pull-right">
+					<li class="float-right">
 							<a href="/applications/view/{applicationId}" class="btn btn-default btn-lg btn-fill" >
 								N&atilde;o enviar <i class='fa fa-angle-right' ></i><i class='fa fa-angle-right' ></i>
 							</a>

@@ -3,7 +3,7 @@
 <script id="searchTemplate" type="text/x-jsrender">
   <div class='list-group-item resultsItem clearfix' id='profile-{{:profileId}}'>
 
-    <div class="pull-right">
+    <div class="float-right">
       <ul class="list-inline">
         <li class="profileLoadingIcons" id="profileLoadingIcon-{{:profileId}}">
           <i class="fa fa-spinner fa-spin"></i>
@@ -36,7 +36,7 @@
       </li>
       <li class="" >Ingl&ecirc;s {{:profileEnglishLevelLabel}}</li>
       <li class="">{{:profileAddress}}</li>
-      <li class="text-muted pull-right">Atualizou em {{:profileUpdatedAt}}</li>
+      <li class="text-muted float-right">Atualizou em {{:profileUpdatedAt}}</li>
     </ul>
 
     {{if matchingCertificates}}
@@ -156,7 +156,7 @@
 
 <script id="profileExperienceTemplate" type="text/x-jsrender" >
   <div class="list-group-item clearfix" id="experience-item-{{:itemId}}">
-    <a href="#deleteXp" onclick="deleteExperience({{:itemId}})" class="pull-right" title="Remover" >
+    <a href="#deleteXp" onclick="deleteExperience({{:itemId}})" class="float-right" title="Remover" >
       <i class="fa fa-times"></i>
     </a>
 
@@ -187,7 +187,7 @@
 <script id="selectedProfilesItemTemplate" type="text/x-jsrender" >
   <div class="list-group-item" id="selectedProfileItem-{{:profileId}}">
 
-    <a href="#removeSelectedProfile-{{:profileId}}" onclick="removeSelectedProfile({{:profileId}})" class="pull-right text-muted" title="Remover Perfil desta pasta">
+    <a href="#removeSelectedProfile-{{:profileId}}" onclick="removeSelectedProfile({{:profileId}})" class="float-right text-muted" title="Remover Perfil desta pasta">
       <i class="fa fa-times"></i>
     </a>
 
@@ -281,7 +281,7 @@
                             {jtrainingLabel}
                         </label>
                     </div>
-                {/jobTrainings} -->
+                @endforeach -->
 
                 <!-- 
                 <h4>Experi&ecirc;ncia</h4>

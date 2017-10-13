@@ -13,7 +13,7 @@
 			<div class="list-group-item">
 
 				<ul class="list-inline clearfix">					
-					<li class="pull-right">
+					<li class="float-right">
 						<a href="/selections/view/{selectionId}" class="btn btn-default" ><i class='fa fa-times' ></i> Cancelar</a>
 					</li>
 					<li class="clearfix"></li>

@@ -12,8 +12,8 @@
 				{allPositions}
 				<div class="form-group">
 					<label>
-						<input type="checkbox" name="oldPositions[]" value="{positionId}" > [{positionId}] {positionLabel} 
-					</label> <a href="/data/positions/editposition/{positionId}" class="btn btn-default btn-sm" target="_blank" >editar</a>
+						<input type="checkbox" name="oldPositions[]" value="{position->id}" > [{position->id}] {positionLabel} 
+					</label> <a href="/data/positions/editposition/{position->id}" class="btn btn-default btn-sm" target="_blank" >editar</a>
 				</div>
 				{/allPositions}
 			</div>
@@ -25,7 +25,7 @@
 				<div class="list-group-item">
 					<select name="position" class="select2">
 						{positions}
-						<option value="{positionId}" >[{positionId}] {positionLabel}</option>
+						<option value="{position->id}" >[{position->id}] {positionLabel}</option>
 						{/positions}
 					</select>
 				</div>

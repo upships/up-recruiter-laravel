@@ -16,7 +16,7 @@
 			<tr>
 				<td>{bookNumber}</td>
 				<td>{bookExpiration}</td>
-				<td>{bookCategoryCode}</td>
+				<td>{{$seaman_book_type->code}}</td>
 			</tr>
 			<tr>
 				<td colspan="3">

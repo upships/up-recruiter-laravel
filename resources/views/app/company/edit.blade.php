@@ -49,7 +49,7 @@
 						<li>
 							<button type="submit" class="btn btn-success"><i class="icon-checkbox-checked" ></i>Concluir</button>
 						</li>
-						<li class="pull-right">
+						<li class="float-right">
 							<a href='/company' class="btn btn-default"><i class="icon-cancel-circle" ></i>Cancelar</a>
 						</li>
 						<li class="clearfix"></li>

@@ -20,7 +20,7 @@ class CreateJobShipTypesTable extends Migration
             $table->integer('ship_type_id');
             $table->integer('job_id');
 
-            $table->integer('years')->nullable();
+            $table->integer('months')->nullable();
         });
     }
 

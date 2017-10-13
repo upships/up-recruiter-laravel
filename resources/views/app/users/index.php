@@ -89,7 +89,7 @@
 <!-- Templates -->
 <script id="usersListTemplate" type="text/x-jsrender">
   <div class='list-group-item users'>
-    <div class="btn-group pull-right">
+    <div class="btn-group float-right">
       <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class='fa fa-cog'></i> <span class="caret"></span>
       </button>

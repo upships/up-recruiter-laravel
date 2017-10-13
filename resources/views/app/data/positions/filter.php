@@ -13,7 +13,7 @@
 				    <div class="col-md-12">
 				        <select name="oldPositionsSelector" class="multi-select" multiple="" id="positionsSelect" >
 				          {allPositions}
-				          <option value="{positionId}">{positionLabel} ({positionId})</option>
+				          <option value="{position->id}">{positionLabel} ({position->id})</option>
 				          {/allPositions}
 				        </select>
 				    </div>
@@ -27,7 +27,7 @@
 				<div class="list-group-item">
 					<select name="position" class="select2">
 						{positions}
-						<option value="{positionId}" >[{positionId}] {positionLabel}</option>
+						<option value="{position->id}" >[{position->id}] {positionLabel}</option>
 						{/positions}
 					</select>
 				</div>

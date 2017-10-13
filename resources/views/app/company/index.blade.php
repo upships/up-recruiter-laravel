@@ -5,7 +5,7 @@
           <!-- meta -->
           <div class="box-layout meta bottom">
             <div class="col-sm-6 clearfix">
-              <span class="img-wrapper pull-left m-r-15"><img src="{companyLogoThumbFull}" alt="" style="width:64px" class="br-radius"></span>
+              <span class="img-wrapper float-left m-r-15"><img src="{companyLogoThumbFull}" alt="" style="width:64px" class="br-radius"></span>
               <div class="media-body">
                 <h2 class="text-white mb-2 m-t-10 ellipsis">{companyName}</h2>
               </div>

@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Job;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\Job\Job;
+use App\Models\Job\JobTraining;
+
 class JobTrainingController extends Controller
 {
     /**
@@ -35,7 +38,9 @@ class JobTrainingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $item = JobTraining::create($request->all());
+
+        return response()->toJson($item);
     }
 
     /**

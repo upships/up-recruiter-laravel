@@ -26,7 +26,7 @@
 						<a href="/selections/receivedDocuments/{selectionId}" class="btn btn-default" ><i class='fa fa-file-o' ></i> Documentos recebidos</a>
 					</li>
 
-					<li class="pull-right">
+					<li class="float-right">
 						<a href="/selections/finish/{selectionId}" class="btn btn-success btn-fill" ><i class='fa fa-check' ></i> Finalizar processo</a>
 					</li>
 				</ul>
@@ -117,7 +117,7 @@
 								<li class="text-{applicantCompatibilityColor}">{applicantCompatibility}% compat.</li>
 								-->
 
-								<li class="pull-right">
+								<li class="float-right">
 							
 					                <div class='dropdown' >
 					                    <a href='#' class='btn btn-default btn-sm dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true' >
@@ -131,7 +131,7 @@
 						                    <li><a href='/selections/requestDocuments/{applicationId}'><i class='fa fa-file-o'></i> Solicitar documentos</a></li>
 						                    <!--
 						                    <li role="separator" class="divider"></li>
-						                    <li><a href="#" onclick="toggleJobStatus('{jobId}')" ><i class='fa fa-eye-slash' ></i> Desativar</a></li> -->
+						                    <li><a href="#" onclick="toggleJobStatus('{{$job->id}}')" ><i class='fa fa-eye-slash' ></i> Desativar</a></li> -->
 						                    <li role="separator" class="divider"></li>
 						                    <li class="text-danger"><a href="/selections/removeCandidates/{applicationId}"  ><i class='fa fa-times' ></i> Desclassificar</a></li>
 					                    </ul> 
@@ -167,7 +167,7 @@
 								<li class="text-{applicantCompatibilityColor}">{applicantCompatibility}% compat.</li>
 								-->
 
-								<li class="pull-right">
+								<li class="float-right">
 							
 					                <div class='dropdown' >
 					                    <a href='#' class='btn btn-default btn-sm dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true' >
@@ -183,7 +183,7 @@
 
 						                    <!--
 						                    <li role="separator" class="divider"></li>
-						                    <li><a href="#" onclick="toggleJobStatus('{jobId}')" ><i class='fa fa-eye-slash' ></i> Desativar</a></li> -->
+						                    <li><a href="#" onclick="toggleJobStatus('{{$job->id}}')" ><i class='fa fa-eye-slash' ></i> Desativar</a></li> -->
 						                    <li role="separator" class="divider"></li>
 						                    <li class="text-danger"><a href="/selections/removeCandidates/{applicationId}"  ><i class='fa fa-times' ></i> Desclassificar</a></li>
 					                    </ul> 
@@ -215,7 +215,7 @@
 								<!--<li class="text-{applicantCompatibilityColor}">{applicantCompatibility}% compat.</li>-->
 								<li><a href="/selections/changeCandidates/4/{applicationId}" class="btn btn-success btn-sm"><i class="fa fa-check-square-o"></i> Aprovar</a></li>					
 								
-								<li class="pull-right clearfix">
+								<li class="float-right clearfix">
 							
 					                <div class='dropdown' >
 					                    <a href='#' class='btn btn-default btn-sm dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true' >
@@ -228,7 +228,7 @@
 
 						                    <!--
 						                    <li role="separator" class="divider"></li>
-						                    <li><a href="#" onclick="toggleJobStatus('{jobId}')" ><i class='fa fa-eye-slash' ></i> Desativar</a></li> -->
+						                    <li><a href="#" onclick="toggleJobStatus('{{$job->id}}')" ><i class='fa fa-eye-slash' ></i> Desativar</a></li> -->
 						                    <li role="separator" class="divider"></li>
 						                    <li><a href="/selections/removeCandidates/{applicationId}" class="text-danger" ><i class='fa fa-times' ></i> Eliminar</a></li>
 					                    </ul> 

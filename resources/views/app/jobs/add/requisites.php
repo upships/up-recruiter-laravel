@@ -1,5 +1,5 @@
-<form method="post" action="/jobs/addRequisitesAction" role="form" enctype="multipart/form-data" id='addJobRequisitesForm' >
-  <input type="hidden" name="jobId" value="{jobId}">
+<form method="post" action="/jobs/addRequirementsAction" role="form" enctype="multipart/form-data" id='addJobRequirementsForm' >
+  <input type="hidden" name="jobId" value="{{$job->id}}">
 
   <div class="row">
     <div class="col-lg-12">
@@ -7,15 +7,15 @@
 
       <div class="list-group m-b-10">
         <div class="list-group-item">
-            <p>Vaga para {jobPositionLabel}</p>
+            <p>Vaga para {$job->position->label}</p>
 
             <ul class="list-inline">
             <li>
               <b>Requisitos</b>
               <ul>
-              {jobRequisites}
-                <li>{jobRequisiteValue}</li>
-              {/jobRequisites}
+              {jobRequirements}
+                <li>{{$requirement->value}}</li>
+              {/jobRequirements}
               </ul>
             </li>
             <li>
@@ -24,21 +24,21 @@
             </li>
             <li>
               <b>Ingl&ecirc;s</b><br/>
-              {jobLanguageLabel}
+              {{$job->language->label}}
             </li>
             <li>
               <b>Categorias CIR</b>
               <ul class="list-inline">
                 {jobBookCategories}
-                <li><u>{bookCategoryCode}</u></li>
+                <li><u>{{$seaman_book_type->code}}</u></li>
                 {/jobBookCategories}
               </ul>
             </li>
             <li>
               Regras STCW
               <ul>
-              {jobStcwRegulations}
-                <li><u>{stcwRegulation}</u></li>
+              @foreach($job->stcw_regulations as $job_stcw_regulation)
+                <li><u>{{$stcw_regulation->regulation}}</u></li>
               {/jobStcwRegulations}
               </ul>
             </li>
@@ -50,7 +50,7 @@
             <li>
                 <button type="button" onclick="submitForm()" class="btn btn-success btn-fill"><i class='fa fa-save'></i> Salvar &amp; Continuar</button>
             </li>
-            <li class="pull-right">
+            <li class="float-right">
               <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class='fa fa-ellipsis-v'></i></span>
@@ -63,11 +63,11 @@
                 </ul>
               </div>                        
             </li>
-            <li class="pull-right">
-                <a class="btn btn-default btn-fill" href="/jobs/add/benefits/{jobId}">Pular <i class='fa fa-angle-right'></i><i class='fa fa-angle-right'></i></a>
+            <li class="float-right">
+                <a class="btn btn-default btn-fill" href="/jobs/add/benefits/{{$job->id}}">Pular <i class='fa fa-angle-right'></i><i class='fa fa-angle-right'></i></a>
             </li>
-            <li class="pull-right">
-                <a class="btn btn-primary btn-fill" href="/jobs/add/publish/{jobId}">
+            <li class="float-right">
+                <a class="btn btn-primary btn-fill" href="/jobs/add/publish/{{$job->id}}">
                   <i class='fa fa-check'></i> Finalizar
                 </a>
             </li>
@@ -118,7 +118,7 @@
         </div>
 
         <div class="list-group-item">
-          <div id="requisites"></div>
+          <div id="requirements"></div>
 
           <div class="row">
             <div class="col-lg-4 m-b-10">
@@ -126,9 +126,9 @@
 
               <select name='bookCategories' id="bookCategories" class="select2" multiple="multiple" data-placeholder="Choose a book category">
                   <option value="#">&nbsp;</option>
-                  {bookCategories}
-                      <option value="{bookCategoryId}">{bookCategoryCode} - {bookCategoryLabel}</option>
-                  {/bookCategories}
+                  @foreach($seaman_book_types as $seaman_book_type)
+                      <option value="{bookCategoryId}">{{$seaman_book_type->code}} - {bookCategoryLabel}</option>
+                  @endforeach
               </select>
             </div>
 
@@ -138,7 +138,7 @@
               <select name='stcwRegulations' id="stcwRegulations" class="select2" multiple="multiple" data-placeholder="Choose a STCW regulation">
                   <option value="#">&nbsp;</option>
                   {stcwRegulations}
-                      <option value="{stcwRegulationId}">{stcwRegulationChapter} - {stcwRegulation}</option>
+                      <option value="{{$stcw_regulation->id}}">{stcwRegulationChapter} - {{$stcw_regulation->regulation}}</option>
                   {/stcwRegulations}
               </select>
             </div>
@@ -150,7 +150,7 @@
                 <option value="#">&nbsp;</option>
 
                 {trainings}
-                    <option value="{trainingId}" >{trainingLabel} {trainingDescription}</option>
+                    <option value="{{$training->id}}" >{{$training->label}} {{$training->description}}</option>
                 {/trainings}
               </select>
             </div>
@@ -170,19 +170,19 @@
             <div class="col-lg-6">
               <h4>Outros requisitos</h4>
 
-              <div class="list-group" id='jobRequisitesList'>
+              <div class="list-group" id='jobRequirementsList'>
 
-                  <div class="list-group-item jobRequisitesItem" id='requisiteOne'>
+                  <div class="list-group-item jobRequirementsItem" id='requirementOne'>
                       <div class="form-group" >
-                          <label for="jobRequisites" >Requisito da vaga</label>
-                          <input name="jobRequisites[]" type="text" class="form-control jobRequisiteItemInput">                              
+                          <label for="jobRequirements" >Requisito da vaga</label>
+                          <input name="jobRequirements[]" type="text" class="form-control jobRequirementItemInput">                              
                       </div>
                   </div>
               </div>
               
               <br/>
 
-              <button type='button' class="btn btn-default btn-sm" id='addRequisiteBtn'><i class='fa fa-plus' ></i> Adicionar requisito</button>
+              <button type='button' class="btn btn-default btn-sm" id='addRequirementBtn'><i class='fa fa-plus' ></i> Adicionar requisito</button>
             </div>
           </div>
         </div>
@@ -205,7 +205,7 @@ function submitForm() {
     var bookCategoriesArr = $('#bookCategories').val();
 
     if(bookCategoriesArr) {
-      document.getElementById('requisites').innerHTML += bookCategoriesArr.map(function(v) {
+      document.getElementById('requirements').innerHTML += bookCategoriesArr.map(function(v) {
           return '<input type="hidden" value="' + v + '" name="selectedBookCategories[]" >';
       }).join('');
     }
@@ -214,7 +214,7 @@ function submitForm() {
     var stcwRegulationsArr = $('#stcwRegulations').val();
 
     if(stcwRegulationsArr) {
-      document.getElementById('requisites').innerHTML += stcwRegulationsArr.map(function(v) {
+      document.getElementById('requirements').innerHTML += stcwRegulationsArr.map(function(v) {
           return '<input type="hidden" value="' + v + '" name="selectedStcwRegulations[]" >';
       }).join('');
     }
@@ -223,12 +223,12 @@ function submitForm() {
     var certificatesArr = $('#certificates').val();
 
     if(certificatesArr) {
-      document.getElementById('requisites').innerHTML += certificatesArr.map(function(v) {
+      document.getElementById('requirements').innerHTML += certificatesArr.map(function(v) {
           return '<input type="hidden" value="' + v + '" name="selectedCertificates[]" >';
       }).join('');
     }  
 
-    document.getElementById('addJobRequisitesForm').submit();
+    document.getElementById('addJobRequirementsForm').submit();
 }
 
 $(document).ready(function(){

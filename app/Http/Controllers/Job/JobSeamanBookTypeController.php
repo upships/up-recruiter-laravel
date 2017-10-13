@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Job;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\Job\Job;
+use App\Models\Job\JobSeamanBookType;
+
 class JobSeamanBookTypeController extends Controller
 {
     /**
@@ -35,7 +38,9 @@ class JobSeamanBookTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $item = JobSeamanBookType::create($request->all());
+        
+        return response()->toJson($item);
     }
 
     /**

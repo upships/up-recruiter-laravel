@@ -16,7 +16,7 @@
 		        			<a href="#/profiles/editFolder/{profileFolderId}" class="btn btn-default">Editar</a>
 		        		</li>
 
-		        		<li class="pull-right">
+		        		<li class="float-right">
 		        			<a href="#deleteFolder" onclick="removeFolder({profileFolderId})" class="btn btn-danger"><i class="fa fa-times"></i> Apagar</a>
 		        		</li>
 		        	</ul>
@@ -24,7 +24,7 @@
 				
 			{folderItems}
 				<div class="list-group-item">
-					<span class="pull-right">
+					<span class="float-right">
 						<a href="#removeItemFromFolder" onclick="removeFolderItem({profileFolderItemId})" class="text-muted" title="Remover perfil da lista">
 							<i class="fa fa-times"></i>
 						</a>

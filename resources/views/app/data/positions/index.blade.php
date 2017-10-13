@@ -27,7 +27,7 @@
 					<div class="col-lg-6 col-md-8 col-sm-12">
 						<div class="list-group">
 				            {positions}
-				            <a class="list-group-item" href="/data/positions/edit/{positionId}" >
+				            <a class="list-group-item" href="/data/positions/edit/{position->id}" >
 								{positionLabel} / {positionEnglishLabel}
 				            </a>
 				            {/positions}

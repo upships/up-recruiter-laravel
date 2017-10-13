@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Job extends Model
 {
+    protected $fillable = ['position_id', 'ship_type_id', 'instructions', 'status', 'step', 'expires_on', 'description', 'rotation', 'slug', 'salary', 'visibility'];
+
     public function company()	{
 
     	return $this->belongsTo('App\Models\Company\Company');
@@ -18,7 +20,7 @@ class Job extends Model
 
     public function position()	{
 
-    	return $this->hasOne('App\Models\Job\JobPosition');
+    	return $this->belongsTo('App\Models\Data\Position');
     }
 
     public function benefits()	{
@@ -26,14 +28,19 @@ class Job extends Model
     	return $this->hasMany('App\Models\Job\JobBenefit');
     }
 
-    public function ships()	{
+    public function ship_type() {
 
-    	return $this->hasMany('App\Models\Job\JobShipType');
+        return $this->belongsTo('App\Models\Data\ShipType');
     }
 
     public function requirements()	{
 
     	return $this->hasMany('App\Models\Job\JobRequirement');
+    }
+
+    public function ship_requirements()    {
+
+        return $this->hasMany('App\Models\Job\JobShipType');
     }
     
     public function experiences()	{

@@ -13,7 +13,7 @@
                   <li>
                       <button class="btn btn-success btn-fill"><i class='fa fa-save'></i> Salvar &amp; Continuar</button>
                   </li>
-                  <li class="pull-right">
+                  <li class="float-right">
                       <div class="btn-group">
                         <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           <i class='fa fa-ellipsis-v'></i></span>
@@ -54,7 +54,7 @@
               <select class="select2" name="position" data-placeholder="Selecione uma função" required='required' >
                 <option disabled selected> -- Selecione uma fun&ccedil;&atilde;o -- </option>
                   {positions}                         
-                  <option value="{positionId}" >{positionLabel}</option>
+                  <option value="{position->id}" >{positionLabel}</option>
                   {/positions}
               </select>
           </div>

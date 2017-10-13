@@ -47,7 +47,7 @@
 
 				<ul class="list-inline clearfix">
 					<li><button type="submit" class="btn btn-success" >Solicitar novo documento</button></li>
-					<li class="pull-right">
+					<li class="float-right">
 						<a href="/selections/view/{selectionId}" class="btn btn-default" ><i class='fa fa-times' ></i> Cancelar</a>
 					</li>
 					<li class="clearfix"></li>
