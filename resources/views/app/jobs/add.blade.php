@@ -6,16 +6,17 @@
 	<h2>Adicionar nova vaga</h2>
 
 	<form method="post" action="/job" >
+		
 		{{csrf_field()}}
 
 		<div class="card card-default">
-			<div class="card-body">
+			<div class="card-block">
 				<div class="row">
 				  	<div class="col">
 					    <div class="form-group">
 					      <label for="position" >Fun&ccedil;&atilde;o</label>
 
-					      <select class="form-control select2" >
+					      <select class="form-control select2" name="position_id" >
 					          <option value="">-- Selecione uma função --</option>
 
 					          @foreach($positions as $position)
@@ -29,7 +30,7 @@
 					    <div class="form-group">
 					      <label for="ship_type" >Embarca&ccedil;&atilde;o</label>
 
-					      <select class="form-control select2" >
+					      <select class="form-control select2" name="ship_type_id" >
 					          
 					          <option value="">-- Selecione um tipo de embarcação --</option>
 

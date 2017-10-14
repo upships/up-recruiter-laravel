@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Data;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\Data\ShipType;
+
 class ShipTypeController extends Controller
 {
     /**
@@ -14,7 +16,14 @@ class ShipTypeController extends Controller
      */
     public function index()
     {
-        //
+        $ship_types = ShipType::all();
+
+        if(request()->ajax())   {
+
+            return request()->json($ship_types);
+        }
+
+        return view('app.data.ship_types', compact('ship_types'));
     }
 
     /**
@@ -35,7 +44,14 @@ class ShipTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $item = ShipType::create($request->all());
+        
+        if($request->ajax())    {
+
+            return response()->json($item);
+        }
+
+        return back()->with('message', 'Success');
     }
 
     /**

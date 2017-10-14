@@ -12,7 +12,7 @@
 		<div class="list-group list">
             {salaries}
             <div class="list-group-item" >
-            	<h4 class="positionLabel">{positionLabel}</h4>
+            	<h4 class="positionLabel">{{$position->label}}</h4>
 
 				<ul class="list-inline clearfix">
 					

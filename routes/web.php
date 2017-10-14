@@ -13,14 +13,6 @@
 
 Auth::routes();
 
-
-
-Route::group(['prefix' => 'data', 'middleware' => 'auth'], function()	{
-
-
-
-});
-
 Route::group(['prefix' => 'api', 'middleware' => 'auth'], function()	{
 
 	/**
@@ -117,6 +109,11 @@ Route::group(['middleware' => 'auth'], function()	{
 		return redirect()->route('home');
 	});
 
+	Route::get('/home', function()	{
+
+		return redirect()->route('home');
+	});
+
 	Route::get('dashboard', 'HomeController@index')->name('home');
 
 	Route::get('company', 'Company\CompanyController@show');
@@ -164,12 +161,12 @@ Route::group(['middleware' => 'auth'], function()	{
 	 */
 
 	Route::get('job', 'Job\JobController@index');
-	Route::get('job/{job}', 'Job\JobController@show');
-	
-	Route::get('job/add', 'Job\JobController@create');
 	Route::post('job', 'Job\JobController@store');
-
+	Route::get('job/add', 'Job\JobController@create');
+	
+	Route::get('job/{job}', 'Job\JobController@show');
 	Route::get('job/{job}/edit', 'Job\JobController@edit');
+
 	Route::patch('job/{job}', 'Job\JobController@update');
 
 	Route::delete('job/{job}', 'Job\JobController@destroy');
@@ -253,78 +250,125 @@ Route::group(['prefix' => 'data', 'middleware' => 'auth'], function()	{
 	 *
 	 */
 
+	Route::get('/', 'Data\DataController');
+
 	Route::get('position', 'Data\PositionController@index');
+	Route::get('position/{position}', 'Data\PositionController@edit');
 	Route::get('position/{position}/edit', 'Data\PositionController@edit');
 	Route::patch('position/{position}', 'Data\PositionController@update');
 	Route::post('position', 'Data\PositionController@store');
+	Route::delete('position/{position}', 'Data\PositionController@destroy');
 
 	/**
-	 *	Positions
+	 *	Languages
 	 *
 	 */
 
 	Route::get('language', 'Data\LanguageController@index');
+	Route::get('language/{language}', 'Data\LanguageController@edit');
 	Route::get('language/{language}/edit', 'Data\LanguageController@edit');
 	Route::patch('language/{language}', 'Data\LanguageController@update');
 	Route::post('language', 'Data\LanguageController@store');
+	Route::delete('language/{language}', 'Data\LanguageController@destroy');
 
 	/**
-	 *	Positions
+	 *	Trainings
 	 *
 	 */
 
 	Route::get('training', 'Data\TrainingController@index');
+	Route::get('training/{training}', 'Data\TrainingController@edit');
 	Route::get('training/{training}/edit', 'Data\TrainingController@edit');
 	Route::patch('training/{training}', 'Data\TrainingController@update');
 	Route::post('training', 'Data\TrainingController@store');
+	Route::delete('training/{training}', 'Data\TrainingController@destroy');
 
 	/**
-	 *	Positions
+	 *	Document Types
 	 *
 	 */
 
-	Route::get('documentType', 'Data\DocumentTypeController@index');
-	Route::get('documentType/{documentType}/edit', 'Data\DocumentTypeController@edit');
-	Route::patch('documentType/{documentType}', 'Data\DocumentTypeController@update');
-	Route::post('documentType', 'Data\DocumentTypeController@store');
+	Route::get('document_type', 'Data\DocumentTypeController@index');
+	Route::get('document_type/{documentType}', 'Data\DocumentTypeController@edit');
+	Route::get('document_type/{documentType}/edit', 'Data\DocumentTypeController@edit');
+	Route::patch('document_type/{documentType}', 'Data\DocumentTypeController@update');
+	Route::post('document_type', 'Data\DocumentTypeController@store');
+	Route::delete('document_type/{documentType}', 'Data\DocumentTypeController@destroy');
 
 	/**
-	 *	Positions
+	 *	Ship Types
 	 *
 	 */
 
-	Route::get('shipType', 'Data\ShipTypeController@index');
-	Route::get('shipType/{shipType}/edit', 'Data\ShipTypeController@edit');
-	Route::patch('shipType/{shipType}', 'Data\ShipTypeController@update');
-	Route::post('shipType', 'Data\ShipTypeController@store');
+	Route::get('ship_type', 'Data\ShipTypeController@index');
+	Route::get('ship_type/{shipType}', 'Data\ShipTypeController@edit');
+	Route::get('ship_type/{shipType}/edit', 'Data\ShipTypeController@edit');
+	Route::patch('ship_type/{shipType}', 'Data\ShipTypeController@update');
+	Route::post('ship_type', 'Data\ShipTypeController@store');
+	Route::delete('ship_type/{shipType}', 'Data\ShipTypeController@destroy');
 
 	/**
-	 *	Positions
+	 *	DP Types
 	 *
 	 */
 
-	Route::get('seamanBookCategory', 'Data\SeamanBookCategoryController@index');
-	Route::get('seamanBookCategory/{bookCategory}/edit', 'Data\SeamanBookCategoryController@edit');
-	Route::patch('seamanBookCategory/{bookCategory}', 'Data\SeamanBookCategoryController@update');
-	Route::post('seamanBookCategory', 'Data\SeamanBookCategoryController@store');
+	Route::get('dp_type', 'Data\DpTypeController@index');
+	Route::get('dp_type/{dpType}', 'Data\DpTypeController@edit');
+	Route::get('dp_type/{dpType}/edit', 'Data\DpTypeController@edit');
+	Route::patch('dp_type/{dpType}', 'Data\DpTypeController@update');
+	Route::post('dp_type', 'Data\DpTypeController@store');
+	Route::delete('dp_type/{dpType}', 'Data\DpTypeController@destroy');
+
+	/**
+	 *	Seaman Book Categories
+	 *
+	 */
+
+	Route::get('seaman_book_category', 'Data\SeamanBookTypeController@index');
+	Route::get('seaman_book_category/{bookCategory}', 'Data\SeamanBookTypeController@edit');
+	Route::get('seaman_book_category/{bookCategory}/edit', 'Data\SeamanBookTypeController@edit');
+	Route::patch('seaman_book_category/{bookCategory}', 'Data\SeamanBookTypeController@update');
+	Route::post('seaman_book_category', 'Data\SeamanBookTypeController@store');
+	Route::delete('seaman_book_category/{bookCategory}', 'Data\SeamanBookTypeController@destroy');
 		
 	/**
-	 *	Positions
+	 *	STCW Regulations
 	 *
 	 */
 
-	Route::get('stcwRegulation', 'Data\StcwRegulationController@index');
-	Route::get('stcwRegulation/{stcwRegulation}/edit', 'Data\StcwRegulationController@edit');
-	Route::patch('stcwRegulation/{stcwRegulation}', 'Data\StcwRegulationController@update');
-	Route::post('stcwRegulation', 'Data\StcwRegulationController@store');
+	Route::get('stcw_regulation', 'Data\StcwRegulationController@index');
+	Route::get('stcw_regulation/{stcwRegulation}', 'Data\StcwRegulationController@edit');
+	Route::get('stcw_regulation/{stcwRegulation}/edit', 'Data\StcwRegulationController@edit');
+	Route::patch('stcw_regulation/{stcwRegulation}', 'Data\StcwRegulationController@update');
+	Route::post('stcw_regulation', 'Data\StcwRegulationController@store');
+	Route::delete('stcw_regulation/{stcwRegulation}', 'Data\StcwRegulationController@destroy');
 
 	/**
-	 *	Positions
+	 *	Countries
 	 *
 	 */
 	
 	Route::get('country', 'Data\CountryController@index');
+	Route::get('country/{country}', 'Data\CountryController@edit');
 	Route::get('country/{country}/edit', 'Data\CountryController@edit');
 	Route::patch('country/{country}', 'Data\CountryController@update');
 	Route::post('country', 'Data\CountryController@store');
+	Route::delete('country/{country}', 'Data\CountryController@destroy');
+});
+
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function()	{
+
+	Route::get('/', 'Admin\AdminController');
+
+	Route::get('user', 'Admin\UserController@index');
+	Route::get('user/{user}', 'Admin\UserController@show');
+	Route::post('user', 'Admin\UserController@store');
+	Route::patch('user/{user}', 'Admin\UserController@update');
+
+	Route::get('company', 'Admin\CompanyController@index');
+	Route::get('company/{company}', 'Admin\CompanyController@show');
+	Route::post('company', 'Admin\CompanyController@store');
+	Route::patch('company/{company}', 'Admin\CompanyController@update');
+
+	Route::delete('recruiter/{recruiter}', 'Admin\RecruiterController@destroy');
 });

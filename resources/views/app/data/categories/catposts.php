@@ -73,14 +73,14 @@
 				</form>
 				
 				<!-- fim: adicionar nova categoria -->
-				{positions}
+				@foreach($positions as $position)
 				<div class="row" >
-					<div class="col-sm-8" >{positionLabel}</div>
+					<div class="col-sm-8" >{{$position->label}}</div>
 					<div class="col-sm-4" >
 						<a href="#" class="btn btn-sm btn-default"><i class="icon-pencil"></i></a>
 					</div>
 				</div>
-				{/positions}
+				@endforeach
 			</div>
 		</div>
 		

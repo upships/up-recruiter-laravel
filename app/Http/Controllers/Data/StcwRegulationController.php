@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Data;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\Data\StcwRegulation;
+
 class StcwRegulationController extends Controller
 {
     /**
@@ -14,7 +16,14 @@ class StcwRegulationController extends Controller
      */
     public function index()
     {
-        //
+        $stcw_regulations = StcwRegulation::all();
+
+        if(request()->ajax())   {
+
+            return request()->json($stcw_regulations);
+        }
+
+        return view('app.data.stcw_regulations', compact('stcw_regulations'));
     }
 
     /**
@@ -35,7 +44,16 @@ class StcwRegulationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        list($chapter, $item) = explode('/', $request->regulation);
+
+        $item = StcwRegulation::create(['regulation' => $request->regulation, 'chapter' => $chapter, 'item' => $item]);
+        
+        if($request->ajax())    {
+
+            return response()->json($item);
+        }
+
+        return back()->with('message', 'Regulation added');
     }
 
     /**

@@ -32,6 +32,7 @@ class CreateUsersTable extends Migration
 
             $table->integer('company_id')->nullable(false);
 
+            $table->string('avatar')->nullable();
 
             $table->rememberToken();
             $table->timestamps();

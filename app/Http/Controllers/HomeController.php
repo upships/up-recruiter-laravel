@@ -23,6 +23,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('app.index');
+        $positions = \App\Models\Data\Position::all();
+        $ship_types = \App\Models\Data\ShipType::all();
+
+        return view('app.index', compact('positions', 'ship_types') );
     }
 }

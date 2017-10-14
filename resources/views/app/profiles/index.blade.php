@@ -64,9 +64,9 @@
         <label for='requiredCertificates' class="control-label">Certificados</label>
         <select class="select2" multiple data-placeholder="Selecione um certificado..." name="requiredCertificates" id="requiredCertificates">
           <option value="">Nenhum</option>
-          {trainings}
+          @foreach($trainings as $training)
           <option value="{{$training->id}}">{{$training->label}}</option>
-          {/trainings}
+          @endforeach
         </select>
       </div>
     </div>
@@ -137,7 +137,7 @@
             <select class="select2 new-experience-selectors" data-placeholder="Selecione uma embarcação..." name="shipTypeId" id="shipTypeId">
               <option value="">Nenhum</option>
               {ships}
-              <option value="{shipTypeId}">{shipTypeLabel}</option>
+              <option value="{shipTypeId}">{{$job->ship_type->label}}</option>
               {/ships}
             </select>
           </div>
@@ -760,7 +760,7 @@ $(document).ready(function()
 
   /*
   // Select position
-  var positionId = '{position->id}';
+  var positionId = '{{$position->id}}';
   var duration = '{duration}';
   var shipTypeId = '{shipTypeId}';
 

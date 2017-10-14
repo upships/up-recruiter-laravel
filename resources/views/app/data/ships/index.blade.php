@@ -7,7 +7,7 @@
 			</div>
 			<div class="list-group" >
 				<div class="list-group-item">
-		            <form method="post" action="/data/ships/addAction" role="form">
+		            <form method="post" action="/data/ship" role="form">
 		                
 					<div class="row" >
 						<div class="col-lg-8 col-md-8 col-xs-8 col-sm-8" >
@@ -22,7 +22,7 @@
 				
 			{ships}
 				<div class="list-group-item">
-			        {shipTypeLabel}
+			        {{$job->ship_type->label}}
 
 			        <ul class="list-inline">
 			        	<li>

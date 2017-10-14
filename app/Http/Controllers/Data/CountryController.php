@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Data;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\Data\Country;
+
 class CountryController extends Controller
 {
     /**
@@ -14,7 +16,14 @@ class CountryController extends Controller
      */
     public function index()
     {
-        //
+        $countries = Country::all();
+
+        if(request()->ajax())   {
+
+            return request()->json($countries);
+        }
+
+        return view('app.data.countries', compact('countries'));
     }
 
     /**
@@ -35,7 +44,14 @@ class CountryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $item = Country::create($request->all());
+        
+        if($request->ajax())    {
+
+            return response()->json($item);
+        }
+
+        return back()->with('message', 'Success');
     }
 
     /**

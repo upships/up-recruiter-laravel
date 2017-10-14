@@ -190,7 +190,7 @@
 
 		        const vm = this;
 
-		        axios.get('/api/jobs/applications/' + vm.job_id).then( function( response ) {
+		        axios.get('/api/job/applications/' + vm.job_id).then( function( response ) {
 
 		            // Go through each profile, get their filterableAttributes and return to the Filters array
 

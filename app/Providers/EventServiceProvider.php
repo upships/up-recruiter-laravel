@@ -16,6 +16,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\Event' => [
             'App\Listeners\EventListener',
         ],
+
+        'App\Events\UserAddedToCompany' => ['App\Listeners\AddRecruiter'],
+        'App\Events\UserRemovedFromCompany' => ['App\Listeners\RemoveRecruiter'],
     ];
 
     /**

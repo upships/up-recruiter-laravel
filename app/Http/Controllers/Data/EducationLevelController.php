@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Data;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\Data\EducationLevel;
+
 class EducationLevelController extends Controller
 {
     /**
@@ -14,7 +16,14 @@ class EducationLevelController extends Controller
      */
     public function index()
     {
-        //
+        $education_level = EducationLevel::all();
+
+        if(request()->ajax())   {
+
+            return request()->json($education_level);
+        }
+
+        return view('app.data.education_level', compact('education_level'));
     }
 
     /**
@@ -35,7 +44,14 @@ class EducationLevelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $item = EducationLevel::create($request->all());
+        
+        if($request->ajax())    {
+
+            return response()->json($item);
+        }
+
+        return back()->with('message', 'Success');
     }
 
     /**

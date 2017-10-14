@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Data;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\Data\DpType;
+
 class DpTypeController extends Controller
 {
     /**
@@ -14,7 +16,14 @@ class DpTypeController extends Controller
      */
     public function index()
     {
-        //
+        $dp_types = DpType::all();
+
+        if(request()->ajax())   {
+
+            return request()->json($dp_types);
+        }
+
+        return view('app.data.dp_types', compact('dp_types'));
     }
 
     /**
@@ -35,7 +44,14 @@ class DpTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $item = DpType::create($request->all());
+        
+        if($request->ajax())    {
+
+            return response()->json($item);
+        }
+
+        return back()->with('message', 'Success');
     }
 
     /**

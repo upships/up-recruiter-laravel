@@ -34,15 +34,15 @@
 					<h3 class="panel-title">Documentos solicitados</h3>
 				</div>
 				<div class="panel-body">
-					{documentTypes}
+					@foreach($document_types as $document_type)
 					<div class="form-group">
 		                <label class="cr-styled">
-		                    <input type="checkbox" name="documentTypes[]" value="{documentTypeId}">
+		                    <input type="checkbox" name="documentTypes[]" value="{{$document_type->id}}">
 		                    <i class="fa"></i> 
-		                    {documentTypeLabel}
+		                    {{$document_type->label}}
 		                </label>
 		            </div>
-		            {/documentTypes}
+		            @endforeach
 
 		            <div id="customDocument">
 

@@ -15,9 +15,9 @@ class JobBenefitController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Job $job)
     {
-        //
+        return request()->json($job->benefits);
     }
 
     /**

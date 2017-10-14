@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Data;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\Data\ShipDepartment;
+
 class ShipDepartmentController extends Controller
 {
     /**
@@ -14,7 +16,14 @@ class ShipDepartmentController extends Controller
      */
     public function index()
     {
-        //
+        $ship_department = ShipDepartment::all();
+
+        if(request()->ajax())   {
+
+            return request()->json($ship_department);
+        }
+
+        return view('app.data.ship_department', compact('ship_department'));
     }
 
     /**
@@ -35,7 +44,14 @@ class ShipDepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $item = ShipDepartment::create($request->all());
+        
+        if($request->ajax())    {
+
+            return response()->json($item);
+        }
+
+        return back()->with('message', 'Success');
     }
 
     /**

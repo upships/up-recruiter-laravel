@@ -9,7 +9,7 @@
     <h2>Vagas em aberto</h2>
         
     <div class="card card-default">
-      <div class="card-body">
+      <div class="card-block">
         <a href="/job/add" class="btn btn-success"><i class="fa fa-plus"></i> Nova vaga</a>
         <a href="/job/disabled" class="btn btn-default float-right"><i class="fa fa-eye-slash"></i> Vagas inativas</a>
       </div>

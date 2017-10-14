@@ -12,8 +12,8 @@
 				{allPositions}
 				<div class="form-group">
 					<label>
-						<input type="checkbox" name="oldPositions[]" value="{position->id}" > [{position->id}] {positionLabel} 
-					</label> <a href="/data/positions/editposition/{position->id}" class="btn btn-default btn-sm" target="_blank" >editar</a>
+						<input type="checkbox" name="oldPositions[]" value="{{$position->id}}" > [{{$position->id}}] {{$position->label}} 
+					</label> <a href="/data/positions/editposition/{{$position->id}}" class="btn btn-default btn-sm" target="_blank" >editar</a>
 				</div>
 				{/allPositions}
 			</div>
@@ -24,9 +24,9 @@
 			<div class="list-group">
 				<div class="list-group-item">
 					<select name="position" class="select2">
-						{positions}
-						<option value="{position->id}" >[{position->id}] {positionLabel}</option>
-						{/positions}
+						@foreach($positions as $position)
+						<option value="{{$position->id}}" >[{{$position->id}}] {{$position->label}}</option>
+						@endforeach
 					</select>
 				</div>
 				<div class="list-group-item">

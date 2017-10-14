@@ -1,46 +1,47 @@
-<div class="row">
-  <div class="col-lg-12">
-      <h2>Editar Posi&ccedil;&atilde;o</h2>
-    </div>
-</div>
+@extends('layouts.master')
+@section('page-title','Funções')
 
-<form method="post" action="/data/positions/editAction" role="form" enctype="multipart/form-data">
+@section('content')
+    
+    <h2>{{$position->label}}</h2>
 
-    <input type="hidden" name="positionId" value="{position->id}" >
-    <div class="row" >
-        <div class="col-lg-8 col-md-8 col-sm-12" >
-        
-            <ul class="list-group" >
-                <li class="list-group-item" >
-                    <div class="form-group">
-                        <positionLabel for='positionLabel'>Nome da fun&ccedil;&atilde;o</positionLabel>
-                        <input type="text" name="positionLabel" id="positionLabel" class="form-control" placeholder="Nome da posi&ccedil;&atilde;o" value="{positionLabel}" />
-                    </div>
+    <div class="card card-default">
+        <div class="card-block">
+            <form method="post" action="/data/position/{{$position->id}}" >
+                {{csrf_field()}}
+                {{method_field('PATCH')}}
 
-                    <div class="form-group">
-                        <positionLabel for='positionEnglishLabel'>Nome da fun&ccedil;&atilde;o em Ingl&ecirc;s</positionLabel>
-                        <input type="text" name="positionEnglishLabel" id="positionEnglishLabel" class="form-control" placeholder="Nome da fun&ccedil;&atilde;o em ingl&ecirc;s" value="{positionEnglishLabel}" />
-                    </div>                    
-                </li>
-                <li class="list-group-item" >
-                    <div class="form-group" >
-                        <positionLabel for="positionImage" >Imagem</positionLabel>
-                        <input type="file" name="positionImage" class="form-control" />
-                    </div>
-                </li>        
-                <li class="list-group-item" >
-                   <button type="submit" class="btn btn-success"><i class="icon-floppy-disk" ></i> Salvar</button> 
-                   <a href="/data" class="btn btn-default" >Cancelar</a>
+                <div class="form-group">
+                    <label for='label'>Nome da fun&ccedil;&atilde;o</label>
+                    <input type="text" name="label" id="label" class="form-control" placeholder="Nome" value="{{$position->label}}" />
+                </div>
 
-                   <a href="/data/deleteposition/{position->id}" class="btn btn-warning float-right" >Excluir</a>
-                </li>
-            </ul>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-12" >
-            <h4>Imagem atual</h4>
-            
-            <img src="//vagasembarcado.upships.com/_images/jobs/{positionImage}" class="img-responsive" >
+                <div class="form-group">
+                    <label for='label'>Código da fun&ccedil;&atilde;o</label>
+                    <input type="text" name="code" id="code" class="form-control" placeholder="Código" value="{{$position->code}}" />
+                </div>
+
+                <div class="form-group">
+                    <label for='type'>Nome da fun&ccedil;&atilde;o</label>
+                    <select name="type" class="form-control" >
+                        <option value="1" @if($position->type == 1)selected @endif>De bordo</option>
+                        <option value="2" @if($position->type == 2)selected @endif>Onshore</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-success"><i class="icon-floppy-disk" ></i> Salvar</button>
+            </form>
         </div>
     </div>
-            
-</form>
+
+    <div class="card card-default">
+        <div class="card-block">
+            <form method="post" action="/data/position/{{$position->id}}" >
+                {{csrf_field()}}
+                {{method_field('DELETE')}}
+
+                <button type="submit" class="btn btn-danger btn-sm"><i class="icon-trash" ></i> Apagar</button>
+            </form>
+        </div>
+    </div>
+@endsection

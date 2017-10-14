@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class DocumentType extends Model
 {
+	protected $guarded = ['company_id'];
+
     public function company()	{
 
     	return $this->belongsTo('App\Models\Company\Company');

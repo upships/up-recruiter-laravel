@@ -1,4 +1,4 @@
-<form method="post" action="/jobs/concludeAction" >
+<form method="post" action="/job/concludeAction" >
 	<input type="hidden" name="jobId" value="{{$job->id}}">
 
 	<div class="row m-b-10">
@@ -30,7 +30,7 @@
 						</li>
 
 						<li class="float-right">
-							<a href="/jobs/view/{{$job->id}}" class="btn btn-default btn-lg btn-fill" ><i class='fa fa-undo' ></i> Voltar</a>
+							<a href="/job/view/{{$job->id}}" class="btn btn-default btn-lg btn-fill" ><i class='fa fa-undo' ></i> Voltar</a>
 						</li>
 
 						<li class="clearfix"></li>
@@ -124,7 +124,7 @@
 					</li>
 
 					<li class="float-right">
-						<a href="/jobs/view/{{$job->id}}" class="btn btn-default btn-lg btn-fill" ><i class='fa fa-undo' ></i> Voltar</a>
+						<a href="/job/view/{{$job->id}}" class="btn btn-default btn-lg btn-fill" ><i class='fa fa-undo' ></i> Voltar</a>
 					</li>
 
 					<li class="clearfix"></li>

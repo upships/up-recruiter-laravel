@@ -6,9 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Company extends Model
 {
+    protected $fillable = ['name'];
+
     public function recruiters()	{
 
-    	return $this->hasMany('App\Models\Company\Recruiters');
+    	return $this->hasMany('App\Models\Company\Recruiter');
+    }
+
+    public function users()    {
+
+        return $this->hasMany('App\User');
     }
 
     public function jobs()	{
@@ -23,12 +30,12 @@ class Company extends Model
 
     public function offices()	{
 
-    	return $this->hasMany('App\Models\Company\CompanyOffices');
+    	return $this->hasMany('App\Models\Company\CompanyOffice');
     }
 
     public function phones()	{
 
-    	return $this->hasMany('App\Models\Company\CompanyPhones');
+    	return $this->hasMany('App\Models\Company\CompanyPhone');
     }
 
 

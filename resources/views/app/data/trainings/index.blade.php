@@ -24,12 +24,12 @@
 				<div class="row">
 					<div class="col-lg-6 col-md-8 col-sm-12">
 						<div class="list-group">
-				            {trainings}
+				            @foreach($trainings as $training)
 		                    <a href="/data/trainings/edit/{{$training->id}}" class="list-group-item" >
 								(PT) {{$training->label}} - {{$training->description}} <br/>
 								(EN) {trainingEnglishLabel} - {trainingEnglishDescription}
 							</a>
-						{/trainings}
+						@endforeach
 				        </div>
 				   	</div>
 				</div>

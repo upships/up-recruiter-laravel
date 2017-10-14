@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col">
             <div class="card card-default">
-                <div class="card-body">
+                <div class="card-block">
                     <ul class="list-inline">
                         <li>
                             <img src="{{auth()->user()->company->logo}}" class="img-circle logo-40">
@@ -20,7 +20,7 @@
             </div>
 
             <div class="card card-default">
-                <div class="card-body">
+                <div class="card-block">
                     
                     <h3>Vagas em aberto</h3>
 
@@ -87,44 +87,39 @@
                         Nova vaga
                     </h3>
                 </div>
-                <div class="card-body">
+                <div class="card-block">
                     <form method="post" action="/job" role="form"  >
-                        {{csfr_field()}}
+                        {{csrf_field()}}
 
-                        <div class="row">
-                            <div class="col-lg-4 col-md-4 col-sm-4">
-                                <div class="form-group" >
-                                    <label for='position'>Fun&ccedil;&atilde;o</label>
-                                    <select class="select2" name="position_id" data-placeholder="Selecione uma função" required='required' >
-                                    <option disabled selected> -- Selecione uma fun&ccedil;&atilde;o -- </option>
-                                      @foreach($positions as $position)
-                                      <option value="{{$position->id}}" >{{$position->label}}</option>
-                                      @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4">
-                                <div class="form-group" >
-                                    <label for='ship_type_id'>Embarca&ccedil;&atilde;o</label>
-                                    <select class="select2" name="ship_type_id" data-placeholder="Selecione uma função" required='required' >
-                                    <option disabled selected> -- Selecione uma embarcação -- </option>
-                                      @foreach($ship_types as $ship_type)
-                                      <option value="{{$ship_type->id}}" >{{$ship_type->label}}</option>
-                                      @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4">
-                                <div class="form-group" >
-                                  <label for="privacy" >Privacidade da vaga</label>
-                                  <select class="form-control" name="privacy" >
-                                      <option value="1" >Aberta</option>
-                                      <option value="2" >Confidencial</option>
-                                      <option value="3" >Particular</option>
-                                  </select>
-                              </div>
-                            </div>
+                        <div class="form-group" >
+                            <label for='position'>Fun&ccedil;&atilde;o</label>
+                            <select class="full-width select2" name="position_id" data-placeholder="Selecione uma função" required='required' >
+                            <option disabled selected> -- Selecione uma fun&ccedil;&atilde;o -- </option>
+                              @foreach($positions as $position)
+                              <option value="{{$position->id}}" >{{$position->label}}</option>
+                              @endforeach
+                            </select>
                         </div>
+                            
+                        <div class="form-group" >
+                            <label for='ship_type_id'>Embarca&ccedil;&atilde;o</label>
+                            <select class="full-width select2" name="ship_type_id" data-placeholder="Selecione uma função" required='required' >
+                            <option disabled selected> -- Selecione uma embarcação -- </option>
+                              @foreach($ship_types as $ship_type)
+                              <option value="{{$ship_type->id}}" >{{$ship_type->label}}</option>
+                              @endforeach
+                            </select>
+                        </div>
+                            
+                        <div class="form-group" >
+                          <label for="privacy" >Privacidade da vaga</label>
+                          <select class="form-control" name="privacy" >
+                              <option value="1" >Aberta</option>
+                              <option value="2" >Confidencial</option>
+                              <option value="3" >Particular</option>
+                          </select>
+                        </div>
+
                         <div class="form-group" >
                             <button type="submit" class="btn btn-success">Prosseguir <i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></button>
                         </div>
@@ -138,7 +133,7 @@
                         Processos seletivos em aberto
                     </h3>
                 </div>
-                <div class="card-body">
+                <div class="card-block">
                     
                     <div class="" v-if="!selections.loaded" >
                         <i class='fa fa-spinner fa-spin' ></i> Carregando &uacute;ltimas vagas
@@ -174,7 +169,7 @@
             <h3>Adicionar recrutador</h3>
             <form method="post" action="/company/recruiter" >
                 
-                {{csfr_field()}}
+                {{csrf_field()}}
                 
                 <div class="row">
                     <div class="col-lg-8 col-md-8 col-sm-" >

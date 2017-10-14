@@ -15,7 +15,7 @@
 			{works}
 			<tr>
 				<td rowspan="2">
-					{positionLabel}
+					{{$position->label}}
 				</td>
 				<td rowspan="2">
 					{companyName}

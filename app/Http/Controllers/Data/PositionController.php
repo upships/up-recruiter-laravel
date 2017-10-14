@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Data;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\Data\Position;
+
 class PositionController extends Controller
 {
     /**
@@ -14,7 +16,14 @@ class PositionController extends Controller
      */
     public function index()
     {
-        //
+        $positions = Position::all();
+
+        if(request()->ajax())    {
+
+            return request()->json($positions);
+        }
+
+        return view('app.data.positions', compact('positions'));
     }
 
     /**
@@ -35,7 +44,14 @@ class PositionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $item = Position::create($request->all());
+        
+        if($request->ajax())    {
+
+            return response()->json($item);
+        }
+
+        return back()->with('message', 'Success');  
     }
 
     /**
@@ -44,9 +60,9 @@ class PositionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Position $position)
     {
-        //
+        return view('app.data.positions.view', compact('position'));
     }
 
     /**
@@ -55,9 +71,9 @@ class PositionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Position $position)
     {
-        //
+        return view('app.data.positions.edit', compact('position'));
     }
 
     /**
@@ -78,8 +94,15 @@ class PositionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Position $position)
     {
-        //
+        $position->delete();
+
+        if(request()->ajax())    {
+
+            return response()->json(['success' => true]);
+        }
+
+        return redirect('/data/position')->with('message', 'Position deleted');
     }
 }

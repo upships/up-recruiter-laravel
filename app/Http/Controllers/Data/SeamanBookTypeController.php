@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Data;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\Data\SeamanBookType;
+
 class SeamanBookTypeController extends Controller
 {
     /**
@@ -14,7 +16,14 @@ class SeamanBookTypeController extends Controller
      */
     public function index()
     {
-        //
+        $seaman_book_types = SeamanBookType::all();
+
+        if(request()->ajax())   {
+
+            return request()->json($seaman_book_types);
+        }
+
+        return view('app.data.seaman_book_types', compact('seaman_book_types'));
     }
 
     /**
@@ -35,7 +44,14 @@ class SeamanBookTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $item = SeamanBookType::create($request->all());
+        
+        if($request->ajax())    {
+
+            return response()->json($item);
+        }
+
+        return back()->with('message', 'Success');
     }
 
     /**

@@ -12,9 +12,9 @@
 				<div class="form-group">
 				    <div class="col-md-12">
 				        <select name="oldPositionsSelector" class="multi-select" multiple="" id="positionsSelect" >
-				          {allPositions}
-				          <option value="{position->id}">{positionLabel} ({position->id})</option>
-				          {/allPositions}
+				          @foreach($all_positions as $position)
+				          <option value="{{$position->id}}">{{$position->label}} ({{$position->id}})</option>
+				          @endforeach
 				        </select>
 				    </div>
 				</div>
@@ -26,9 +26,9 @@
 			<div class="list-group">
 				<div class="list-group-item">
 					<select name="position" class="select2">
-						{positions}
-						<option value="{position->id}" >[{position->id}] {positionLabel}</option>
-						{/positions}
+						@foreach($positions as $position)
+						<option value="{{$position->id}}" >[{{$position->id}}] {{$position->label}}</option>
+						@endforeach
 					</select>
 				</div>
 				<div class="list-group-item">

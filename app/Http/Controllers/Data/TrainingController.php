@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Data;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\Data\Training;
+
 class TrainingController extends Controller
 {
     /**
@@ -14,7 +16,14 @@ class TrainingController extends Controller
      */
     public function index()
     {
-        //
+        $trainings = Training::all();
+
+        if(request()->ajax())   {
+
+            return request()->json($trainings);
+        }
+
+        return view('app.data.trainings', compact('trainings'));
     }
 
     /**
@@ -35,7 +44,14 @@ class TrainingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $item = Training::create($request->all());
+        
+        if($request->ajax())    {
+
+            return response()->json($item);
+        }
+
+        return back()->with('message', 'Success');
     }
 
     /**

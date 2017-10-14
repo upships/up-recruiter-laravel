@@ -13,6 +13,11 @@ class Job extends Model
     	return $this->belongsTo('App\Models\Company\Company');
     }
 
+    public function recruiter() {
+
+        return $this->belongsTo('App\Models\Company\Recruiter');
+    }
+
     public function country()	{
 
     	return $this->belongsTo('App\Models\Data\Country');
@@ -78,4 +83,6 @@ class Job extends Model
 
     	return $this->hasOne('App\Models\Recruiting\Selection');
     }
+
+
 }

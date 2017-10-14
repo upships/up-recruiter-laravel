@@ -26,11 +26,11 @@
 				<div class="row">
 					<div class="col-lg-6 col-md-8 col-sm-12">
 						<div class="list-group">
-				            {positions}
-				            <a class="list-group-item" href="/data/positions/edit/{position->id}" >
-								{positionLabel} / {positionEnglishLabel}
+				            @foreach($positions as $position)
+				            <a class="list-group-item" href="/data/positions/edit/{{$position->id}}" >
+								{{$position->label}} / {positionEnglishLabel}
 				            </a>
-				            {/positions}
+				            @endforeach
 				        </div>
 				   	</div>
 				</div>

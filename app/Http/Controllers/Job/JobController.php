@@ -7,6 +7,11 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Data\Position;
 use App\Models\Data\ShipType;
+use App\Models\Data\StcwRegulation;
+use App\Models\Data\SeamanBookType;
+use App\Models\Data\Training;
+
+use App\Models\Job\Job;
 
 class JobController extends Controller
 {
@@ -44,11 +49,14 @@ class JobController extends Controller
     {
         $this->validate($request, ['position_id' => 'required']);
 
-        $job = Job::create([
-                                'position_id' => $request->input('position_id'),
-                                'company_id' => auth()->user()->recruiter->id,
-                                'ship_type_id' => $request->input('ship_type_id')
-                            ]);
+        $job = new Job;
+        
+        $job->position_id = $request->input('position_id');
+        $job->company_id = auth()->user()->company_id;
+        $job->recruiter_id = auth()->user()->recruiter->id;
+        $job->ship_type_id = $request->input('ship_type_id');
+        
+        $job->save();
 
         event(new \App\Events\JobCreated($job));
 
@@ -72,17 +80,17 @@ class JobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Job $job)
     {
         
         $positions = Position::all();
         $ship_types = ShipType::all();
 
-        $stcw_regulations = App\Models\Data\StcwRegulation::all();
-        $seaman_book_categories = App\Models\Data\SeamanBookCategory::all();
-        $trainings = App\Models\Data\Training::all();
+        $stcw_regulations = StcwRegulation::all();
+        $seaman_book_types = SeamanBookType::all();
+        $trainings = Training::all();
 
-        return view('app.jobs.view', compact('job', 'positions', 'ship_types', 'stcw_regulations', 'seaman_book_categories', 'trainings'));
+        return view('app.jobs.edit', compact('job', 'positions', 'ship_types', 'stcw_regulations', 'seaman_book_types', 'trainings'));
     }
 
     /**

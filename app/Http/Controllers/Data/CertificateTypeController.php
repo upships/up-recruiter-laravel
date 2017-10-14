@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Data;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\Data\Certificate;
+
 class CertificateTypeController extends Controller
 {
     /**
@@ -14,7 +16,14 @@ class CertificateTypeController extends Controller
      */
     public function index()
     {
-        //
+        $certificates = Certificate::all();
+
+        if(request()->ajax())   {
+
+            return request()->json($certificates);
+        }
+
+        return view('app.data.certificates', compact('certificates'));
     }
 
     /**
@@ -35,7 +44,20 @@ class CertificateTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $item = CertificateType::create($request->all());
+        
+        if($request->ajax())    {
+
+            return back()->with('message', 'Success');
+        }
+
+        
+        if($request->ajax())    {
+
+            return response()->json($item);
+        }
+
+        return back()->with('message', 'Success');
     }
 
     /**

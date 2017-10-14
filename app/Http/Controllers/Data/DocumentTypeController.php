@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Data;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\Data\DocumentType;
+
 class DocumentTypeController extends Controller
 {
     /**
@@ -14,7 +16,14 @@ class DocumentTypeController extends Controller
      */
     public function index()
     {
-        //
+        $document_types = DocumentType::all();
+
+        if(request()->ajax())   {
+
+            return request()->json($document_types);
+        }
+
+        return view('app.data.document_types', compact('document_types'));
     }
 
     /**
@@ -35,7 +44,14 @@ class DocumentTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $item = DocumentType::create($request->all());
+        
+        if($request->ajax())    {
+
+            return response()->json($item);
+        }
+
+        return back()->with('message', 'Success');
     }
 
     /**
