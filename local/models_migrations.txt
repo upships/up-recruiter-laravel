@@ -1,4 +1,3 @@
-#!/bin/bash
 php artisan make:model Models/Profile/Profile &&
 php artisan make:model Models/Profile/ProfileCertificate &&
 php artisan make:model Models/Profile/ProfileDocument &&

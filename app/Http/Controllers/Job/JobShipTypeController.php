@@ -40,7 +40,7 @@ class JobShipTypeController extends Controller
     {
         $item = JobShipType::create($request->all());
 
-        return response()->toJson($item);
+        return response()->json($item);
     }
 
     /**

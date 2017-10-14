@@ -18,7 +18,7 @@ class CreateJobRequirementsTable extends Migration
             $table->timestamps();
 
             $table->integer('job_id');
-            $table->string('label');
+            $table->string('value');
         });
     }
 

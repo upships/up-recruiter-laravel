@@ -40,7 +40,7 @@ class JobSeamanBookTypeController extends Controller
     {
         $item = JobSeamanBookType::create($request->all());
         
-        return response()->toJson($item);
+        return response()->json($item);
     }
 
     /**

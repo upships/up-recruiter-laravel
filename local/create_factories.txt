@@ -1,0 +1,56 @@
+#!/bin/bash
+php artisan make:factory --model=Models/Company/CompanyEmail CompanyEmailFactory &&
+php artisan make:factory --model=Models/Company/CompanyPhone CompanyPhoneFactory &&
+php artisan make:factory --model=Models/Company/CompanyOffice CompanyOfficeFactory &&
+php artisan make:factory --model=Models/Company/Crew CrewFactory &&
+php artisan make:factory --model=Models/Company/CrewMember CrewMemberFactory &&
+php artisan make:factory --model=Models/Company/ProfileFolder ProfileFolderFactory &&
+php artisan make:factory --model=Models/Company/ProfileFolderItem ProfileFolderItemFactory &&
+php artisan make:factory --model=Models/Company/Recruiter RecruiterFactory &&
+php artisan make:factory --model=Models/Company/Ship ShipFactory &&
+
+php artisan make:factory --model=Models/Data/CertificateType CertificateTypeFactory &&
+php artisan make:factory --model=Models/Data/CompanyType CompanyTypeFactory &&
+php artisan make:factory --model=Models/Data/Country CountryFactory &&
+php artisan make:factory --model=Models/Data/Currency CurrencyFactory &&
+php artisan make:factory --model=Models/Data/DocumentType DocumentTypeFactory &&
+php artisan make:factory --model=Models/Data/DpType DpTypeFactory &&
+php artisan make:factory --model=Models/Data/EducationLevel EducationLevelFactory &&
+php artisan make:factory --model=Models/Data/Language LanguageFactory &&
+php artisan make:factory --model=Models/Data/LanguageLevel LanguageLevelFactory &&
+php artisan make:factory --model=Models/Data/Position PositionFactory &&
+php artisan make:factory --model=Models/Data/ProfileType ProfileTypeFactory &&
+php artisan make:factory --model=Models/Data/SeamanBookType SeamanBookTypeFactory &&
+php artisan make:factory --model=Models/Data/SeamanType SeamanTypeFactory &&
+php artisan make:factory --model=Models/Data/ShipDepartment ShipDepartmentFactory &&
+php artisan make:factory --model=Models/Data/ShipType ShipTypeFactory &&
+php artisan make:factory --model=Models/Data/StcwRegulation StcwRegulationFactory &&
+php artisan make:factory --model=Models/Data/Training TrainingFactory &&
+
+php artisan make:factory --model=Models/Job/Job JobFactory &&
+php artisan make:factory --model=Models/Job/JobBenefit JobBenefitFactory &&
+php artisan make:factory --model=Models/Job/JobCertificate JobCertificateFactory &&
+php artisan make:factory --model=Models/Job/JobExperience JobExperienceFactory &&
+php artisan make:factory --model=Models/Job/JobRequirement JobRequirementFactory &&
+php artisan make:factory --model=Models/Job/JobSeamanBookType JobSeamanBookTypeFactory &&
+php artisan make:factory --model=Models/Job/JobShipType JobShipTypeFactory &&
+php artisan make:factory --model=Models/Job/JobStcwRegulation JobStcwRegulationFactory &&
+php artisan make:factory --model=Models/Job/JobTraining JobTrainingFactory &&
+
+php artisan make:factory --model=Models/Profile/Coc CocFactory &&
+php artisan make:factory --model=Models/Profile/CocStcwRegulation CocStcwRegulationFactory &&
+php artisan make:factory --model=Models/Profile/Dp DpFactory &&
+php artisan make:factory --model=Models/Profile/Profile ProfileFactory &&
+php artisan make:factory --model=Models/Profile/ProfileCertificate ProfileCertificateFactory &&
+php artisan make:factory --model=Models/Profile/ProfileDocument ProfileDocumentFactory &&
+php artisan make:factory --model=Models/Profile/ProfileDocumentRequest ProfileDocumentRequestFactory &&
+php artisan make:factory --model=Models/Profile/ProfileEducation ProfileEducationFactory &&
+php artisan make:factory --model=Models/Profile/ProfileExtra ProfileExtraFactory &&
+php artisan make:factory --model=Models/Profile/ProfileLanguage ProfileLanguageFactory &&
+php artisan make:factory --model=Models/Profile/ProfileShip ProfileShipFactory &&
+php artisan make:factory --model=Models/Profile/ProfileTraining ProfileTrainingFactory &&
+php artisan make:factory --model=Models/Profile/ProfileWork ProfileWorkFactory &&
+php artisan make:factory --model=Models/Profile/SeamanBook SeamanBookFactory &&
+
+php artisan make:factory --model=Models/Recruiting/Application ApplicationFactory &&
+php artisan make:factory --model=Models/Recruiting/Selection SelectionFactory

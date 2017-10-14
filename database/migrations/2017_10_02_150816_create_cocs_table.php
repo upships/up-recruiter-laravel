@@ -21,8 +21,8 @@ class CreateCocsTable extends Migration
             
             $table->string('number')->nullable();
 
-            $table->date('issued_on')->nullable();
-            $table->date('expires_on')->nullable();
+            $table->dateTime('issued_on')->nullable();
+            $table->dateTime('expires_on')->nullable();
 
             $table->text('remarks')->nullable();
 

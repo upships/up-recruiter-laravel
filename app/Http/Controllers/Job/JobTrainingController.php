@@ -40,7 +40,7 @@ class JobTrainingController extends Controller
     {
         $item = JobTraining::create($request->all());
 
-        return response()->toJson($item);
+        return response()->json($item);
     }
 
     /**

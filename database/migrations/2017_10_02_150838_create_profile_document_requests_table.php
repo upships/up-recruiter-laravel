@@ -20,6 +20,8 @@ class CreateProfileDocumentRequestsTable extends Migration
             $table->integer('profile_id');
             $table->integer('company_id');
             $table->integer('selection_id');
+            $table->integer('recruiter_id')->nullable();
+
             $table->integer('document_type_id')->nullable();
 
             $table->integer('status')->default(0);  // 0 - waiting, 1 - received, 666 - returned, 10 - verified

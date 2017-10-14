@@ -22,8 +22,8 @@ class CreateProfileWorksTable extends Migration
 
             $table->string('company_name');
             
-            $table->date('start_date');
-            $table->date('end_date')->nullable();
+            $table->dateTime('start_date');
+            $table->dateTime('end_date')->nullable();
 
             $table->text('description')->nullable();
         });

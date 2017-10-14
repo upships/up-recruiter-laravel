@@ -21,7 +21,7 @@ class CreateProfileExtrasTable extends Migration
 
             $table->string('label')->nullable();
             $table->text('description')->nullable();
-            $table->date('date')->nullable();
+            $table->dateTime('date')->nullable();
         });
     }
 

@@ -40,7 +40,7 @@ class JobBenefitController extends Controller
     {
         $item = JobBenefit::create($request->all());
 
-        return response()->toJson($item);
+        return response()->json($item);
     }
 
     /**

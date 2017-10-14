@@ -13,6 +13,6 @@ class ProfileCertificate extends Model
 
     public function certificate()	{
 
-    	return $this->belongsTo('App\Models\Data\Certificate');
+    	return $this->belongsTo('App\Models\Data\CertificateType');
     }
 }

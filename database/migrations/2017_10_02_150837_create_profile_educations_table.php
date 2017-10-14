@@ -23,8 +23,8 @@ class CreateProfileEducationsTable extends Migration
             $table->text('remarks')->nullable();
             $table->string('school')->nullable();
 
-            $table->date('start_date')->nullable();
-            $table->date('end_date')->nullable();
+            $table->dateTime('start_date')->nullable();
+            $table->dateTime('end_date')->nullable();
 
         });
     }

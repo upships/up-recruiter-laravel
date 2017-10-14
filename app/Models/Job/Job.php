@@ -68,9 +68,9 @@ class Job extends Model
     	return $this->hasMany('App\Models\Job\JobTraining');
     }
 
-    public function certificates()	{
+    public function certificate_types()	{
 
-    	return $this->hasMany('App\Models\Job\JobCertificate');
+    	return $this->hasMany('App\Models\Job\JobCertificateType');
     }
 
 

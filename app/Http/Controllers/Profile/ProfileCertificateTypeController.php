@@ -1,23 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Job;
+namespace App\Http\Controllers\Profile;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use App\Models\Job\Job;
-use App\Models\Job\JobCertificate;
-
-class JobCertificateController extends Controller
+class ProfileCertificateTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Job $job)
+    public function index()
     {
-        return request()->json($job->certificates);
+        //
     }
 
     /**
@@ -38,9 +35,7 @@ class JobCertificateController extends Controller
      */
     public function store(Request $request)
     {
-        $item = JobCertificate::create($request->all());
-
-        return response()->toJson($item);
+        //
     }
 
     /**
@@ -83,10 +78,8 @@ class JobCertificateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(JobCertificate $certificate)
+    public function destroy($id)
     {
-        $certificate->delete();
-
-        return true;
+        //
     }
 }

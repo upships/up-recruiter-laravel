@@ -25,8 +25,8 @@ class CreateProfileCertificatesTable extends Migration
             $table->text('file')->nullable();
             $table->text('remarks')->nullable();
 
-            $table->date('issued_on')->nullable();
-            $table->date('expires_on')->nullable();
+            $table->dateTime('issued_on')->nullable();
+            $table->dateTime('expires_on')->nullable();
             
         });
     }

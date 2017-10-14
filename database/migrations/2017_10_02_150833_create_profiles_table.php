@@ -26,7 +26,7 @@ class CreateProfilesTable extends Migration
             $table->integer('ship_department_id')->nullable();
 
             $table->integer('gender')->nullable();
-            $table->date('birthday');
+            $table->dateTime('birthday');
             $table->integer('marital_status')->nullable();
 
             $table->string('city');
@@ -34,7 +34,7 @@ class CreateProfilesTable extends Migration
             $table->integer('country_id');
 
             $table->string('passport')->nullable();
-            $table->date('passport_expires_on')->nullable();
+            $table->dateTime('passport_expires_on')->nullable();
 
             $table->integer('english_level')->default(0);
             $table->integer('native_language')->nullable();

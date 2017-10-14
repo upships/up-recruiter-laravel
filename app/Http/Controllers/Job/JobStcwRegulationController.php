@@ -40,7 +40,7 @@ class JobStcwRegulationController extends Controller
     {
         $item = JobStcwRegulation::create($request->all());
 
-        return response()->toJson($item);
+        return response()->json($item);
     }
 
     /**
