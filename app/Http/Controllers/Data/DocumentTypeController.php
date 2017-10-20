@@ -20,7 +20,7 @@ class DocumentTypeController extends Controller
 
         if(request()->ajax())   {
 
-            return request()->json($document_types);
+            return response()->json($document_types);
         }
 
         return view('app.data.document_types', compact('document_types'));

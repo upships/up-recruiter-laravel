@@ -20,7 +20,7 @@ class DpTypeController extends Controller
 
         if(request()->ajax())   {
 
-            return request()->json($dp_types);
+            return response()->json($dp_types);
         }
 
         return view('app.data.dp_types', compact('dp_types'));

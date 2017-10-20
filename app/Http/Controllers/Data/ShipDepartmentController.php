@@ -20,7 +20,7 @@ class ShipDepartmentController extends Controller
 
         if(request()->ajax())   {
 
-            return request()->json($ship_department);
+            return response()->json($ship_department);
         }
 
         return view('app.data.ship_department', compact('ship_department'));

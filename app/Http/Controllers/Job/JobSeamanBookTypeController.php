@@ -17,7 +17,7 @@ class JobSeamanBookTypeController extends Controller
      */
     public function index(Job $job)
     {
-        return request()->json($job->seaman_book_types);
+        return response()->json($job->seaman_book_types);
     }
 
     /**

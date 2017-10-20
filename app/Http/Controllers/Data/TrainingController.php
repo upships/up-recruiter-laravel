@@ -20,7 +20,7 @@ class TrainingController extends Controller
 
         if(request()->ajax())   {
 
-            return request()->json($trainings);
+            return response()->json($trainings);
         }
 
         return view('app.data.trainings', compact('trainings'));

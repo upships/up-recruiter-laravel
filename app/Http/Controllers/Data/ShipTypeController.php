@@ -20,7 +20,7 @@ class ShipTypeController extends Controller
 
         if(request()->ajax())   {
 
-            return request()->json($ship_types);
+            return response()->json($ship_types);
         }
 
         return view('app.data.ship_types', compact('ship_types'));

@@ -17,7 +17,7 @@ class JobTrainingController extends Controller
      */
     public function index(Job $job)
     {
-        return request()->json($job->trainings);
+        return response()->json($job->trainings);
     }
 
     /**

@@ -12,6 +12,7 @@ use App\Models\Data\SeamanBookType;
 use App\Models\Data\Training;
 
 use App\Models\Job\Job;
+use App\Models\Company\Company;
 
 class JobController extends Controller
 {
@@ -22,7 +23,14 @@ class JobController extends Controller
      */
     public function index()
     {
-        //
+        $jobs = auth()->user()->company()->first()->jobs()->withCount('applications')->get();
+
+        if(request()->ajax())   {
+
+            return response()->json($jobs->load('position'));
+        }
+
+        return view('app.jobs.index');
     }
 
     /**

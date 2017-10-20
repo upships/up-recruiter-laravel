@@ -20,7 +20,7 @@ class CertificateTypeController extends Controller
 
         if(request()->ajax())   {
 
-            return request()->json($certificates);
+            return response()->json($certificates);
         }
 
         return view('app.data.certificates', compact('certificates'));

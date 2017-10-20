@@ -3,7 +3,7 @@
       
       <!-- BEGIN SIDEBAR MENU HEADER-->
       <div class="sidebar-header">
-        <img src="/images/logo_white.png" alt="logo" class="brand" data-src="/images/logo_white.png" data-src-retina="/images/logo_white_2x.png" width="78" height="22">
+        <img src="/images/text.png" alt="logo" class="brand" data-src="/images/text.png" data-src-retina="/images/text_retina.png" height="22">
         <div class="sidebar-header-controls">
           <button type="button" class="btn btn-xs sidebar-slide-toggle btn-link m-l-20 hidden-md-down" data-pages-toggle="#appMenu"><i class="fa fa-angle-down fs-16"></i>
           </button>
@@ -106,7 +106,7 @@
             <!-- END MOBILE SIDEBAR TOGGLE -->
             <div class="">
               <div class="brand inline m-l-10">
-                <img src="/images/logo.png" alt="logo" data-src="/images/logo.png" data-src-retina="/images/logo_2x.png" width="78" height="22">
+                <img src="/images/text.png" alt="logo" data-src="/images/text.png" data-src-retina="/images/text_retina.png" height="22">
               </div>
               <!-- START NOTIFICATION LIST -->
                 <ul class="hidden-md-down notification-list no-margin hidden-sm-down b-grey b-l b-r no-style p-l-30 p-r-20">

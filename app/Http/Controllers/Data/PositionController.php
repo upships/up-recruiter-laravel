@@ -20,7 +20,7 @@ class PositionController extends Controller
 
         if(request()->ajax())    {
 
-            return request()->json($positions);
+            return response()->json($positions);
         }
 
         return view('app.data.positions', compact('positions'));

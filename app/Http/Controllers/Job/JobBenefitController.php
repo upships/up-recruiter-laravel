@@ -17,7 +17,7 @@ class JobBenefitController extends Controller
      */
     public function index(Job $job)
     {
-        return request()->json($job->benefits);
+        return response()->json($job->benefits);
     }
 
     /**

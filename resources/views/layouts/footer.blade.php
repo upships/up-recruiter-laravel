@@ -29,6 +29,10 @@
     <script src="https://unpkg.com/vue"></script>
 
     <script>
+
+        axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+        
         $(document).ready(function() {
             $(".select2").select2();
         });

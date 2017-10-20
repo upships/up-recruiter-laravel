@@ -42,7 +42,7 @@ class Profile extends Model
     	return $this->hasMany('App\Models\Profile\ProfileDocumentRequest');
     }
 
-    public function education()	{
+    public function educations()	{
     	return $this->hasMany('App\Models\Profile\ProfileEducation');
     }
 

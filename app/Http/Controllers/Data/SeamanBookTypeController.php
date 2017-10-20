@@ -20,7 +20,7 @@ class SeamanBookTypeController extends Controller
 
         if(request()->ajax())   {
 
-            return request()->json($seaman_book_types);
+            return response()->json($seaman_book_types);
         }
 
         return view('app.data.seaman_book_types', compact('seaman_book_types'));

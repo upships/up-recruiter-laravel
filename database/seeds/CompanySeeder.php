@@ -14,97 +14,144 @@ class CompanySeeder extends Seeder
         factory(App\Models\Company\Company::class, 2)->create()->each( function($company)	{
 
         	// Office
-    		factory(App\Models\Company\CompanyOffice::class, 2)->create(['company_id' => $company->id]);
+            $company->offices()->saveMany(
+    		  factory(App\Models\Company\CompanyOffice::class, 2)->make()
+            );
 
     		// Email
-    		factory(App\Models\Company\CompanyEmail::class, 2)->create(['company_id' => $company->id]);
+            $company->emails()->saveMany(
+    		  factory(App\Models\Company\CompanyEmail::class, 2)->make()
+            );
     		
     		// Phone
-    		factory(App\Models\Company\CompanyPhone::class, 2)->create(['company_id' => $company->id]);
+            $company->phones()->saveMany(
+    		  factory(App\Models\Company\CompanyPhone::class, 2)->make()
+            );
 
     		// Crew
-        	factory(App\Models\Company\Crew::class, 1)->create(['company_id' => $company->id]);
+            $company->crews()->save(
+        	   factory(App\Models\Company\Crew::class)->make()
+            );
 
         	// Create recruiters
         	factory(App\Models\Company\Recruiter::class, 2)->create(['company_id' => $company->id])->each( function($recruiter) use ($company) {
 
+                // Add user to company
+                $recruiter->user()->update(['company_id' => $company->id]);
+
         		// Profile folders
-        		factory(App\Models\Company\ProfileFolder::class, 1)->create(['company_id' => $company->id, 'recruiter_id' => $recruiter->id]);
+                $company->folders()->save(
+        		  factory(App\Models\Company\ProfileFolder::class)->make(['recruiter_id' => $recruiter->id])
+                );
 
         		// Create jobs
-        		factory(App\Models\Job\Job::class, 2)->create(['company_id' => $recruiter->company_id, 'recruiter_id' => $recruiter->id])->each( function($job) {
+        		factory(App\Models\Job\Job::class, 2)->create(['company_id' => $company->id, 'recruiter_id' => $recruiter->id])->each( function($job) {
 
         			// Job-related data
 
         				// Benefit
-        				factory(App\Models\Job\JobBenefit::class, 3)->create(['job_id' => $job->id]);
+                        $job->benefits()->saveMany(
+        				    factory(App\Models\Job\JobBenefit::class, 3)->make()
+                        );
 
         				// Requirement
-        				factory(App\Models\Job\JobRequirement::class, 3)->create(['job_id' => $job->id]);
+                        $job->requirements()->saveMany(
+        				    factory(App\Models\Job\JobRequirement::class, 3)->make()
+                        );
 
         				// Certificate Type
-        				factory(App\Models\Job\JobCertificateType::class, 3)->create(['job_id' => $job->id]);
+                        $job->certificate_types()->saveMany(
+        				    factory(App\Models\Job\JobCertificateType::class, 3)->make()
+                        );
 
         				// Experience
-        				factory(App\Models\Job\JobExperience::class, 3)->create(['job_id' => $job->id]);
+                        $job->experiences()->saveMany(
+        				    factory(App\Models\Job\JobExperience::class, 3)->make()
+                        );
 
         				// Seaman Book Type
-        				factory(App\Models\Job\JobSeamanBookType::class, 3)->create(['job_id' => $job->id]);
+                        $job->seaman_book_types()->saveMany(
+        				    factory(App\Models\Job\JobSeamanBookType::class, 3)->make()
+                        );
 
         				// Ship Type
-        				factory(App\Models\Job\JobShipType::class, 3)->create(['job_id' => $job->id]);
+                        $job->ship_requirements()->saveMany(
+        				    factory(App\Models\Job\JobShipType::class, 3)->make()
+                        );
 
         				// STCW Regulation
-        				factory(App\Models\Job\JobStcwRegulation::class, 3)->create(['job_id' => $job->id]);
+                        $job->stcw_regulations()->saveMany(
+        				    factory(App\Models\Job\JobStcwRegulation::class, 3)->make()
+                        );
 
         				// Training
-        				factory(App\Models\Job\JobTraining::class, 3)->create(['job_id' => $job->id]);
+                        $job->trainings()->saveMany(
+        				    factory(App\Models\Job\JobTraining::class, 3)->make()
+                        );
 
 
         			// Create profiles
         			factory(App\Models\Profile\Profile::class, 10)->create()->each( function($profile) use ($job)	{
 
         				// Create application
-        				factory(App\Models\Recruiting\Application::class)->create(['job_id' => $job->id, 'company_id' => $job->company_id, 'profile_id' => $profile->id]);
+                        $profile->applications()->save(
+        				    factory(App\Models\Recruiting\Application::class)->make(['job_id' => $job->id, 'company_id' => $job->company_id])
+                        );
 
         				// Create profile-related data
 
         					// Certificate
-        					factory(App\Models\Profile\ProfileCertificate::class, 3)->create(['profile_id' => $profile->id]);
+                            $profile->certificates()->saveMany(
+        					   factory(App\Models\Profile\ProfileCertificate::class, 3)->make()
+                            );
 
         					// Document
-        					factory(App\Models\Profile\ProfileDocument::class, 3)->create(['profile_id' => $profile->id]);
+        					$profile->documents()->saveMany(
+                                factory(App\Models\Profile\ProfileDocument::class, 3)->make()
+                            );
 
         					// Education
-        					factory(App\Models\Profile\ProfileEducation::class, 3)->create(['profile_id' => $profile->id]);
+                            $profile->educations()->saveMany(
+        					   factory(App\Models\Profile\ProfileEducation::class, 3)->make()
+                            );
 
         					// Extra
-        					factory(App\Models\Profile\ProfileExtra::class, 3)->create(['profile_id' => $profile->id]);
+                            $profile->extras()->saveMany(
+        					   factory(App\Models\Profile\ProfileExtra::class, 3)->make()
+                            );
 
         					// Language
-        					factory(App\Models\Profile\ProfileLanguage::class, 3)->create(['profile_id' => $profile->id]);
+                            $profile->languages()->saveMany(
+        					   factory(App\Models\Profile\ProfileLanguage::class, 3)->make()
+                            );
 
         					// Training
-        					factory(App\Models\Profile\ProfileTraining::class, 3)->create(['profile_id' => $profile->id]);
+                            $profile->trainings()->saveMany(
+        					   factory(App\Models\Profile\ProfileTraining::class, 3)->make()
+                            );
 
         					// Work
-        					factory(App\Models\Profile\ProfileWork::class, 3)->create(['profile_id' => $profile->id])->each( function($work) use ($profile) {
+                            factory(App\Models\Profile\ProfileWork::class, 3)->create(['profile_id' => $profile->id])->each( function($work) use ($profile) {
 
         						// Ship
-        						factory(App\Models\Profile\ProfileTraining::class, 2)->create(['profile_id' => $profile->id]);
+                                $profile->ships()->saveMany(
+        						    factory(App\Models\Profile\ProfileShip::class, 2)->make(['profile_id' => $profile->id, 'profile_work_id' => $work->id])
+                                );
         					});
 
         					// Seaman Book
-        					factory(App\Models\Profile\SeamanBook::class)->create(['profile_id' => $profile->id]);
+                            $profile->book()->save(
+        					   factory(App\Models\Profile\SeamanBook::class)->make()
+                            );
 
         					// CoC
-        					$coc = factory(App\Models\Profile\Coc::class)->create(['profile_id' => $profile->id]);
-
-        						// Regulations
-        						factory(App\Models\Profile\CocStcwRegulation::class, 5)->create(['profile_id' => $profile->id, 'coc_id' => $coc->id]);
+        					$coc = factory(App\Models\Profile\Coc::class)->make(['profile_id' => $profile->id])->save();
 
         					// DP
-        					factory(App\Models\Profile\Dp::class)->create(['profile_id' => $profile->id]);
+                            $profile->dp()->save(
+
+        					   factory(App\Models\Profile\Dp::class)->make()
+                            );
         			});
 
         		});

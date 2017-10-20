@@ -17,7 +17,7 @@ class JobStcwRegulationController extends Controller
      */
     public function index(Job $job)
     {
-        return request()->json($job->stcw_regulations);
+        return response()->json($job->stcw_regulations);
     }
 
     /**

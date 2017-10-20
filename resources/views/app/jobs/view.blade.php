@@ -3,371 +3,327 @@
 
 @section('content')
 
-<h2>Vaga {{$job->position->label}}</h2>
+	<h3>{{$job->position->label}}</h3>
 
-<ul class="list-inline">
-	<li>
-		<i class='fa fa-clock-o' ></i> Postada em {{$job->date}}
-	</li>
-	<li>
-		Por {{$job->recruiter->user->name}}
-	</li>
+	<div class="row">
 
-	<li class="float-right">
-		Visibilidade: {{$job->privacy_label}}
-	</li>
-</ul>
+		<div class="col-lg-2" >
+			<div class="list-group" >
+				<div class="list-group-item">
+					<h3 class="list-group-item-heading" >Filtros</h3>
+				</div>
+				
+				<div class="list-group-item" v-if="activeFilters.length > 0">
 
-<div class="row">
-	<div class="col">
+					<h4>Filtros ativos</h4>
 
-		<div class="card card-default">
-			<div class="card-block">
-			
-				<ul class="list-inline">
-					<li>
-						<a href="/job/{{$job->id}}/conclude" class="btn btn-success btn-fill" ><i class='fa fa-check' ></i> Iniciar processo seletivo</a>
-					</li>
+					<ul v-for="(ac, key) in activeFilters" >
+						<li>@{{filtersMeta[ac.key]['label']}}: @{{ac.value}} <a href="#" @click="deleteFilter(key)" >x</a></li>
+					</ul>
+				</div>
 
-					<li class="hidden-sm hidden-xs">
-						<a href="/job/{{$job->id}}/share/" class="btn btn-primary" ><i class='fa fa-share' ></i> Compartilhar</a>
-					</li>
-
-					<li>
-						<a href="#cl" data-clipboard-text="https://vagasembarcado.upships.com/job/{{$job->slug}}" class="btn btn-default copy" title="Copiar link" >
-						<i class="fa fa-clipboard"></i>
-						</a>
-					</li>
-
-					<li class="float-right">
-						<a href="/job/{{$job->id}}/edit" class="btn btn-default btn-fill" ><i class='fa fa-pencil-square-o' ></i> Editar</a>
-					</li>
+				<div class="list-group-item" v-for="(filter, key) in filters" >
 					
-					<li class="clearfix"></li>
-				</ul>
+					<div v-if="filter.length > 0" >
+
+						<h4 class="" >@{{filtersMeta[key]['label']}}</h4>
+
+						<div v-for="item in filter" >
+							<a href="#" @click="triggerFilter(key, item)" >
+								@{{filtersMeta[key][item]['label']}}
+							</a>
+						</div>
+
+					</div>
+
+				</div>
+
 			</div>
 		</div>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col">
-
-		<ul class="nav nav-tabs"> 
-	        <li class="active"> 
-	            <a href="#candidates" data-toggle="tab" aria-expanded="true"> 
-	                <i class="fa fa-users"></i> Candidatos
-	            </a> 
-	        </li>
-
-	        <li class=""> 
-	            <a href="#removedCandidates" data-toggle="tab" aria-expanded="true"> 
-	                <i class="fa fa-user-times"></i> Candidatos eliminados
-	            </a> 
-	        </li>
-
-	        <li class=""> 
-	            <a href="#job" data-toggle="tab" aria-expanded="false"> 
-	                <i class="fa fa-suitcase"></i> Dados da vaga
-	            </a> 
-	        </li>
-	    </ul>
-	    <div class="tab-content"> 
-	        <div class="tab-pane active" id="candidates">
-				<h2 class="">Candidatos</h2>
-
-				<div class="row">
-					
-					<div class="col-lg-12">
-
-						<div class="list-group m-b-10" id="selectedApplicants">
-							<div class="list-group-item">
-								<h3 class="list-group-item-heading" >Candidatos pr&eacute;-selecionados</h3>
-								<p><span id="selectedApplicantsCounter">0</span> candidatos</p>
-							</div>
-							<div class="list-group-item" id="selectedApplicantsLoadingMessage">
-								<i class="fa fa-spinner fa-spin"></i> Carregando candidatos pr&eacute;-selecionados
-							</div>
-							<div class="list-group-item" id="selectedApplicantsNoResultsMessage">
-								<i class="fa fa-exclamation-triangle"></i> Nenhum candidato pr&eacute;-selecionado
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-lg-4" id="filtersArea" >
-								<div class="list-group" id="notSelectedApplicantsFilters">
-									<div class="list-group-item">
-										<h3 class="list-group-item-heading" >Filtros</h3>
-									</div>
-									<!-- <div class="list-group-item" id="filtersBtnArea">
-										<ul class="list-inline">
-											<li>
-												<button type="button" class="btn btn-default btn-block" onclick="loadProfileFilters()" id="filtersBtn" ><i class="fa fa-filters"></i> Carregar filtros
-												</button>
-											</li>
-										</ul>
-									</div> -->
-									<div class="list-group-item filtersItems" id="profileFiltersBookCategories">
-										<h4 class="list-group-item-heading" >Categorias CIR</h4>
-
-										<p id="profileFiltersBookCategoriesLoadingMessage">
-											<i class="fa fa-spinner fa-spin"></i> Carregando categorias CIR
-										</p>
-										<p id="profileFiltersBookCategoriesNoResultsMessage">
-											<small class="text-muted">
-											<i class="fa fa-exclamation-triangle"></i> Nenhuma categoria CIR para filtrar
-											</small>
-										</p>
-									</div>
-									<div class="list-group-item filtersItems" id="profileFiltersStcwRegulations" >
-										<h4 class="list-group-item-heading" >Regras STCW</h4>
-
-										<p id="profileFiltersStcwRegulationsLoadingMessage">
-											<i class="fa fa-spinner fa-spin"></i> Carregando regras STCW
-										</p>
-										<p id="profileFiltersStcwRegulationsNoResultsMessage">
-											<small class="text-muted">
-											<i class="fa fa-exclamation-triangle"></i> Nenhuma regra STCW para filtrar
-											</small>
-										</p>
-
-									</div>
-									<div class="list-group-item filtersItems" id="profileFiltersStates" >
-										<h4 class="list-group-item-heading" >Estados</h4>
-
-										<p id="profileFiltersStatesLoadingMessage">
-											<i class="fa fa-spinner fa-spin"></i> Carregando Estados
-										</p>
-										<p id="profileFiltersStatesNoResultsMessage">
-											<small class="text-muted">
-											<i class="fa fa-exclamation-triangle"></i> Nenhum Estado para filtrar
-											</small>
-										</p>
-
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-8">						
-								<div class="list-group" id="notSelectedApplicants">
-									<div class="list-group-item">
-										<h3 class="list-group-item-heading" >Demais candidatos</h3>
-										<p><span class="visibleProfilesCounter" id="notSelectedApplicantsCounter">0</span> candidatos</p>
-									</div>
-
-									<div class="list-group-item" id="notSelectedApplicantsLoadingMessage">
-										<i class="fa fa-spinner fa-spin"></i> Carregando candidatos
-									</div>
-									
-									<div class="list-group-item" id="notSelectedApplicantsNoResultsMessage">
-										<i class="fa fa-exclamation-triangle"></i> Nenhum candidato para esta vaga
-									</div>
-
-									<div class="list-group-item text-muted emptyFilterResultMessage hidden" id="notSelectedApplicantsNoFilterResultsMessage">
-										<i class="fa fa-exclamation-triangle"></i> <i>Nenhum candidato com estes crit&eacute;rios</i>
-									</div>
-
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="tab-pane" id="removedCandidates">
-				<h2 class="">Candidatos eliminados</h2>
-				<p><span id="removedCandidatesCounter">0</span> candidatos</p>
-
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="list-group m-b-10" id="removedApplicants">
-							<div class="list-group-item" id="removedApplicantsLoadingMessage">
-								<i class="fa fa-spinner fa-spin"></i> Carregando candidatos eliminados
-							</div>
-							<div class="list-group-item" id="removedApplicantsNoResultsMessage">
-								<i class="fa fa-exclamation-triangle"></i> Nenhum candidato eliminado
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="tab-pane" id="job">
-
-				<div class="row">
-					<div class="col-lg-6 col-md-6">
-						<div class="list-group m-b-10">
-
-							<div class="list-group-item">
-								<h4 class="list-group-item-heading">Requisito de ingl&ecirc;s</h4>
-								{{$job->language_label}}</a>
-							</div>
-
-							<div class="list-group-item">
-								<h4>Categorias CIR</h4>
-
-								@if($job->book_cate)
-
-									<ul class="list-inline">
-										@foreach($job->seaman_book_types as $job_seaman_book_type) 
-											<li>
-												<u>{{$job_seaman_book_type->type->code}}</u>
-											</li>
-										@endforeach
-									</ul>
-								@endif
-							</div>
-							<div class="list-group-item">
-								<h4>STCW</h4>
-
-								@if($job->stcw_regulation)
-								<ul class="list-inline">
-									@foreach($job->stcw_regulations as $job_stcw_regulation)
-										<li><u>{{$stcw_regulation->regulation}}</u></li>
-									@endforeach
-								</ul>
-								@endif
-							</div>
-							<div class="list-group-item">
-								<h4>Cursos &amp; Certificados</h4>
-
-								@if($job->trainings)
-								<ul class="list-inline">
-									@foreach($job->trainings as $training)
-									<li>
-										<button class="btn btn-default btn-sm">{{$training->label}}</button>
-									</li>
-									@endforeach
-								</ul>
-								@endif
-							</div>
-							<div class="list-group-item">
-								<h4>Experi&ecirc;ncia necess&aacute;ria</h4>
-
-								@if($job->experiences)
-									<ul>
-									@foreach($job->experiences as $experience)
-										<li>{{$experience->value}}</li>
-									@endforeach
-									</ul>
-								@endif
-							</div>
-							<div class="list-group-item">
-								<h4>Outros</h4>
-
-								@if($job->requirements)
-									<ul>
-									@foreach($job->requirements as $requirement)
-										<li>
-											{{$requirement->value}}</a>
-										</li>
-									@endforeach
-									</ul>
-								@endif
-							</div>
-						</div>
-
-						<div class="list-group">
-							<div class="list-group-item">
-								<h4 class="list-group-item-heading">Benef&iacute;cios</h4>
-								
-								@if($job->benefits)
-									<ul>
-									@foreach($job->benefits as $benefit)
-										<li>
-											{{$benefit->value}}
-										</li>
-									@endforeach
-									</ul>
-								@endif
-							</div>
-							<!-- <div class="list-group-item">
-								<h4 class="list-group-item-heading">Sal&aacute;rio</h4>
-								{salary}
-
-							</div> -->
-						</div>
-					</div>
-
-					<div class="col-lg-6 col-md-6">
-						<div class="list-group m-b-10">
-							<div class="list-group-item">
-								<h4 class="list-group-item-heading">Link para a vaga</h4>
-								<a href="https://vagasembarcado.upships.com/job/{{$job->slug}}" target="_blank">
-									https://vagasembarcado.upships.com/job/{{$job->slug}}
-								</a>
-							</div>
-							<div class="list-group-item">
-								<h4 class="list-group-item-heading">Informa&ccedil;&otilde;es</h4>
-
-								{{$job->description}}
-
-								<h4>Escala</h4>
-
-								{{$job->rotation}}</a>
-
-								<h4>Informa&ccedil;&otilde;es extras</h4>
-								
-								{{$job->extra}}</a>
-
-							</div>
-							<div class="list-group-item">
-								<h4>N&uacute;mero de vagas</h4>
-								
-								{{$job->vacancies}}}</a>
-
-							</div>
-							<div class="list-group-item">
-								<h4>Embarca&ccedil;&atilde;o</h4>
-
-								{{$job->ship_type->label}}
-
-							</div>
-							
-							<div class="list-group-item">
-								<h4>Local</h4>
-								
-								{{$job->location}}</a>
-							</div>
-						</div>
-
-						<div class="list-group">
-							<div class="list-group-item">
-								<h4 class="list-group-item-heading">Mais</h4>
-							</div>
-							<div class="list-group-item">
-								<h4 >Vaga adicionada por</h4>
-								[{{$job->recruiter->user->id}}] {{$job->recruiter->user->name}} ({{$job->recruiter->user->email}})
-							</div>
-						</div>
-					</div>
+		<div class="col-lg-10">						
+			<div class="list-group" >
+				<div class="list-group-item">
+					<h3 class="list-group-item-heading" >Candidatos</h3>
+					<p>Total: @{{visibleProfiles.length}} candidatos</p>
 				</div>
 
-				<hr/>
+				<div class="list-group-item" v-for="profile in visibleProfiles" >
+					@{{profile.profileName}} (@{{profile.bookCategoryCode}})
+				</div>
 
-				<ul class="list-inline">
-					<li>
-						<a href="/job/disable/{{$job->id}}" class="btn btn-warning" ><i class='fa fa-eye-slash' ></i> Desativar</a>
-					</li>
-					
-					<li class="float-right">
-						<a href="#delete" onclick="deleteJob({{$job->id}},true)" class="btn btn-danger" ><i class='fa fa-times' ></i> Excluir</a>
-					</li>
-				</ul>
 			</div>
 		</div>
+
 	</div>
 </div>
-
 @endsection
 
 @section('local-footer')
+
 <script>
 
-$(document).ready(function()
-	{
+	$(document).ready(function() {
+			
+			new Vue({
 
-		
+		    el: '#up-app',
+		    data: {
+
+		    	profiles: [],
+
+		        activeFilters: [],
+
+		        filters: 	{
+		        				book: [],
+		        				location: [],
+		        				stcw: [],
+		        				english: [],
+		        			},
+
+		        filtersMeta: {
+		        				book: {
+
+		        					label: 'Categorias CIR',
+		        					name: 'book',
+		        				},
+
+		        				stcw: {
+
+		        					label: 'STCW',
+		        					name: 'stcw',
+		        				},
+
+		        				location: {
+
+		        					label: 'Localização',
+		        					name: 'location',
+		        				},
+
+		        				english: {
+
+		        					label: 'Inglês',
+		        					name: 'english',
+		        				},
+
+		        				// ships: {
+		        				// 	label: 'Embarcação',
+		        				// 	name: 'ship',
+		        				// 	items: {}
+		        				// },
+		        			},
+
+		        job_id: {{$job->id}},
+		    },
+
+		    watch: {
+
+		        searchParameter: function (val) {
+
+		            // this.flagParameter = null;
+
+		            // var self = this;
+
+		            // this.visibleItems = this.certificates.filter( function(certificate) {
+
+		            //     if(self.searchParameter)   {
+
+		            //         // Search by name
+
+		            //         return certificate.label.toLowerCase().indexOf( self.searchParameter.toLowerCase() ) >= 0;
+		            //     }
+		                
+		            //     else {
+
+		            //         return certificate;
+		            //     }
+		            // }); 
+		        }
+		    },
+
+		    computed: {
+
+		        visibleProfiles: function()	{
+
+		        	var self = this;
+
+		        	if(self.activeFilters.length > 0)	{
+
+		        		return self.profiles.filter( function(profile) {
+
+			        		for(i = 0; i < self.activeFilters.length; i++)	{
+
+			        			var ac = self.activeFilters[i];
+
+			        			if(profile['filterableAttributes'][ac.key].findIndex( function(k) {return k === ac.value;}) >= 0)	{
+
+			        				return profile;
+			        			}
+
+			        		}
+
+			        	});
+		        	}
+		        	
+		        	return self.profiles;
+		        }
+		    },
+
+		    filters: {
+
+		    	filterTypeLabel: function( filterType )	{
+
+		    		var self = this;
+
+		    		console.log('This: ' + this.filtersMeta);
+		    		console.log('Self: ' + self.filtersMeta);
+
+		    		return filterType;
+
+		    		// var label = this['filtersMeta']['book']['label'];
+
+		    		// return typeof label === 'string' ? label : filterType;
+		    	},
+
+		    	filterItemLabel: function (filterItemId, filterType)	{
+
+		    		return this['filtersMeta'][filterType][filterItemId]['label'];
+		    	}
+
+		    },
+
+		    beforeMount: function() {
+
+		        const vm = this;
+
+		        axios.get('/api/job/' + vm.job_id + '/applications').then( function( response ) {
+
+		            // Go through each profile, get their filterableAttributes and return to the Filters array
+
+		            var profiles = response.data.map( function(profile)	{
+
+		            	profile.filterableAttributes = {book: [], stcw: [], english: [], location: []};
+
+		            	// CIR: book
+
+		            		// Check if item already exists
+
+		            	var filterItemKey = profile.bookCategoryCode;
+		            	
+		            	if(typeof filterItemKey === 'string')	{
+
+			            	if( vm.filters.book.findIndex( function(item) {return item === filterItemKey}) < 0)	{
+
+			            		vm['filtersMeta']['book'][filterItemKey] = {label: profile.bookCategoryCode, id: profile.bookCategoryId};
+			            		vm.filters.book.push(filterItemKey);
+			            	}
+
+			            	profile.filterableAttributes.book.push(filterItemKey);
+			            }
+
+			            var filterItemKey = profile.profileState;
+		            	
+		            	if(typeof filterItemKey === 'string')	{
+
+			            	if( vm.filters.location.findIndex( function(item) {return item === filterItemKey}) < 0)	{
+
+			            		vm['filtersMeta']['location'][filterItemKey] = {label: profile.profileState, id: profile.profileState};
+			            		vm.filters.location.push(filterItemKey);
+			            	}
+
+			            	profile.filterableAttributes.location.push(filterItemKey);
+			            }
+
+			            // STCW: stcw
+
+		            	if(typeof profile.cocRegulations !== 'undefined')	{
+			            	
+			            	profile.cocRegulations.map( function(regulation) {
+
+				            	var filterItemKey = regulation.stcwRegulationCode;
+		            	
+				            	if(typeof filterItemKey === 'string')	{
+
+					            	if( vm.filters.stcw.findIndex( function(item) {return item === filterItemKey}) < 0)	{
+
+					            		vm['filtersMeta']['stcw'][filterItemKey] = {label: regulation.stcwRegulation, id: regulation.stcwRegulationCode};
+					            		vm.filters.stcw.push(filterItemKey);
+					            	}
+					            }
+
+					            profile.filterableAttributes.stcw.push(filterItemKey);
+
+			            	});
+			            }
+
+			            // Inglês: english
+
+			            	var filterItemKey = profile.profileEnglishLevel;
+		            	
+			            	if(typeof filterItemKey === 'string')	{
+
+				            	if( vm.filters.english.findIndex( function(item) {return item === filterItemKey}) < 0)	{
+
+				            		vm['filtersMeta']['english'][filterItemKey] = {label: profile.profileEnglishLevelLabel, id: filterItemKey};
+				            		vm.filters.english.push(filterItemKey);
+				            	}
+
+				            	profile.filterableAttributes.english.push(filterItemKey);
+				            }
+
+				        return profile;
+		            	
+		            	// Embarcação: ship
+
+		            	// if(typeof item.workExperience !== 'undefined')	{
+
+		            	// 	item.workExperience.map( function(work) {
+
+		            	// 		if(typeof work.workShips !== 'undefined')	{
+			            // 			work.workShips.map( function(ship) {
+
+			            // 				key = ship.workShipTypeName;
+
+			            // 				if(typeof key !== 'undefined' && typeof vm['filters']['ship']['items'][key] === 'undefined' && key.length > 0)	{
+
+					          //   		//console.log('State key: ' + item.profileState + ' | ' + key);
+
+					          //   		vm['filters']['ship']['items'][key] = 	{
+				           //  														label: ship.workShipTypeLabel,
+				           //  														id: ship.workShipTypeName,
+					          //   												};
+					          //   		}
+
+			            // 			});
+			            // 		}
+			            // 	});
+		            	// }
+
+		            });
+
+		            vm.profiles = profiles;
+		        });
+		    },
+
+		    mounted: function()	{
+
+		    },
+
+		    methods: {
+
+		        deleteFilter: function(key)	{
+
+		        	this.activeFilters.splice(key, 1);
+		        },
+
+		        triggerFilter: function(key, value)	{
+
+		    		this.activeFilters.push({key: key, value: value});
+		    	},
+		    }
+
+		});
+
 	});
-</script>
 
+</script>
 @endsection

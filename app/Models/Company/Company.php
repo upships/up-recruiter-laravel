@@ -54,4 +54,9 @@ class Company extends Model
 
     	return $this->hasMany('App\Models\Company\Ship');
     }
+
+    public function folders() {
+
+        return $this->hasMany('App\Models\Company\ProfileFolder');
+    }
 }

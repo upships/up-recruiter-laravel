@@ -20,7 +20,7 @@ class EducationLevelController extends Controller
 
         if(request()->ajax())   {
 
-            return request()->json($education_level);
+            return response()->json($education_level);
         }
 
         return view('app.data.education_level', compact('education_level'));

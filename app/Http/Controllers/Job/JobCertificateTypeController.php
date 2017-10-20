@@ -17,7 +17,7 @@ class JobCertificateTypeController extends Controller
      */
     public function index(Job $job)
     {
-        return request()->json($job->certificate_types);
+        return response()->json($job->certificate_types);
     }
 
     /**

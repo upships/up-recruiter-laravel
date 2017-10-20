@@ -17,7 +17,7 @@ class JobShipTypeController extends Controller
      */
     public function index(Job $job)
     {
-        return request()->json($job->ship_requirements);
+        return response()->json($job->ship_requirements);
     }
 
     /**

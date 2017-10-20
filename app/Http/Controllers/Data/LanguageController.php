@@ -20,7 +20,7 @@ class LanguageController extends Controller
 
         if(request()->ajax())   {
 
-            return request()->json($languages);
+            return response()->json($languages);
         }
 
         return view('app.data.languages', compact('languages'));

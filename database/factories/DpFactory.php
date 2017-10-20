@@ -8,7 +8,7 @@ $factory->define(App\Models\Profile\Dp::class, function (Faker $faker) {
 
     return [
         
-        'profile_id' => factory(App\Models\Profile\Profile::class)->create()->id,
+        //'profile_id' => factory(App\Models\Profile\Profile::class)->create()->id,
 		'dp_type_id' => $faker->randomElement($dpTypes),
 		'number' => $faker->randomNumber(7, true),
     ];

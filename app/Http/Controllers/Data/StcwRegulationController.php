@@ -20,7 +20,7 @@ class StcwRegulationController extends Controller
 
         if(request()->ajax())   {
 
-            return request()->json($stcw_regulations);
+            return response()->json($stcw_regulations);
         }
 
         return view('app.data.stcw_regulations', compact('stcw_regulations'));

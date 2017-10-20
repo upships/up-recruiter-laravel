@@ -20,7 +20,7 @@ class CurrencyController extends Controller
 
         if(request()->ajax())   {
 
-            return request()->json($currencies);
+            return response()->json($currencies);
         }
 
         return view('app.data.currencies', compact('currencies'));

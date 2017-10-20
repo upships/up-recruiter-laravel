@@ -20,7 +20,7 @@ class CountryController extends Controller
 
         if(request()->ajax())   {
 
-            return request()->json($countries);
+            return response()->json($countries);
         }
 
         return view('app.data.countries', compact('countries'));
