@@ -14,6 +14,11 @@ class Profile extends Model
     	return $this->belongsTo('App\User');
     }
 
+    public function position()  {
+
+        return $this->belongsTo('App\Models\Data\Position');
+    }
+
     public function applications()  {
         return $this->hasMany('App\Models\Recruiting\Application');
     }
@@ -105,7 +110,7 @@ class Profile extends Model
                                 'type' => 'value',
                                 'values' => $this->stcw_regulations()->get()->map( function($item) {
 
-                                                return ['id' => $item->regulation->id, 'value' => $item->regulation->regulation, 'country' => null, 'valid' => true];
+                                                return ['id' => $item->stcw_regulation->id, 'value' => $item->stcw_regulation->regulation, 'country' => null, 'valid' => true];
                                             }),
                             ];
         }

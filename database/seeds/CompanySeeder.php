@@ -134,12 +134,17 @@ class CompanySeeder extends Seeder
         					});
 
         					// Seaman Book
-                            $profile->books()->save(
+                            $profile->seaman_book_types()->save(
         					   factory(App\Models\Profile\SeamanBook::class)->make()
                             );
 
         					// CoC
-        					$coc = factory(App\Models\Profile\Coc::class)->make(['profile_id' => $profile->id])->save();
+                            $coc = factory(App\Models\Profile\Coc::class)->create(['profile_id' => $profile->id]);
+
+                            // STCW Regulations
+                            $coc->regulations()->saveMany(
+                                factory(App\Models\Profile\CocStcwRegulation::class, 4)->make(['profile_id' => $profile->id])
+                            );
 
         					// DP
                             $profile->dp()->save(

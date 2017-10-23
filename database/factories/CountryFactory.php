@@ -10,6 +10,6 @@ $factory->define(App\Models\Data\Country::class, function (Faker $faker) {
         
         'name' => $country,
         'code' => $country,
-        'icon' => $country,
+        'icon' => "<span class='flag-icon flag-icon-$country' ></span>",
     ];
 });

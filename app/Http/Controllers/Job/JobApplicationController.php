@@ -11,7 +11,7 @@ class JobApplicationController extends Controller
 {
     public function index(Job $job)  {
 
-        $applications = $job->applications()->with(['profile','profile.coc', 'profile.seaman_book_types', 'profile.languages', 'profile.dp', 'profile.ships'])->get();
+        $applications = $job->applications()->with(['profile.position','profile.coc', 'profile.seaman_book_types.seaman_book_type', 'profile.languages.language', 'profile.dp.dp_type', 'profile.ships.ship_type', 'profile.stcw_regulations.stcw_regulation', 'profile.certificates.certificate_type'])->get();
 
         return response()->json($applications);
     }

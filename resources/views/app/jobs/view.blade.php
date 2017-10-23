@@ -111,11 +111,9 @@
 				            		<span class="badge badge-secondary">@{{visibleApplications.length}}</span>
 				          		</h3>
 
-								<div class="card card-default" v-for="application in visibleApplications" >
-									<div class="card-block">
-										@{{application.profile.name}}
-									</div>
-								</div>
+				          		<applications-list applications="applications" filters="filters" >
+				          			<application-list-item v-for="(application, key) in applications" :application="application" :key="key" ></application-list-item>
+				          		</applications-list>
 
 							</div>
 						</div>
