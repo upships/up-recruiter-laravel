@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('page-title')
-Vaga {{$job->position->label}}
+	Vaga {{$job->position->label}}
 @endsection
 
 @section('content')
@@ -70,47 +70,46 @@ Vaga {{$job->position->label}}
 		    	
 		    	<div class="tab-content">
 		        	<div class="tab-pane active" id="tab-candidates">
-		          		<h3>
-		            		<span class="semi-bold">Candidatos</span>
-		          		</h3>
-		          		<p class="small" >Total: @{{visibleApplications.length}} candidatos</p>
 
 		          		<div class="row">
 
-							<div class="col-2" >
-								<div class="card card-default" >
-									<div class="card-header">
-										<h3 class="" >Filtros</h3>
-									</div>
-									
-									<div class="card-block" v-if="activeFilters.length > 0">
+							<div class="col-3" >
 
-										<h4>Filtros ativos</h4>
+								<h3>Filtros</h3>
 
-										<ul v-for="(ac, key) in activeFilters" >
-											<li>@{{filtersMeta[ac.key]['label']}}: @{{ac.value}} <a href="#" @click="deleteFilter(key)" >x</a></li>
-										</ul>
-									</div>
-
-									<div class="card-block" v-for="(filter, key) in filters" >
-										
-										<div v-if="filter.length > 0" >
-
-											<h4 class="" >@{{filtersMeta[key]['label']}}</h4>
-
-											<div v-for="item in filter" >
-												<a href="#" @click="triggerFilter(key, item)" >
-													@{{filtersMeta[key][item]['label']}}
-												</a>
-											</div>
-
+								<div class="card card-default" v-if="activeFilters.length > 0">
+									<div class="list-group list-group-flush">
+										<div class="list-group-item">
+											<h4>Filtros ativos</h4>
 										</div>
 
+										<div class="list-group-item" v-for="(ac, key) in activeFilters" >
+										@{{filtersMeta[ac.key]['label']}}: @{{ac.value}} <a href="#" @click="deleteFilter(key)" >x</a>
+										</div>
+									</div>
+								</div>
+
+								<div v-if="filters.length > 0" >
+									
+									<div class="card card-default" v-for="(filter, key) in filters" >
+										<div class="list-group list-group-flush">
+											<div class="list-group-item">
+												<h4 class="mb-1" >@{{filter.label}}</h4>
+											</div>
+
+											<a href="javascript:;" class="list-group-item list-group-item-action" v-for="(value, valueKey) in filter.values" @click="triggerFilter(key, valueKey)" >
+												@{{value.label}}
+											</a>
+										</div>
 									</div>
 
 								</div>
 							</div>
 							<div class="col">
+								<h3>
+				            		Candidatos 
+				            		<span class="badge badge-secondary">@{{visibleApplications.length}}</span>
+				          		</h3>
 
 								<div class="card card-default" v-for="application in visibleApplications" >
 									<div class="card-block">
@@ -331,12 +330,7 @@ Vaga {{$job->position->label}}
 
 		        activeFilters: [],
 
-		        filters: 	{
-		        				book: [],
-		        				location: [],
-		        				stcw: [],
-		        				english: [],
-		        			},
+		        filters: [],
 
 		        filtersMeta: {
 		        				book: {
@@ -369,6 +363,8 @@ Vaga {{$job->position->label}}
 		        				// 	items: {}
 		        				// },
 		        			},
+		        
+		        job: [],
 
 		        job_id: {{$job->id}},
 		    },
@@ -449,6 +445,12 @@ Vaga {{$job->position->label}}
 		    beforeMount: function() {
 
 		        const vm = this;
+
+		        axios.get('/api/job/' + vm.job_id).then( function( response ) {
+
+		        	vm.job = response.data;
+		        	vm.filters = vm.job.filters;
+		        });
 
 		        axios.get('/api/job/' + vm.job_id + '/applications').then( function( response ) {
 

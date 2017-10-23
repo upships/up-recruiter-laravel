@@ -56,7 +56,7 @@ class Profile extends Model
     	return $this->hasOne('App\Models\Profile\Dp');
     }
 
-    public function books()	{
+    public function seaman_book_types()	{
     	return $this->hasMany('App\Models\Profile\SeamanBook');
     }
 
@@ -110,15 +110,15 @@ class Profile extends Model
                             ];
         }
 
-        if(count($this->books) > 0) {
+        if(count($this->seaman_book_types) > 0) {
 
             $properties[] = [
-                                'name' => 'book',
+                                'name' => 'seaman_book_types',
                                 'label' => 'Seaman Book',
                                 'type' => 'value',
-                                'values' => $this->books()->get()->map( function($book) {
+                                'values' => $this->seaman_book_types()->get()->map( function($item) {
 
-                                                return ['id' => $book->seaman_book_type->id, 'value' => $book->seaman_book_type->label, 'country' => null, 'valid' => true];
+                                                return ['id' => $item->seaman_book_type->id, 'value' => $item->seaman_book_type->label, 'country' => null, 'valid' => true];
                                             }),
                             ];
         }
@@ -139,7 +139,7 @@ class Profile extends Model
         if(count($this->certificates) > 0) {
 
             $properties[] = [
-                                'name' => 'certificates',
+                                'name' => 'certificate_types',
                                 'label' => 'Certificates',
                                 'type' => 'value',
                                 'values' => $this->certificates()->get()->map( function($item) {
@@ -166,7 +166,7 @@ class Profile extends Model
         if(count($this->ships) > 0) {
 
             $properties[] = [
-                                'name' => 'ships',
+                                'name' => 'ship_types',
                                 'label' => 'Ships',
                                 'type' => 'value',
                                 'values' => $this->ships()->get()->map( function($item) {

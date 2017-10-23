@@ -8,7 +8,7 @@ class Job extends Model
 {
     protected $fillable = ['position_id', 'ship_type_id', 'instructions', 'status', 'step', 'expires_on', 'description', 'rotation', 'slug', 'salary', 'visibility', 'vacancies'];
     
-    protected $appends = ['date', 'elapsed_time', 'visibility_label', 'status_label', 'expiration_date', 'full_expiration_date'];
+    protected $appends = ['date', 'elapsed_time', 'visibility_label', 'status_label', 'expiration_date', 'full_expiration_date', 'filters'];
 
     public function getSlug()   {
 
@@ -188,5 +188,89 @@ class Job extends Model
         }
 
         return \Carbon\Carbon::parse($this->expires_on)->format('m/d/Y');
+    }
+
+    public function getFiltersAttribute()   {
+
+        $filters = [];
+
+        // Seaman book types
+        if(count($this->seaman_book_types) > 0) {
+        
+            $filters[] = [
+                            'name' => 'seaman_book_types',
+                            'label' => 'Seaman Book Types',
+                            'type' => 'value',
+                            'condition' => 'or',
+                            'values' => $this->seaman_book_types()->get()->map( function($seaman_book_type) {
+                                return ['id' => $seaman_book_type->seaman_book_type->id, 'label' => $seaman_book_type->seaman_book_type->label];
+                            })
+
+                         ];
+        }
+
+        // STCW Regulations
+        if(count($this->stcw_regulations) > 0) {
+        
+            $filters[] = [
+                            'name' => 'stcw_regulations',
+                            'label' => 'STCW Regulations',
+                            'type' => 'value',
+                            'condition' => 'and',
+                            'values' => $this->stcw_regulations()->get()->map( function($stcw_regulation) {
+                                return ['id' => $stcw_regulation->stcw_regulation->id, 'label' => $stcw_regulation->stcw_regulation->regulation];
+                            })
+
+                         ];
+        }
+
+        // Ship types
+        if(count($this->ship_types) > 0) {
+        
+            $filters[] = [
+                            'name' => 'ship_types',
+                            'label' => 'Ship Types',
+                            'type' => 'scale',
+                            'condition' => 'or',
+                            'values' => $this->ship_types()->get()->map( function($ship_type) {
+                                return ['id' => $ship_type->ship_type->id, 'label' => $ship_type->ship_type->label, 'scale' => $ship_type->months];
+                            })
+
+                         ];
+        }
+
+        // Certificate Types
+        if(count($this->certificate_types) > 0) {
+        
+            $filters[] = [
+                            'name' => 'certificate_types',
+                            'label' => 'Certificates',
+                            'type' => 'value',
+                            'condition' => 'and',
+                            'values' => $this->certificate_types()->get()->map( function($certificate_type) {
+                                return ['id' => $certificate_type->certificate_type->id, 'label' => $certificate_type->certificate_type->label];
+                            })
+
+                         ];
+        }
+
+        // Languages
+        if(count($this->languages) > 0) {
+        
+            $filters[] = [
+                            'name' => 'languages',
+                            'label' => 'Languages',
+                            'type' => 'scale',
+                            'condition' => 'and',
+                            'values' => $this->languages()->get()->map( function($language) {
+                                
+                                return ['id' => $language->language->id, 'label' => $language->language->label, 'scale' => $language->level];
+                            })
+
+                         ];
+        }
+
+        return $filters;
+
     }
 }

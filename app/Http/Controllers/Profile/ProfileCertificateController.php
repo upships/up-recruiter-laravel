@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Profile;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class ProfileCertificateTypeController extends Controller
+class ProfileCertificateController extends Controller
 {
     /**
      * Display a listing of the resource.
