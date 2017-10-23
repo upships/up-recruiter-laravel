@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Recruiting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\Recruiting\Application;
+
 class ApplicationController extends Controller
 {
     /**
@@ -67,9 +69,11 @@ class ApplicationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Application $application)
     {
-        //
+        $application->update($request->all());
+
+        return response()->json($application);
     }
 
     /**

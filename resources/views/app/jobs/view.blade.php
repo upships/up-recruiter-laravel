@@ -11,49 +11,55 @@
 			<div class="card card-borderless no-padding">
 				<div class="card-block">
 
-					<h3>{{$job->position->label}}</h3>
+					<h3>
+						{{$job->position->label}} 
+					</h3>
 
 					<div class="row">
 						<div class="col">
-							<h6>Status</h5>
+							<h6>Status</h6>
 							{{$job->status_label}}
 						</div>
 
 						<div class="col">
-							<h6>Visibilidade</h5>
+							<h6>Visibilidade</h6>
 							{{$job->visibility_label}}
 						</div>
 
 						<div class="col">
-							<h6>Data</h5>
-							{{$job->date}}
-						</div>
-						<div class="col">
-							<h6>Validade</h5>
-							{{$job->expiration_date}}
+							<h6>Dura&ccedil;&atilde;o</h6>
+							De {{$job->date}} a {{$job->expiration_date}}
 						</div>
 
 						<div class="col">
 							<h6>Adicionada por</h6>
-							<a href="/recruiter/{{$job->recruiter->id}}" >{{$job->recruiter->user->name}} ({{$job->recruiter->user->email}})</a>
+							<a href="/recruiter/{{$job->recruiter->id}}" >
+								{{$job->recruiter->user->name}}
+							</a>
 						</div>
 						@if($job->ship_type)
 						<div class="col">
-							<h6>Embarca&ccedil;&atilde;o</h5>
+							<h6>Embarca&ccedil;&atilde;o</h6>
 							{{$job->ship_type->label}}
 						</div>
 						@endif
-
-						<div class="col">
-							<h6>Link da vaga</h6>
-							<a href="{{$job->company->link}}/job/{{$job->getSlug()}}" target="_blank">
-								Abrir <i class="fa fa-external-link"></i>
-							</a>
-						</div>
 					</div>
+				</div>
+				<div class="card-footer">
+					<ul class="list-inline my-2">
+						<li class="list-inline-item">
+							<a href="/job/{{$job->id}}/close" class="btn btn-success" >Encerrar vaga</a>
+						</li>
 
-					<a href="/job/{{$job->id}}/close" class="btn btn-success" >Encerrar vaga</a>
-					<a href="/job/{{$job->id}}/edit" class="btn btn-default" >Editar</a>
+						<li class="list-inline-item">
+							<a href="/job/{{$job->id}}/edit" class="btn btn-default" >Editar</a>
+						</li>
+
+						<li class="list-inline-item float-right">
+							<a class="btn btn-default" href="{{$job->company->link}}/job/{{$job->getSlug()}}" target="_blank">
+								Link <i class="fa fa-external-link"></i>
+							</a>
+						</li>
 				</div>
 				
 			</div>
@@ -111,10 +117,45 @@
 				            		<span class="badge badge-secondary">@{{visibleApplications.length}}</span>
 				          		</h3>
 
-				          		<applications-list applications="applications" filters="filters" >
-				          			<application-list-item v-for="(application, key) in applications" :application="application" :key="key" ></application-list-item>
-				          		</applications-list>
+				          		<ul class="nav nav-tabs nav-tabs-simple" role="tablist" data-init-reponsive-tabs="dropdownfx">
+							        <li class="nav-item">
+							          <a class="active" data-toggle="tab" role="tab" data-target="#tab-candidates-available" href="#">
+							          	Dispon&iacute;veis <span class="badge badge-secondary">@{{availableApplications.length}}</span>
+							          </a>
+							        </li>
+							        <li class="nav-item">
+							          <a href="#" data-toggle="tab" role="tab" data-target="#tab-candidates-eliminated">
+							          	Eliminados <span class="badge badge-secondary">@{{eliminatedApplications.length}}</span>
+							          </a>
+							        </li>
+							    </ul>
 
+							    <div class="tab-content">
+		        					<div class="tab-pane active" id="tab-candidates-available">
+
+		        						<div v-if="availableApplications.length > 0" >
+							          		<applications-list filters="filters" >
+							          			<application-list-item v-for="application in availableApplications" :application="application" :key="application.id" v-on:application:change="changeApplicationStatus" ></application-list-item>
+							          		</applications-list>
+							          	</div>
+							          	<div v-else>
+							          		<h5><i class="fa fa-info-circle"></i> Nenhum candidato dispon&iacute;vel</h5>
+							          	</div>
+
+						          	</div>
+						          	<div class="tab-pane" id="tab-candidates-eliminated">
+
+						          		<div v-if="eliminatedApplications.length > 0" >
+							          		<applications-list filters="filters" >
+							          			<application-list-item v-for="application in eliminatedApplications" :application="application" :key="application.id" v-on:application:change="changeApplicationStatus"></application-list-item>
+							          		</applications-list>
+							          	</div>
+							          	<div v-else>
+							          		<h5><i class="fa fa-info-circle"></i> Nenhum candidato eliminado</h5>
+							          	</div>
+
+						          	</div>
+						        </div>
 							</div>
 						</div>
 		        	</div>
@@ -394,6 +435,36 @@
 
 		    computed: {
 
+		    	availableApplications: function()	{
+
+		    		var self = this;
+
+		    		return self.applications.filter( function( application )	{
+
+		    			if(application.status == 0)	{
+
+		    				return application;
+		    			}
+
+		    		});
+
+		    	},
+
+		    	eliminatedApplications: function()	{
+
+		    		var self = this;
+
+		    		return self.applications.filter( function( application )	{
+
+		    			if(application.status == 666)	{
+
+		    				return application;
+		    			}
+
+		    		});
+		    		
+		    	},
+
 		        visibleApplications: function()	{
 
 		        	var self = this;
@@ -565,6 +636,10 @@
 
 		    methods: {
 
+		    	notify: function(message, type)	{
+
+		    	},
+
 		        deleteFilter: function(key)	{
 
 		        	this.activeFilters.splice(key, 1);
@@ -574,6 +649,23 @@
 
 		    		this.activeFilters.push({key: key, value: value});
 		    	},
+
+		    	changeApplicationStatus: function(application_id, status)	{
+
+		    		var vm = this;
+		    		var key = this.applications.findIndex( function(a){ return a.id === application_id });
+		    		
+		    		if(key >= 0)	{
+
+		    			var data = {status: status};
+
+		    			axios.patch('/api/application/' + application_id, data).then( function()	{
+
+		    				vm['applications'][key]['status'] = status;
+
+		    			});
+		    		}
+		    	}
 		    }
 
 		});

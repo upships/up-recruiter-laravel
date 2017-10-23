@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Application extends Model
 {
+    protected $guarded = [];
+
     public function profile()	{
 
     	return $this->belongsTo('App\Models\Profile\Profile');
