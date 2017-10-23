@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('page-title') {{ auth()->user()->company->name }}</title>
+    <title>@yield('page-title') | {{ auth()->user()->company->name }}</title>
 
     @include('layouts.head')
     @yield('local-head')

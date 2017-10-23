@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class JobShipType extends Model
 {
-	protected $fillable = ['job_id', 'ship_type_id'];
+	protected $fillable = ['job_id', 'ship_type_id', 'months'];
 
     public function job()	{
 
     	return $this->belongsTo('App\Models\Job\Job');
     }
 
-    public function ship()	{
+    public function ship_type()	{
 
     	return $this->belongsTo('App\Models\Data\ShipType');
     }

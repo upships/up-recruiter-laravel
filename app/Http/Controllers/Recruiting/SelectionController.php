@@ -14,7 +14,15 @@ class SelectionController extends Controller
      */
     public function index()
     {
-        //
+        
+        $selections = auth()->user()->company->selections;
+
+        if(request()->ajax())   {
+
+            return response()->json($selections);
+        }
+
+        return view('app.selections.index');
     }
 
     /**

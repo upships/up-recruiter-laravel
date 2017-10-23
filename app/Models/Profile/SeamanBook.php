@@ -11,7 +11,7 @@ class SeamanBook extends Model
     	return $this->belongsTo('App\Models\Profile\Profile');
     }
 
-    public function type()	{
+    public function seaman_book_type()	{
 
     	return $this->belongsTo('App\Models\Data\SeamanBookType');
     }

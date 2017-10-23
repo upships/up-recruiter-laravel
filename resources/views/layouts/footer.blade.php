@@ -28,12 +28,51 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue"></script>
 
+    <script type="text/x-template" id="select2-template">
+      <select class="form-control" >
+        <slot></slot>
+      </select>
+    </script>
+
     <script>
 
         axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         
         $(document).ready(function() {
-            $(".select2").select2();
+            
+            $(".sel2").select2();
         });
+
+
+        Vue.component('select2', {
+          props: ['options', 'value'],
+          template: '#select2-template',
+          mounted: function () {
+            var vm = this
+            $(this.$el)
+              .val(this.value)
+              // init select2
+              .select2({ data: this.options })
+              // emit event on change.
+              .on('change', function () {
+                vm.$emit('input', this.value)
+              })
+          },
+          watch: {
+            value: function (value) {
+              // update value
+              $(this.$el).val(value)
+            },
+            options: function (options) {
+              // update options
+              $(this.$el).select2({ data: options })
+            }
+          },
+          destroyed: function () {
+            $(this.$el).off().select2('destroy')
+          }
+        })
+          
+
     </script>

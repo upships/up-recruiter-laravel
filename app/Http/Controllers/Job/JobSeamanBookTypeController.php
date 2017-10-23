@@ -40,7 +40,7 @@ class JobSeamanBookTypeController extends Controller
     {
         $item = JobSeamanBookType::create($request->all());
         
-        return response()->json($item);
+        return response()->json($item->load(['seaman_book_type']));
     }
 
     /**
@@ -83,8 +83,10 @@ class JobSeamanBookTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(JobSeamanBookType $seaman_book_type)
     {
-        //
+        $seaman_book_type->delete();
+
+        return response()->json($seaman_book_type);
     }
 }

@@ -40,7 +40,7 @@ class JobStcwRegulationController extends Controller
     {
         $item = JobStcwRegulation::create($request->all());
 
-        return response()->json($item);
+        return response()->json($item->load(['stcw_regulation']));
     }
 
     /**
@@ -83,8 +83,9 @@ class JobStcwRegulationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(JobStcwRegulation $stcw_regulation)
     {
-        //
+        $stcw_regulation->delete();
+        return response()->json($stcw_regulation->load(['stcw_regulation']));
     }
 }

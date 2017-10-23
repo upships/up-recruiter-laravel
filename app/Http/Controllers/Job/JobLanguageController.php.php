@@ -6,18 +6,18 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Models\Job\Job;
-use App\Models\Job\JobTraining;
+use App\Models\Job\JobLanguage;
 
-class JobTrainingController extends Controller
+class JobLanguageController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Job $job)
+    public function index()
     {
-        return response()->json($job->trainings);
+        //
     }
 
     /**
@@ -38,7 +38,9 @@ class JobTrainingController extends Controller
      */
     public function store(Request $request)
     {
-        $item = JobTraining::create($request->all());
+        $item = JobLanguage::create($request->all());
+
+        $item->load(['language']);
 
         return response()->json($item);
     }
@@ -83,8 +85,10 @@ class JobTrainingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(JobLanguage $language)
     {
-        //
+        $language->delete();
+
+        return response()->json($language);
     }
 }

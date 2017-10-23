@@ -23,6 +23,11 @@ class Company extends Model
     	return $this->hasMany('App\Models\Job\Job');
     }
 
+    public function selection()  {
+
+        return $this->hasMany('App\Models\Recruiting\Selection');
+    }
+
     public function emails()	{
 
     	return $this->hasMany('App\Models\Company\CompanyEmail');
@@ -58,5 +63,16 @@ class Company extends Model
     public function folders() {
 
         return $this->hasMany('App\Models\Company\ProfileFolder');
+    }
+
+    public function getLinkAttribute()  {
+
+        if(!$this->careers_link)    {
+
+            $this->careers_link = str_slug($this->name);
+            $this->save();
+        }
+
+        return 'https://' . $this->careers_link . '.upships.com';
     }
 }

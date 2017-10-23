@@ -11,12 +11,12 @@ class ProfileShip extends Model
     	return $this->belongsTo('App\Models\Profile\Profile');
     }
 
-    public function work()	{
+    public function profile_work()	{
 
     	return $this->belongsTo('App\Models\Profile\ProfileWork');
     }
 
-    public function type()	{
+    public function ship_type()	{
 
     	return $this->belongsTo('App\Models\Data\ShipType');
     }

@@ -54,6 +54,11 @@ class CompanySeeder extends Seeder
         				    factory(App\Models\Job\JobBenefit::class, 3)->make()
                         );
 
+                        // Benefit
+                        $job->languages()->save(
+                            factory(App\Models\Job\JobLanguage::class)->make()
+                        );
+
         				// Requirement
                         $job->requirements()->saveMany(
         				    factory(App\Models\Job\JobRequirement::class, 3)->make()
@@ -75,7 +80,7 @@ class CompanySeeder extends Seeder
                         );
 
         				// Ship Type
-                        $job->ship_requirements()->saveMany(
+                        $job->ship_types()->saveMany(
         				    factory(App\Models\Job\JobShipType::class, 3)->make()
                         );
 
@@ -83,12 +88,6 @@ class CompanySeeder extends Seeder
                         $job->stcw_regulations()->saveMany(
         				    factory(App\Models\Job\JobStcwRegulation::class, 3)->make()
                         );
-
-        				// Training
-                        $job->trainings()->saveMany(
-        				    factory(App\Models\Job\JobTraining::class, 3)->make()
-                        );
-
 
         			// Create profiles
         			factory(App\Models\Profile\Profile::class, 10)->create()->each( function($profile) use ($job)	{
@@ -125,11 +124,6 @@ class CompanySeeder extends Seeder
         					   factory(App\Models\Profile\ProfileLanguage::class, 3)->make()
                             );
 
-        					// Training
-                            $profile->trainings()->saveMany(
-        					   factory(App\Models\Profile\ProfileTraining::class, 3)->make()
-                            );
-
         					// Work
                             factory(App\Models\Profile\ProfileWork::class, 3)->create(['profile_id' => $profile->id])->each( function($work) use ($profile) {
 
@@ -140,7 +134,7 @@ class CompanySeeder extends Seeder
         					});
 
         					// Seaman Book
-                            $profile->book()->save(
+                            $profile->books()->save(
         					   factory(App\Models\Profile\SeamanBook::class)->make()
                             );
 

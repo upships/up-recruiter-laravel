@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class StcwRegulationsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,7 +11,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(CompanySeeder::class);
-        $this->call(AuxiliaryDataSeeder::class);
+        factory(App\Models\Data\StcwRegulation::class, 28)->create();
     }
 }

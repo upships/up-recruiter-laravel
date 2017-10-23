@@ -11,7 +11,7 @@ class Dp extends Model
     	return $this->belongsTo('App\Models\Profile\Profile');
     }
 
-    public function type()	{
+    public function dp_type()	{
 
     	return $this->belongsTo('App\Models\Data\DpType');
     }

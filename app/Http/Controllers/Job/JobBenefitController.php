@@ -87,6 +87,6 @@ class JobBenefitController extends Controller
     {
         $benefit->delete();
 
-        return true;
+        return response()->json($benefit);
     }
 }

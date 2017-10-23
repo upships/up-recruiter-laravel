@@ -11,7 +11,7 @@ class Ship extends Model
     	return $this->belongsTo('App\Models\Company\Company');
     }
 
-    public function type()	{
+    public function ship_type()	{
 
     	return $this->belongsTo('App\Models\Data\ShipType');
     }

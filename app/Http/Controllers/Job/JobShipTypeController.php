@@ -17,7 +17,7 @@ class JobShipTypeController extends Controller
      */
     public function index(Job $job)
     {
-        return response()->json($job->ship_requirements);
+        return response()->json($job->ship_types);
     }
 
     /**
@@ -39,6 +39,8 @@ class JobShipTypeController extends Controller
     public function store(Request $request)
     {
         $item = JobShipType::create($request->all());
+
+        $item->load(['ship_type']);
 
         return response()->json($item);
     }
@@ -83,8 +85,10 @@ class JobShipTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(JobShipType $ship_type)
     {
-        //
+        $ship_type->delete();
+
+        return $ship_type;
     }
 }

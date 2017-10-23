@@ -31,8 +31,9 @@
           </li>
           
           <li>
-            <a href="javascript:;"><span class="title">Recrutamento</span>
-            <span class=" arrow"></span></a>
+            <a href="javascript:;">
+              Recrutamento
+            </a>
             <span class="icon-thumbnail"><i class="fa fa-user-plus"></i></span>
             <ul class="sub-menu">
               <li class="">
@@ -51,8 +52,9 @@
           </li>
           
           <li>
-            <a href="javascript:;"><span class="title">Insights</span>
-            <span class=" arrow"></span></a>
+            <a href="javascript:;">
+              Insights
+            </a>
             <span class="icon-thumbnail"><i class="fa fa-line-chart"></i></span>
             <ul class="sub-menu">
               
@@ -122,7 +124,7 @@
             <div class="d-flex align-items-center">
                 <!-- START User Info-->
                 <div class="pull-left p-r-10 fs-14 font-heading hidden-md-down">
-                    <span class="semi-bold">{{auth()->user()->name}}</span>
+                    <span class="semi-bold">{{auth()->user()->name}} [{{auth()->user()->id}}]</span>
                 </div>
                 <div class="dropdown pull-right hidden-md-down">
                     <button class="profile-dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

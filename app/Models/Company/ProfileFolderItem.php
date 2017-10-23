@@ -11,7 +11,7 @@ class ProfileFolderItem extends Model
     	return $this->belongsTo('App\Models\Profile\Profile');
     }
 
-    public function folder()	{
+    public function profile_folder()	{
 
     	return $this->belongsTo('App\Models\Company\ProfileFolder');
     }

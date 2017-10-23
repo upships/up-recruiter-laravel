@@ -15,4 +15,9 @@ class CocStcwRegulation extends Model
 
     	return $this->belongsTo('App\Models\Profile\Coc');
     }
+
+     public function stcw_regulation()	{
+
+    	return $this->belongsTo('App\Models\Data\StcwRegulation');
+    }
 }

@@ -30,9 +30,9 @@
                     <div v-else>
 
                         <div v-if="jobs.list.length > 0">
-                            <div class="list-group">
-                                <div class="list-group-item" v-for="job in jobs.list">
-
+                            
+                            <div class="card card-default" v-for="job in jobs.list">
+                                <div class="card-block">
                                     <h4>
                                         <a :href='"/job/" + job.id' >@{{job.position.label}}</a>
                                     </h4>
@@ -41,28 +41,30 @@
                                             @{{job.date}}
                                         </li>
                                         <li class="list-inline-item" >
-                                            <i class='fa fa-users' ></i> @{{job.applications.count}} candidatos
+                                            <i class='fa fa-users' ></i> @{{job.applications_count}} candidatos
                                         </li>
                                     
+                                    </ul>
+                                    <ul class='list-inline' >
                                         <li class="list-inline-item" >
-                                            <a :href='"/job/" + job.id + "/close"' class="btn btn-success btn-sm" >
+                                            <a :href='"/job/" + job.id + "/close"' class="btn btn-success btn-xs" >
                                                 <i class='fa fa-check' ></i> Iniciar sele&ccedil;&atilde;o
                                             </a>
                                         </li>
 
                                         <li class="list-inline-item" >
-                                            <a :href='"/job/" + job.id + "/share"' class="btn btn-primary btn-sm" >
+                                            <a :href='"/job/" + job.id + "/share"' class="btn btn-primary btn-xs" >
                                                 <i class='fa fa-linkedin-square' ></i> Compartilhar
                                             </a>
                                         </li>
                                         <li class="list-inline-item" >
-                                            <div class='dropdown' >
-                                                <a href='#' class='dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true' >
-                                                    <i class='fa fa-cog fa-lg'></i> <span class="caret"></span>
-                                                </a>
-                                                <ul class='dropdown-menu dropdown-menu-right' >
-                                                    <li><a :href='"/job/" + job.id + "/edit"' ><i class='fa fa-pencil-square-o'></i> Editar</a></li>
-                                                </ul> 
+                                            <div class="dropdown dropdown-default">
+                                                <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Mais
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" :href='"/job/" + job.id + "/edit"'>Editar</a>
+                                                </div>
                                             </div>
                                         </li>
                                     </ul>    
@@ -147,7 +149,7 @@
                                     <a :href="'/selections/' + selection.id">@{{selection.position.label}}</a></h4>
                                     <ul class="list-inline m-b-10">
                                         <li><i class="fa fa-clock-o"></i> Em @{{selection.date}}</li>
-                                        <li><i class="fa fa-users"></i> @{{selection.applications.count}} candidatos no processo</li>
+                                        <li><i class="fa fa-users"></i> @{{selection.applications_count}} candidatos no processo</li>
                                     </ul>  
                                 </div>
                             </div>

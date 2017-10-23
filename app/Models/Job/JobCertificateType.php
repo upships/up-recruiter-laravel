@@ -13,7 +13,7 @@ class JobCertificateType extends Model
     	return $this->belongsTo('App\Models\Job\Job');
     }
 
-    public function type()	{
+    public function certificate_type()	{
 
     	return $this->belongsTo('App\Models\Data\CertificateType');
     }

@@ -40,7 +40,7 @@ class JobCertificateTypeController extends Controller
     {
         $item = JobCertificateType::create($request->all());
 
-        return response()->json($item);
+        return response()->json($item->load(['certificate_type']));
     }
 
     /**
@@ -87,6 +87,6 @@ class JobCertificateTypeController extends Controller
     {
         $certificate_type->delete();
 
-        return true;
+        return response()->json($certificate_type);
     }
 }

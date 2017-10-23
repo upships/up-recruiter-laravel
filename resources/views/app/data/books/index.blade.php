@@ -16,7 +16,7 @@
 							</div>
 							<div class="list-group" >
 								<div class="list-group-item">
-						            <form method="post" action="/data/main/addBookCategory" role="form">
+						            <form method="post" action="/data/main/addBookType" role="form">
 						                
 									<div class="row" >
 										<div class="col-lg-2 col-md-2 col-xs-12 col-sm-12 m-b-10" >

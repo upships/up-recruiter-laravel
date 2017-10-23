@@ -13,7 +13,7 @@ class JobSeamanBookType extends Model
     	return $this->belongsTo('App\Models\Job\Job');
     }
 
-    public function type()	{
+    public function seaman_book_type()	{
 
     	return $this->belongsTo('App\Models\Data\SeamanBookType');
     }

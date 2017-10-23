@@ -11,7 +11,7 @@ class ProfileCertificate extends Model
     	return $this->belongsTo('App\Models\Profile\Profile');
     }
 
-    public function certificate()	{
+    public function certificate_type()	{
 
     	return $this->belongsTo('App\Models\Data\CertificateType');
     }

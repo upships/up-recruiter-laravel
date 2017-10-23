@@ -6,7 +6,7 @@
 
 		<div class="panel panel-default">
 			<div class="pabel-body">
-		        <form method="post" action="/data/main/editBookCategoryAction" role="form">
+		        <form method="post" action="/data/main/editBookTypeAction" role="form">
 		            <input type="hidden" name="bookCategoryId" value="{bookCategoryId}" >
 
 		            <div class="form-group">

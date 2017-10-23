@@ -11,12 +11,12 @@ class ProfileDocumentRequest extends Model
     	return $this->belongsTo('App\Models\Profile\Profile');
     }
 
-    public function document()	{
+    public function profile_document()	{
 
     	return $this->belongsTo('App\Models\Profile\ProfileDocument');
     }
 
-    public function type()	{
+    public function document_type()	{
 
     	return $this->belongsTo('App\Models\Data\DocumentType');
     }

@@ -4,7 +4,7 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Models\Profile\Dp::class, function (Faker $faker) {
     
-    $dpTypes = [0, 1, 2, 3, 4];
+    $dpTypes = [1, 2, 3, 4, 5];
 
     return [
         

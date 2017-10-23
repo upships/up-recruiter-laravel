@@ -5,19 +5,18 @@ namespace App\Http\Controllers\Job;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use App\Models\Job\Job;
-use App\Models\Job\JobRequirement;
+use App\Models\Job\JobExperience;
 
-class JobRequirementController extends Controller
+class JobExperienceController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Job $job)
+    public function index()
     {
-        return response()->json($job->requirements);
+        //
     }
 
     /**
@@ -38,9 +37,9 @@ class JobRequirementController extends Controller
      */
     public function store(Request $request)
     {
-        $requirement = JobRequirement::create($request->all());
-        
-        return response()->json($requirement);
+        $item = JobExperience::create($request->all());
+
+        return response()->json($item);
     }
 
     /**
@@ -83,10 +82,10 @@ class JobRequirementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(JobRequirement $requirement)
+    public function destroy(JobExperience $experience)
     {
-        $requirement->delete();
+        $experience->delete();
 
-        return response()->json($requirement);
+        return response()->json($experience);
     }
 }

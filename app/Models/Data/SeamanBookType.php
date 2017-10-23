@@ -12,4 +12,9 @@ class SeamanBookType extends Model
 
     	return $this->belongsTo('App\Models\Data\Country');
     }
+
+    public function books()	{
+
+    	return $this->hasMany('App\Models\Profile\SeamanBook');
+    }
 }

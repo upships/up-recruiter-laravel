@@ -40,12 +40,66 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function()	{
 	 */
 
 	Route::get('job', 'Job\JobController@index');
+
+	// Returns all the data needed by a Job in JSON (ship types, stcw regulations, book categories, etc), formatted for Select2
+	Route::get('job_data', 'Job\JobDataController');
+
+	Route::post('job_property/{job}/ship_type', 'Job\JobShipTypeController@store');
+	Route::patch('job_property/ship_type/{ship_type}', 'Job\JobShipTypeController@update');
+	Route::delete('job_property/ship_type/{ship_type}', 'Job\JobShipTypeController@destroy');
+
+	Route::post('job_property/{job}/requirement', 'Job\JobRequirementController@store');
+	Route::patch('job_property/requirement/{requirement}', 'Job\JobRequirementController@update');
+	Route::delete('job_property/requirement/{requirement}', 'Job\JobRequirementController@destroy');
+
+	Route::post('job_property/{job}/experience', 'Job\JobExperienceController@store');
+	Route::patch('job_property/experience/{experience}', 'Job\JobExperienceController@update');
+	Route::delete('job_property/experience/{experience}', 'Job\JobExperienceController@destroy');
+
+	Route::post('job_property/{job}/certificate_type', 'Job\JobCertificateTypeController@store');
+	Route::patch('job_property/language/{language}', 'Job\JobLanguageController@update');
+	Route::delete('job_property/language/{language}', 'Job\JobLanguageController@destroy');
+
+	Route::post('job_property/{job}/language', 'Job\JobLanguageController@store');
+	Route::patch('job_property/seaman_book_type/{seaman_book_type}', 'Job\JobSeamanBookTypeController@update');
+	Route::delete('job_property/seaman_book_type/{seaman_book_type}', 'Job\JobSeamanBookTypeController@destroy');
+
+	Route::post('job_property/{job}/seaman_book_type', 'Job\JobSeamanBookTypeController@store');
+	Route::patch('job_property/stcw_regulation/{stcw_regulation}', 'Job\JobStcwRegulationController@update');
+	Route::delete('job_property/stcw_regulation/{stcw_regulation}', 'Job\JobStcwRegulationController@destroy');
+
+	Route::post('job_property/{job}/stcw_regulation', 'Job\JobStcwRegulationController@store');
+	Route::patch('job_property/benefit/{benefit}', 'Job\JobBenefitController@update');
+	Route::delete('job_property/benefit/{benefit}', 'Job\JobBenefitController@destroy');
+
+	Route::post('job_property/{job}/benefit', 'Job\JobBenefitController@store');
+	Route::patch('job_property/certificate_type/{certificate_type}', 'Job\JobCertificateTypeController@update');
+	Route::delete('job_property/certificate_type/{certificate_type}', 'Job\JobCertificateTypeController@destroy');
+
 	Route::get('job/{job}', 'Job\JobController@show');
 	Route::patch('job/{job}', 'Job\JobController@update');	// Returns the Request fields
 
-	Route::post('job/{job}/feature', 'Job\JobFeatureController@store');
-	Route::patch('job/{job}/feature', 'Job\JobFeatureController@update');
-	Route::delete('job/{job}/feature', 'Job\JobFeatureController@destroy');
+	
+	
+	
+	
+	
+	
+	
+	
+
+	/**
+	 *	Selections (API)
+	 *
+	 */
+
+	Route::get('selection', 'Recruiting\SelectionController@index');
+	Route::get('selection/{selection}', 'Recruiting\SelectionController@show');
+	Route::patch('selection/{selection}', 'Recruiting\SelectionController@update');	// Returns the Request fields
+
+	Route::post('selection/{selection}/feature', 'Recruiting\SelectionFeatureController@store');
+	Route::patch('selection/{selection}/feature', 'Recruiting\SelectionFeatureController@update');
+	Route::delete('selection/{selection}/feature', 'Recruiting\SelectionFeatureController@destroy');
 
 	/**
 	 *	Job Applications (API)
@@ -324,12 +378,12 @@ Route::group(['prefix' => 'data', 'middleware' => 'auth'], function()	{
 	 *
 	 */
 
-	Route::get('seaman_book_category', 'Data\SeamanBookTypeController@index');
-	Route::get('seaman_book_category/{bookCategory}', 'Data\SeamanBookTypeController@edit');
-	Route::get('seaman_book_category/{bookCategory}/edit', 'Data\SeamanBookTypeController@edit');
-	Route::patch('seaman_book_category/{bookCategory}', 'Data\SeamanBookTypeController@update');
-	Route::post('seaman_book_category', 'Data\SeamanBookTypeController@store');
-	Route::delete('seaman_book_category/{bookCategory}', 'Data\SeamanBookTypeController@destroy');
+	Route::get('seaman_book_type', 'Data\SeamanBookTypeController@index');
+	Route::get('seaman_book_type/{bookCategory}', 'Data\SeamanBookTypeController@edit');
+	Route::get('seaman_book_type/{bookCategory}/edit', 'Data\SeamanBookTypeController@edit');
+	Route::patch('seaman_book_type/{bookCategory}', 'Data\SeamanBookTypeController@update');
+	Route::post('seaman_book_type', 'Data\SeamanBookTypeController@store');
+	Route::delete('seaman_book_type/{bookCategory}', 'Data\SeamanBookTypeController@destroy');
 		
 	/**
 	 *	STCW Regulations

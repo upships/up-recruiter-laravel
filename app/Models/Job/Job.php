@@ -6,7 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Job extends Model
 {
-    protected $fillable = ['position_id', 'ship_type_id', 'instructions', 'status', 'step', 'expires_on', 'description', 'rotation', 'slug', 'salary', 'visibility'];
+    protected $fillable = ['position_id', 'ship_type_id', 'instructions', 'status', 'step', 'expires_on', 'description', 'rotation', 'slug', 'salary', 'visibility', 'vacancies'];
+    
+    protected $appends = ['date', 'elapsed_time', 'visibility_label', 'status_label', 'expiration_date', 'full_expiration_date'];
+
+    public function getSlug()   {
+
+        // Checks if job has Slug
+        if(!$this->slug)    {
+
+            // Label
+            $this->slug = str_slug($this->position->label . ' ' . str_random(5));
+            $this->save();
+        }
+
+        return $this->slug;
+    }
 
     public function company()	{
 
@@ -43,7 +58,12 @@ class Job extends Model
     	return $this->hasMany('App\Models\Job\JobRequirement');
     }
 
-    public function ship_requirements()    {
+    public function languages()  {
+
+        return $this->hasMany('App\Models\Job\JobLanguage');
+    }
+
+    public function ship_types()    {
 
         return $this->hasMany('App\Models\Job\JobShipType');
     }
@@ -63,11 +83,6 @@ class Job extends Model
     	return $this->hasMany('App\Models\Job\JobStcwRegulation');
     }
 
-    public function trainings()	{
-
-    	return $this->hasMany('App\Models\Job\JobTraining');
-    }
-
     public function certificate_types()	{
 
     	return $this->hasMany('App\Models\Job\JobCertificateType');
@@ -84,5 +99,94 @@ class Job extends Model
     	return $this->hasOne('App\Models\Recruiting\Selection');
     }
 
+    public function getDateAttribute()  {
 
+        return $this->created_at->format('d/M');
+    }
+
+    public function getElapsedTimeAttribute()  {
+
+        return $this->created_at->diffForHumans();
+    }
+
+
+    public function getStatusLabelAttribute()   {
+
+        // 0 - not published, 1 - published, 2 - archived, 666 - cancelled
+
+        switch($this->status)   {
+
+            case 0:
+                $label = 'Not published';
+            break;
+
+            case 1:
+                $label = 'Published';
+            break;
+
+            case 2:
+                $label = 'Archived';
+            break;
+
+            case 666:
+                $label = 'Cancelled';
+            break;
+
+            default:
+                $label = 'Not published';
+        }
+
+        return $label;
+    }
+
+    public function getVisibilityLabelAttribute()   {
+
+        // 1 - visible, 2 - private, 3 - confidential company
+
+        switch($this->visibility)   {
+
+            case 1:
+                $label = 'Publicly visible';
+            break;
+
+            case 2:
+                $label = 'Confidential company';
+            break;
+
+            case 3:
+                $label = 'Private';
+            break;
+
+            default:
+                $label = 'Publicly visible';
+        }
+
+        return $label;
+    }
+
+    public function getExpirationDateAttribute()    {
+
+        // Checks if job has Slug
+        if(!$this->expires_on)    {
+
+            // Label
+            $this->expires_on = \Carbon\Carbon::create()->addDays(30);
+            $this->save();
+        }
+
+        return \Carbon\Carbon::parse($this->expires_on)->format('d/M');
+    }
+
+    public function getFullExpirationDateAttribute()    {
+
+        // Checks if job has Slug
+        if(!$this->expires_on)    {
+
+            // Label
+            $this->expires_on = \Carbon\Carbon::create()->addDays(30);
+            $this->save();
+        }
+
+        return \Carbon\Carbon::parse($this->expires_on)->format('m/d/Y');
+    }
 }

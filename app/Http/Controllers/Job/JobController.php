@@ -9,7 +9,8 @@ use App\Models\Data\Position;
 use App\Models\Data\ShipType;
 use App\Models\Data\StcwRegulation;
 use App\Models\Data\SeamanBookType;
-use App\Models\Data\Training;
+use App\Models\Data\CertificateType;
+use App\Models\Data\Language;
 
 use App\Models\Job\Job;
 use App\Models\Company\Company;
@@ -79,6 +80,13 @@ class JobController extends Controller
      */
     public function show(Job $job)
     {
+        if(request()->ajax())   {
+
+            $job->load(['ship_types.ship_type', 'languages.language', 'experiences', 'requirements', 'seaman_book_types.seaman_book_type', 'stcw_regulations.stcw_regulation', 'certificate_types.certificate_type', 'benefits', 'ship_type', 'position']);
+
+            return response()->json($job);
+        }
+
         return view('app.jobs.view', compact('job'));
     }
 
@@ -96,9 +104,9 @@ class JobController extends Controller
 
         $stcw_regulations = StcwRegulation::all();
         $seaman_book_types = SeamanBookType::all();
-        $trainings = Training::all();
+        $certificates = CertificateType::all();
 
-        return view('app.jobs.edit', compact('job', 'positions', 'ship_types', 'stcw_regulations', 'seaman_book_types', 'trainings'));
+        return view('app.jobs.edit', compact('job', 'positions', 'ship_types', 'stcw_regulations', 'seaman_book_types', 'certificates'));
     }
 
     /**
@@ -112,7 +120,7 @@ class JobController extends Controller
     {
         $job->update($request->all());
 
-        return redirect('/job/' . $job->id);
+        return redirect('/job/' . $job->id)->with('message', 'Job updated');
     }
 
     /**

@@ -1,61 +1,319 @@
 @extends('layouts.master')
-@section('page-title','Vaga $job->position->label')
+
+@section('page-title')
+Vaga {{$job->position->label}}
+@endsection
 
 @section('content')
 
-	<h3>{{$job->position->label}}</h3>
-
 	<div class="row">
+		<div class="col">
+			<div class="card card-borderless no-padding">
+				<div class="card-block">
 
-		<div class="col-lg-2" >
-			<div class="list-group" >
-				<div class="list-group-item">
-					<h3 class="list-group-item-heading" >Filtros</h3>
-				</div>
-				
-				<div class="list-group-item" v-if="activeFilters.length > 0">
+					<h3>{{$job->position->label}}</h3>
 
-					<h4>Filtros ativos</h4>
-
-					<ul v-for="(ac, key) in activeFilters" >
-						<li>@{{filtersMeta[ac.key]['label']}}: @{{ac.value}} <a href="#" @click="deleteFilter(key)" >x</a></li>
-					</ul>
-				</div>
-
-				<div class="list-group-item" v-for="(filter, key) in filters" >
-					
-					<div v-if="filter.length > 0" >
-
-						<h4 class="" >@{{filtersMeta[key]['label']}}</h4>
-
-						<div v-for="item in filter" >
-							<a href="#" @click="triggerFilter(key, item)" >
-								@{{filtersMeta[key][item]['label']}}
-							</a>
+					<div class="row">
+						<div class="col">
+							<h6>Status</h5>
+							{{$job->status_label}}
 						</div>
 
+						<div class="col">
+							<h6>Visibilidade</h5>
+							{{$job->visibility_label}}
+						</div>
+
+						<div class="col">
+							<h6>Data</h5>
+							{{$job->date}}
+						</div>
+						<div class="col">
+							<h6>Validade</h5>
+							{{$job->expiration_date}}
+						</div>
+
+						<div class="col">
+							<h6>Adicionada por</h6>
+							<a href="/recruiter/{{$job->recruiter->id}}" >{{$job->recruiter->user->name}} ({{$job->recruiter->user->email}})</a>
+						</div>
+						@if($job->ship_type)
+						<div class="col">
+							<h6>Embarca&ccedil;&atilde;o</h5>
+							{{$job->ship_type->label}}
+						</div>
+						@endif
+
+						<div class="col">
+							<h6>Link da vaga</h6>
+							<a href="{{$job->company->link}}/job/{{$job->getSlug()}}" target="_blank">
+								Abrir <i class="fa fa-external-link"></i>
+							</a>
+						</div>
 					</div>
 
+					<a href="/job/{{$job->id}}/close" class="btn btn-success" >Encerrar vaga</a>
+					<a href="/job/{{$job->id}}/edit" class="btn btn-default" >Editar</a>
 				</div>
-
+				
 			</div>
+
+			<div class="card card-borderless">
+			    <ul class="nav nav-tabs nav-tabs-simple" role="tablist" data-init-reponsive-tabs="dropdownfx">
+			        <li class="nav-item">
+			          <a class="active" data-toggle="tab" role="tab" data-target="#tab-candidates" href="#">Candidatos</a>
+			        </li>
+			        <li class="nav-item">
+			          <a href="#" data-toggle="tab" role="tab" data-target="#tab-job-info">Dados da vaga</a>
+			        </li>
+			    </ul>
+		    	
+		    	<div class="tab-content">
+		        	<div class="tab-pane active" id="tab-candidates">
+		          		<h3>
+		            		<span class="semi-bold">Candidatos</span>
+		          		</h3>
+		          		<p class="small" >Total: @{{visibleApplications.length}} candidatos</p>
+
+		          		<div class="row">
+
+							<div class="col-2" >
+								<div class="card card-default" >
+									<div class="card-header">
+										<h3 class="" >Filtros</h3>
+									</div>
+									
+									<div class="card-block" v-if="activeFilters.length > 0">
+
+										<h4>Filtros ativos</h4>
+
+										<ul v-for="(ac, key) in activeFilters" >
+											<li>@{{filtersMeta[ac.key]['label']}}: @{{ac.value}} <a href="#" @click="deleteFilter(key)" >x</a></li>
+										</ul>
+									</div>
+
+									<div class="card-block" v-for="(filter, key) in filters" >
+										
+										<div v-if="filter.length > 0" >
+
+											<h4 class="" >@{{filtersMeta[key]['label']}}</h4>
+
+											<div v-for="item in filter" >
+												<a href="#" @click="triggerFilter(key, item)" >
+													@{{filtersMeta[key][item]['label']}}
+												</a>
+											</div>
+
+										</div>
+
+									</div>
+
+								</div>
+							</div>
+							<div class="col">
+
+								<div class="card card-default" v-for="application in visibleApplications" >
+									<div class="card-block">
+										@{{application.profile.name}}
+									</div>
+								</div>
+
+							</div>
+						</div>
+		        	</div>
+		        	<div class="tab-pane " id="tab-job-info">
+			        	<h3>
+			          		<span class="semi-bold">Dados da vaga</span>
+			        	</h3>
+
+			        	@if($job->description)
+							{{$job->description}}
+						@endif
+
+			        	<div class="row">
+							<div class="col-lg-6 col-md-6">
+								
+								<h4>Requisitos</h4>
+
+								<div class="card card-default m-b-10">
+
+									@if($job->seaman_book_types)
+
+										<div class="card-block">
+											<h5>Categorias CIR</h5>
+
+											<ul class="list-inline">
+												@foreach($job->seaman_book_types as $job_seaman_book_type) 
+													<li>
+														<button class="btn btn-default btn-sm">{{$job_seaman_book_type->seaman_book_type->label}}</button>
+													</li>
+												@endforeach
+											</ul>
+										</div>
+									@endif
+
+									@if($job->stcw_regulations)
+										<div class="card-block">
+											<h5>Regras STCW</h5>
+
+											<ul class="list-inline">
+												@foreach($job->stcw_regulations as $job_stcw_regulation)
+													<li><button class="btn btn-default btn-sm">{{$job_stcw_regulation->stcw_regulation->regulation}}</button></li>
+												@endforeach
+											</ul>
+										</div>
+									@endif
+
+									@if($job->certificate_types)
+										<div class="card-block">
+											<h5>Cursos &amp; Certificados</h5>
+
+											<ul class="list-inline">
+												@foreach($job->certificate_types as $certificate_type)
+												<li>
+													<button class="btn btn-default btn-sm">{{$certificate_type->certificate_type->label}}</button>
+												</li>
+												@endforeach
+											</ul>
+										</div>
+									@endif
+
+									@if($job->ship_types)
+
+										<div class="card-block">
+											<h5>Experi&ecirc;ncia em embarca&ccedil;&otilde;es</h5>
+
+											<ul>
+											@foreach($job->ship_types as $ship_type)
+												<li>{{$ship_type->ship_type->label}}</li>
+											@endforeach
+											</ul>
+										</div>
+									@endif
+
+									@if($job->experiences)
+
+										<div class="card-block">
+											
+											<h5>Outras experi&ecirc;ncias</h5>
+											
+											<ul>
+											@foreach($job->experiences as $experience)
+												<li>{{$experience->value}}</li>
+											@endforeach
+											</ul>
+										</div>
+									@endif
+
+									@if($job->requirements)
+
+										<div class="card-block">
+											<h5>Outros requisitos</h5>
+
+											<ul>
+											@foreach($job->requirements as $requirement)
+												<li>
+													{{$requirement->value}}</a>
+												</li>
+											@endforeach
+											</ul>
+										</div>
+									@endif
+
+									@if($job->languages)
+
+										<div class="card-block">
+											<h5 class="">Idiomas</h4>
+											
+											<ul>
+												@foreach($job->languages as $language) 
+													<li>
+														{{$language->language->label}}: {{$language->level_label}}
+													</li>
+												@endforeach
+											</ul>
+										</div>
+									@endif
+
+								</div>
+							</div>
+
+							<div class="col-lg-6 col-md-6">
+
+								<h4>Outras informa&ccedil;&otilde;es</h4>
+
+								@if($job->rotation)
+								<div class="card card-default">
+									<div class="card-block">
+										<h4>Escala</h4>
+
+										{{$job->rotation}}
+									</div>
+								</div>
+								@endif
+
+								@if($job->extra)
+								<div class="card card-default">
+									<div class="card-block">
+										<h4>Informa&ccedil;&otilde;es extras</h4>
+										
+										{{$job->extra}}
+
+									</div>
+								</div>
+								@endif
+
+								@if($job->vacancies)
+								<div class="card card-default">
+									<div class="card-block">
+										<h4>N&uacute;mero de vagas</h4>
+										
+										{{$job->vacancies}}
+
+									</div>
+								</div>
+								@endif
+
+								@if($job->location)
+								<div class="card card-default">
+									<div class="card-block">
+										<h4>Local</h4>
+										
+										{{$job->location}}
+									</div>
+								</div>
+								@endif
+
+								@if($job->salary)
+								<div class="card card-default">
+									<div class="card-block">
+										<h4>Remunera&ccedil;&atilde;o</h4>
+										
+										{{$job->salary}}
+									</div>
+								</div>
+								@endif
+								
+							</div>
+						</div>
+
+						<ul class="list-inline">
+							<li class="list-inline-item" >
+								<a href="/job/disable/{{$job->id}}" class="btn btn-warning" ><i class='fa fa-eye-slash' ></i> Desativar</a>
+							</li>
+							
+							<li class="list-inline-item float-right">
+								<a href="#delete" onclick="deleteJob({{$job->id}},true)" class="btn btn-danger" ><i class='fa fa-times' ></i> Excluir</a>
+							</li>
+						</ul>
+					</div>
+
+		          	</div>
+		        </div>
+		    </div>
 		</div>
-		<div class="col-lg-10">						
-			<div class="list-group" >
-				<div class="list-group-item">
-					<h3 class="list-group-item-heading" >Candidatos</h3>
-					<p>Total: @{{visibleProfiles.length}} candidatos</p>
-				</div>
+    </div>
 
-				<div class="list-group-item" v-for="profile in visibleProfiles" >
-					@{{profile.profileName}} (@{{profile.bookCategoryCode}})
-				</div>
-
-			</div>
-		</div>
-
-	</div>
-</div>
 @endsection
 
 @section('local-footer')
@@ -69,7 +327,7 @@
 		    el: '#up-app',
 		    data: {
 
-		    	profiles: [],
+		    	applications: [],
 
 		        activeFilters: [],
 
@@ -142,13 +400,13 @@
 
 		    computed: {
 
-		        visibleProfiles: function()	{
+		        visibleApplications: function()	{
 
 		        	var self = this;
 
 		        	if(self.activeFilters.length > 0)	{
 
-		        		return self.profiles.filter( function(profile) {
+		        		return self.applications.filter( function(application) {
 
 			        		for(i = 0; i < self.activeFilters.length; i++)	{
 
@@ -164,7 +422,7 @@
 			        	});
 		        	}
 		        	
-		        	return self.profiles;
+		        	return self.applications;
 		        }
 		    },
 
@@ -173,9 +431,6 @@
 		    	filterTypeLabel: function( filterType )	{
 
 		    		var self = this;
-
-		    		console.log('This: ' + this.filtersMeta);
-		    		console.log('Self: ' + self.filtersMeta);
 
 		    		return filterType;
 
@@ -199,78 +454,78 @@
 
 		            // Go through each profile, get their filterableAttributes and return to the Filters array
 
-		            var profiles = response.data.map( function(profile)	{
+		            var applications = response.data.map( function(application)	{
 
-		            	profile.filterableAttributes = {book: [], stcw: [], english: [], location: []};
+		            	application.profile.filterableAttributes = {book: [], stcw: [], english: [], location: []};
 
-		            	// CIR: book
+		            	// // CIR: book
 
-		            		// Check if item already exists
+		            	// 	// Check if item already exists
 
-		            	var filterItemKey = profile.bookCategoryCode;
+		            	// var filterItemKey = application.profile.bookCategoryCode;
 		            	
-		            	if(typeof filterItemKey === 'string')	{
+		            	// if(typeof filterItemKey === 'string')	{
 
-			            	if( vm.filters.book.findIndex( function(item) {return item === filterItemKey}) < 0)	{
+			            // 	if( vm.filters.book.findIndex( function(item) {return item === filterItemKey}) < 0)	{
 
-			            		vm['filtersMeta']['book'][filterItemKey] = {label: profile.bookCategoryCode, id: profile.bookCategoryId};
-			            		vm.filters.book.push(filterItemKey);
-			            	}
+			            // 		vm['filtersMeta']['book'][filterItemKey] = {label: application.profile.bookCategoryCode, id: application.profile.bookCategoryId};
+			            // 		vm.filters.book.push(filterItemKey);
+			            // 	}
 
-			            	profile.filterableAttributes.book.push(filterItemKey);
-			            }
+			            // 	application.profile.filterableAttributes.book.push(filterItemKey);
+			            // }
 
-			            var filterItemKey = profile.profileState;
+			            // var filterItemKey = application.profile.profileState;
 		            	
-		            	if(typeof filterItemKey === 'string')	{
+		            	// if(typeof filterItemKey === 'string')	{
 
-			            	if( vm.filters.location.findIndex( function(item) {return item === filterItemKey}) < 0)	{
+			            // 	if( vm.filters.location.findIndex( function(item) {return item === filterItemKey}) < 0)	{
 
-			            		vm['filtersMeta']['location'][filterItemKey] = {label: profile.profileState, id: profile.profileState};
-			            		vm.filters.location.push(filterItemKey);
-			            	}
+			            // 		vm['filtersMeta']['location'][filterItemKey] = {label: application.profile.profileState, id: application.profile.profileState};
+			            // 		vm.filters.location.push(filterItemKey);
+			            // 	}
 
-			            	profile.filterableAttributes.location.push(filterItemKey);
-			            }
+			            // 	application.profile.filterableAttributes.location.push(filterItemKey);
+			            // }
 
-			            // STCW: stcw
+			            // // STCW: stcw
 
-		            	if(typeof profile.cocRegulations !== 'undefined')	{
+		            	// if(typeof application.profile.cocRegulations !== 'undefined')	{
 			            	
-			            	profile.cocRegulations.map( function(regulation) {
+			            // 	application.profile.cocRegulations.map( function(regulation) {
 
-				            	var filterItemKey = regulation.stcwRegulationCode;
+				           //  	var filterItemKey = regulation.stcwRegulationCode;
 		            	
-				            	if(typeof filterItemKey === 'string')	{
+				           //  	if(typeof filterItemKey === 'string')	{
 
-					            	if( vm.filters.stcw.findIndex( function(item) {return item === filterItemKey}) < 0)	{
+					          //   	if( vm.filters.stcw.findIndex( function(item) {return item === filterItemKey}) < 0)	{
 
-					            		vm['filtersMeta']['stcw'][filterItemKey] = {label: regulation.stcwRegulation, id: regulation.stcwRegulationCode};
-					            		vm.filters.stcw.push(filterItemKey);
-					            	}
-					            }
+					          //   		vm['filtersMeta']['stcw'][filterItemKey] = {label: regulation.stcwRegulation, id: regulation.stcwRegulationCode};
+					          //   		vm.filters.stcw.push(filterItemKey);
+					          //   	}
+					          //   }
 
-					            profile.filterableAttributes.stcw.push(filterItemKey);
+					          //   application.profile.filterableAttributes.stcw.push(filterItemKey);
 
-			            	});
-			            }
+			            // 	});
+			            // }
 
-			            // Inglês: english
+			            // // Inglês: english
 
-			            	var filterItemKey = profile.profileEnglishLevel;
+			            // 	var filterItemKey = application.profile.profileEnglishLevel;
 		            	
-			            	if(typeof filterItemKey === 'string')	{
+			            // 	if(typeof filterItemKey === 'string')	{
 
-				            	if( vm.filters.english.findIndex( function(item) {return item === filterItemKey}) < 0)	{
+				           //  	if( vm.filters.english.findIndex( function(item) {return item === filterItemKey}) < 0)	{
 
-				            		vm['filtersMeta']['english'][filterItemKey] = {label: profile.profileEnglishLevelLabel, id: filterItemKey};
-				            		vm.filters.english.push(filterItemKey);
-				            	}
+				           //  		vm['filtersMeta']['english'][filterItemKey] = {label: application.profile.profileEnglishLevelLabel, id: filterItemKey};
+				           //  		vm.filters.english.push(filterItemKey);
+				           //  	}
 
-				            	profile.filterableAttributes.english.push(filterItemKey);
-				            }
+				           //  	application.profile.filterableAttributes.english.push(filterItemKey);
+				           //  }
 
-				        return profile;
+				        return application;
 		            	
 		            	// Embarcação: ship
 
@@ -300,7 +555,7 @@
 
 		            });
 
-		            vm.profiles = profiles;
+		            vm.applications = applications;
 		        });
 		    },
 
