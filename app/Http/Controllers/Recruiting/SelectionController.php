@@ -63,7 +63,7 @@ class SelectionController extends Controller
             
         }
 
-        return view('app.selections.view');
+        return view('app.selections.view', compact('selection'));
     }
 
     /**

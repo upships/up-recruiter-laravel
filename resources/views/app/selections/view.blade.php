@@ -96,248 +96,8 @@
 
 			</div>
 		</div>
-
-			<div class="row">
-				<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-					<div class="card card-default">
-						<div class="card-block">
-							<h3 class="card-title">Candidatos iniciais</h3>
-						</div>
-
-						
-						<div class="card-block">
-							<h4>
-								<a href="/profile/{{$profile->id}}" target="_blank">
-								@{{application.profile.name}} <br/><small>{{$application->profile->position->label}}</small>
-								</a>
-							</h4>
-
-							<ul class="list-inline clearfix">
-								<li>
-									<label>
-										<input type="checkbox" name="applicants[]" class="applicantsSelector" value="{{$application->id}}" > Selecionar
-									</label>
-								</li>
-								<!--
-								<li class="text-{applicantCompatibilityColor}">{applicantCompatibility}% compat.</li>
-								-->
-
-								<li class="float-right">
-							
-					                <div class='dropdown' >
-					                    <a href='#' class='btn btn-default btn-sm dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true' >
-					                        <i class='fa fa-cog fa-lg'></i> A&ccedil;&otilde;es <span class="caret"></span>
-					                    </a>
-					                    <ul class='dropdown-menu dropdown-menu-right' >
-					                    	<li><a href="/selection/changeCandidates/2/{{$application->id}}" class="text-info"><i class="fa fa-comments-o"></i> Entrevistar</a></li>
-
-						                    <li role="separator" class="divider"></li>
-						                    <li><a href='/selection/messageCandidates/{{$application->id}}'><i class='fa fa-envelope-o'></i> Enviar mensagem</a></li>
-						                    <li><a href='/selection/requestDocuments/{{$application->id}}'><i class='fa fa-file-o'></i> Solicitar documentos</a></li>
-						                    <!--
-						                    <li role="separator" class="divider"></li>
-						                    <li><a href="#" onclick="toggleJobStatus('{{$selection->id}}')" ><i class='fa fa-eye-slash' ></i> Desativar</a></li> -->
-						                    <li role="separator" class="divider"></li>
-						                    <li class="text-danger"><a href="/selection/removeCandidates/{{$application->id}}"  ><i class='fa fa-times' ></i> Desclassificar</a></li>
-					                    </ul> 
-					                </div>
-								</li>
-							</ul>
-						</div>
-						
-
-					</div>
-				</div>
-
-				<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-					<div class="card card-default">
-						<div class="card-block">
-							<h3 class="card-title">Em entrevista</h3>
-						</div>
-
-						
-						<div class="card-block">
-							<h4>
-								<a href="/profile/{{$profile->id}}" target="_blank">
-								@{{application->profile->name}} <br/><small>{{$application->profile->position->label}}</small>
-								</a>
-							</h4>
-
-							<ul class="list-inline clearfix">
-								<li>
-									<label>
-									<input type="checkbox" name="applicants[]" class="applicantsSelector" value="{{$application->id}}" > Selecionar
-									</label>
-								</li>
-								<!--
-								<li class="text-{applicantCompatibilityColor}">{applicantCompatibility}% compat.</li>
-								-->
-
-								<li class="float-right">
-							
-					                <div class='dropdown' >
-					                    <a href='#' class='btn btn-default btn-sm dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true' >
-					                        <i class='fa fa-cog fa-lg'></i> A&ccedil;&otilde;es <span class="caret"></span>
-					                    </a>
-					                    
-					                </div>
-								</li>
-							</ul>
-						</div>
-						
-
-					</div>	
-				</div>
-				<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-					<div class="card card-default">
-						<div class="card-block">
-							<h3 class="card-title">Em fase final</h3>
-						</div>
-
-						{applicantsSelected}
-						<div class="card-block">
-							<h4>
-								<a href="/profile/{{$profile->id}}" target="_blank">
-								@{{application->profile->name}} <br/><small>{{$application->profile->position->label}}</small>
-								</a>
-							</h4>
-
-							<ul class="list-inline">
-								<li>
-									<input type="checkbox" name="applicants[]" class="applicantsSelector" value="{{$application->id}}" >
-								</li>
-								<!--<li class="text-{applicantCompatibilityColor}">{applicantCompatibility}% compat.</li>-->
-								<li><a href="/selection/changeCandidates/4/{{$application->id}}" class="btn btn-success btn-sm"><i class="fa fa-check-square-o"></i> Aprovar</a></li>					
-								
-								<li class="float-right clearfix">
-							
-					                <div class='dropdown' >
-					                    <a href='#' class='btn btn-default btn-sm dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true' >
-					                        <i class='fa fa-cog fa-lg'></i> <span class="caret"></span>
-					                    </a>
-					                    <ul class='dropdown-menu dropdown-menu-right' >
-						                    <li><a href='/selection/messageCandidates/{{$application->id}}'><i class='fa fa-envelope-o'></i> Enviar mensagem</a></li>
-						                    <li role="separator" class="divider"></li>
-						                    <li><a href='/selection/requestDocuments/{{$application->id}}'><i class='fa fa-file-o'></i> Solicitar documentos</a></li>
-
-						                    <!--
-						                    <li role="separator" class="divider"></li>
-						                    <li><a href="#" onclick="toggleJobStatus('{{$selection->id}}')" ><i class='fa fa-eye-slash' ></i> Desativar</a></li> -->
-						                    <li role="separator" class="divider"></li>
-						                    <li><a href="/selection/removeCandidates/{{$application->id}}" class="text-danger" ><i class='fa fa-times' ></i> Eliminar</a></li>
-					                    </ul> 
-					                </div>
-								</li>
-								<li class="clearfix"></li>
-							</ul>
-						</div>
-						{/applicantsSelected}
-					</div>
-				</div>
-					<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-					<div class="card card-default">
-						<div class="card-block">
-							<h3 class="card-block-heading text-success">Candidatos aprovados</h3>
-						</div>
-						<div class="card-block">
-							<div class='dropdown' >
-			                    <a href='#' class='btn btn-block btn-default dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true' >
-			                        Aos finalistas <span class="caret"></span>
-			                    </a>
-			                    <ul class='dropdown-menu dropdown-menu-right' >
-				                    <li>
-				                    	<a href='/selection/messageFinalCandidates/{{$application->id}}'>
-				                    		<i class='fa fa-envelope-o'></i> Enviar mensagem
-				                    	</a>
-				                    </li>
-				                    <li role="separator" class="divider"></li>
-				                    <li>
-				                    	<a href='/selection/requestFinalDocuments/{{$application->id}}'>
-				                    		<i class='fa fa-file-o'></i> Solicitar documentos
-				                    	</a>
-				                    </li>
-			                    </ul> 
-			                </div>
-				        </div>
-
-						{applicantsApproved}
-						<div class="card-block">
-							<h4>@{{application->profile->name}} <br/><small>{{$application->profile->position->label}}</small></h4>
-
-							<ul class="list-inline">
-								<!--<li class="text-{applicantCompatibilityColor}">{applicantCompatibility}% compat.</li>-->
-								<li>
-							
-					                <div class='dropdown' >
-					                    <a href='#' class='btn btn-default btn-sm dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true' >
-					                        <i class='fa fa-cog fa-lg'></i> A&ccedil;&otilde;es <span class="caret"></span>
-					                    </a>
-					                    <ul class='dropdown-menu dropdown-menu-right' >
-						                    <li>
-						                    	<a href='/selection/messageCandidates/{{$application->id}}'>
-						                    		<i class='fa fa-envelope-o'></i> Enviar mensagem
-						                    	</a>
-						                    </li>
-						                    <li role="separator" class="divider"></li>
-						                    <li>
-						                    	<a href='/selection/requestDocuments/{{$application->id}}'>
-						                    		<i class='fa fa-file-o'></i> Solicitar documentos
-						                    	</a>
-						                    </li>
-					                    </ul> 
-					                </div>
-								</li>
-							</ul>
-						</div>
-						{/applicantsApproved}
-					</div>	
-				</div>
-			</div>            
-
-
-
-
-        </div> 
-        <div class="tab-pane" id="removed"> 
-             <div class="card card-default">
-				<div class="card-block">
-					<h3 class="card-title">Candidatos eliminados</h3>
-				</div>
-
-				{removedApplicants}
-				<div class="card-block">
-					<h4>
-						<a href="/profile/{{$profile->id}}" target="_blank">
-						@{{application->profile->name}} <br/><small>{{$application->profile->position->label}}</small>
-						</a>
-					</h4>
-
-					<ul class="list-inline">
-						<li>
-							<a href="/selection/changeCandidates/1/{{$application->id}}" >
-								<i class="fa fa-undo"></i> Recolocar candidato
-							</a>
-						</li>
-					</ul>
-				</div>
-				{/removedApplicants}
-			</div>
-        </div> 
-    </div> 
+	</div>
 </div>
-
-<hr/>
-
-<p class="text-center">
-	<small>
-		<a href="#delete" onclick="deleteJob({{$selection->id}},true)" class="text-danger" >
-			<i class='fa fa-times' ></i> Excluir processo seletivo
-		</a>
-		<br/>
-		(requer confirma&ccedil;&atilde;o posterior)
-	</small>
-</p>
-
 
 @endsection
 
@@ -360,16 +120,22 @@
 	  		</h6>
 		</div>
 		<div class="card-description">
+			
+			<div v-if="showDetails">
 
-			<p v-show="application.notes" >
-				@{{application.notes}}
-			</p>
+				<p class="text-center">
+					<a href="javascript:;" @click="showDetails = !showDetails" >Fechar detalhes <i class="fa fa-angle-up"></i></a>
+				</p>
 
-		  	<p v-show="application.salary" >
-		    	Pretens&atilde;o salarial: @{{application.salary}}
-		  	</p>
+				<h4>Detalhes</h4>
+				
+				<p v-show="application.notes" >
+					@{{application.notes}}
+				</p>
 
-		  	<div v-if="showDetails">
+			  	<p v-show="application.salary" >
+			    	Pretens&atilde;o salarial: @{{application.salary}}
+			  	</p>
 			  	<div class="row" >
 			    	<div class="col" v-if="application.profile.stcw_regulations" >
 			      		<h6>Regras STCW</h6>
@@ -409,14 +175,20 @@
 				    </div>
 			  	</div>
 			</div>
-			<div v-else>
-
+			<div class="text-center" v-else>
+				<a href="javascript:;" @click="showDetails = !showDetails" >Ver detalhes <i class="fa fa-angle-down"></i></a>
 			</div>
 	  
 		</div>
 	
 		<div class="card-footer clearfix">
-	  
+	  	
+		  	<ul>
+	        	<li><a :href='"/selection/messageCandidates/" + application.id'><i class='fa fa-thumbs-up'></i> Aprovar p/ fase final</a></li>
+	            <li><a :href='"/selection/messageCandidates/" + application.id'><i class='fa fa-envelope-o'></i> Enviar mensagem</a></li>
+	            <li><a :href='"/selection/requestDocuments/" + application.id'><i class='fa fa-file-o'></i> Solicitar documentos</a></li>
+	        </ul> 
+
 		  	<ul class="list-inline">
 		    
 			    <li class="list-inline-item" v-if="application.status == 666" >
@@ -424,6 +196,7 @@
 			        	<i class="fa fa-thumbs-up"></i> Reativar
 			      	</a>
 			    </li>
+
 			    <li class="list-inline-item" v-else>
 			      	<a href="javascript:;" class="btn btn-danger btn-sm" @click="changeStatus(application.id, 666)" >
 			        	<i class="fa fa-times"></i> Eliminar
@@ -431,12 +204,7 @@
 			    </li>
 
 			    <li class="list-inline-item" >
-			      	<a :href="'/recruiting/sendMessage/' + application.profile.id" class="btn btn-default btn-sm" title="Enviar e-mail (nova janela)" target="_blank" ><i class="fa fa-envelope-o"></i></a></li>
-
-			    <li class="list-inline-item float-right">
-			      	<a :href="'/profile/' + application.profile.id" target="_blank" class="btn btn-default btn-sm" title="Ver perfil (nova janela)" >
-			      		Perfil completo
-			      	</a>
+			      	<a :href="'/recruiting/sendMessage/' + application.profile.id" class="btn btn-default btn-sm" title="Enviar e-mail (nova janela)" target="_blank" ><i class="fa fa-envelope-o"></i></a>
 			    </li>
 
 		  	</ul>
@@ -457,6 +225,7 @@ Vue.component('application-list-item', {
 
     return {
       isLoading: false,
+      showDetails: false,
     };
   },
 
