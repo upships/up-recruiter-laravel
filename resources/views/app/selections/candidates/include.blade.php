@@ -1,4 +1,4 @@
-<form method="post" action="/selections/insertCandidatesAction" id="includeCandidateForm" >
+<form method="post" action="/selection/insertCandidatesAction" id="includeCandidateForm" >
 	<div class="row m-b-10">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 			<h2>Inserir candidatos a processo seletivo</h2>
@@ -55,11 +55,11 @@
 								<div class="list-group-item">
 									<div class="form-group">
 										<div class="radio">
-								            <label class="cr-styled" for="selection-{selectionId}">
-								                <input type="radio" id="selection-{selectionId}" name="selectionId" value="{selectionId}"> 
+								            <label class="cr-styled" for="selection-{{$selection->id}}">
+								                <input type="radio" id="selection-{{$selection->id}}" name="selectionId" value="{{$selection->id}}"> 
 								                <i class="fa"></i> 
-								                {selectionPositionLabel}
-								                <small class="text-muted">Em {selectionDate}</small>
+								                {{$selection->label}}
+								                <small class="text-muted">Em {{$selection->date}}</small>
 								            </label>
 								        </div>
 									</div>

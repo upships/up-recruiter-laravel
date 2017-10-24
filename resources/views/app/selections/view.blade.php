@@ -1,116 +1,121 @@
-<div class="row m-b-10">
-	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+@extends('layouts.master')
 
-		<div class="list-group">
-			<div class="list-group-item">
-				<h2>{selectionPositionLabel}</h2>
+@section('page-title')
+	Processo Seletivo: {{$selection->label}}
+@endsection
+
+@section('content')
+
+<div class="row">
+	<div class="col">
+
+		<div class="card card-default">
+			<div class="card-block">
+				
+				<h2>{{$selection->label}}</h2>
+
 				<ul class="list-inline">
 					<li>
-						<i class='fa fa-clock-o' ></i> Postada em {selectionDate}
+						<i class='fa fa-clock-o' ></i> Postada em {{$selection->date}}
 					</li>
 					<li>
-						<i class='fa fa-users'></i> {selectionNumberOfApplicants} candidatos
+						<i class='fa fa-users'></i> @{{applications.length}} candidatos
 					</li>
 				</ul>
 			</div>
-			<div class="list-group-item">
+			<div class="card-block">
 
-				<ul class="list-inline clearfix">
+				<ul class="list-inline">
 					<li>
-						<a href="/selections/findCandidates/{selectionId}" class="btn btn-primary">
+						<a href="/selection/{{$selection->id}}/find_candidates" class="btn btn-primary">
 							<i class="fa fa-user-plus"></i> Incluir candidatos
 						</a>
 					</li>
 					
 					<li>
-						<a href="/selections/receivedDocuments/{selectionId}" class="btn btn-default" ><i class='fa fa-file-o' ></i> Documentos recebidos</a>
+						<a href="/selection/{{$selection->id}}/documents" class="btn btn-default" ><i class='fa fa-file-o' ></i> Documentos recebidos</a>
 					</li>
 
 					<li class="float-right">
-						<a href="/selections/finish/{selectionId}" class="btn btn-success btn-fill" ><i class='fa fa-check' ></i> Finalizar processo</a>
+						<a href="/selection/{{$selection->id}}/close" class="btn btn-success btn-fill" ><i class='fa fa-check' ></i> Finalizar processo</a>
 					</li>
 				</ul>
 			</div>
 		</div>
-	</div>
-</div>
 
-<div class="col-lg-12"> 
-    <ul class="nav nav-tabs"> 
-        <li class="active"> 
-            <a href="#selected" data-toggle="tab" aria-expanded="true"> 
-                <i class="fa fa-user"></i> Selecionados
-            </a> 
-        </li>
-        <li class=""> 
-            <a href="#removed" data-toggle="tab" aria-expanded="false"> 
-                <i class="fa fa-user-times"></i> Eliminados
-            </a> 
-        </li>
-    </ul>
-    <div class="tab-content"> 
-        <div class="tab-pane active" id="selected"> 
+		<h2 class="card-title">Candidatos</h2>
 
-			<div class="row m-b-10" id="actionsBar">
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div class="panel panel-info panel-color">
-						<div class="panel-heading">
-							<h4 class="panel-title">Com candidatos marcados:</h4>
-						</div>
-						<div class="panel-body">
-							<ul class="list-inline">
-								<li><a href="#" onclick="selectedApplicantsAction('remove', 0)" class="btn btn-default"><i class="fa fa-times"></i> Desclassificar</a></li>
+		<div class="row">
+			<div class="col">
 
-								<li class="dropdown">
-									<button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-										<i class="fa fa-exchange"></i> Alterar status <span class="caret"></span>
-									</button>
+				<h3 class="card-title">Em avalia&ccedil;&atilde;o</h3>
 
-									<ul class="dropdown-menu">
-										<li>
-											<a href="#chg1" onclick="selectedApplicantsAction('change',1)" >
-											<i class="fa fa-users"></i> Primeira fase</a>
-										</li>
-										<li>
-											<a href="#chg2" onclick="selectedApplicantsAction('change', 2)" >
-											<i class="fa fa-comments-o"></i> Em entrevista</a>
-										</li>
-										<li>
-											<a href="#chg3" onclick="selectedApplicantsAction('change', 3)" ><i class="fa fa-thumbs-up"></i> Fase final</a>
-										</li>
-										<li>
-											<a href="#chg3" onclick="selectedApplicantsAction('change', 4)" ><i class="fa fa-thumbs-up"></i> Aprovados</a>
-										</li>
-									</ul>
-								</li>
+				<applications-list>
+					<application-list-item v-for="application in applicationsOnScreening" :application="application" :key="application.id" v-on:application:change="changeApplicationStatus" ></application-list-item>
+				</applications-list>
 
-								<li><a href="#" onclick="selectedApplicantsAction('message', 0)" class="btn btn-default"><i class="fa fa-envelope"></i> Enviar mensagem</a></li>
-								<li><a href="#" onclick="selectedApplicantsAction('documents', 0)" class="btn btn-default"><i class="fa fa-file-o"></i> Solicitar documentos</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
 			</div>
+
+			<div class="col">
+
+				<h3 class="card-title">Em entrevista</h3>
+
+				<applications-list>
+					<application-list-item v-for="application in applicationsOnInterviewing" :application="application" :key="application.id" v-on:application:change="changeApplicationStatus" ></application-list-item>
+				</applications-list>
+
+			</div>
+
+			<div class="col">
+
+				<h3 class="card-title">Avaliando propostas</h3>
+
+				<applications-list>
+					<application-list-item v-for="application in applicationsOnEmploymentOffering" :application="application" :key="application.id" v-on:application:change="changeApplicationStatus" ></application-list-item>
+				</applications-list>
+
+			</div>
+
+			<div class="col">
+
+				<h3 class="card-title">Em contrata&ccedil;&atilde;o</h3>
+
+				<applications-list>
+					<application-list-item v-for="application in applicationsOnHiring" :application="application" :key="application.id" v-on:application:change="changeApplicationStatus" ></application-list-item>
+				</applications-list>
+
+			</div>
+
+			<div class="col">
+
+				<h3 class="card-title">Em onboarding</h3>
+
+				<applications-list>
+					<application-list-item v-for="application in applicationsOnOnboarding" :application="application" :key="application.id" v-on:application:change="changeApplicationStatus" ></application-list-item>
+				</applications-list>
+
+			</div>
+		</div>
 
 			<div class="row">
 				<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-					<div class="list-group">
-						<div class="list-group-item">
-							<h3 class="list-group-item-heading">Candidatos iniciais</h3>
+					<div class="card card-default">
+						<div class="card-block">
+							<h3 class="card-title">Candidatos iniciais</h3>
 						</div>
 
-						{applicants}
-						<div class="list-group-item">
+						
+						<div class="card-block">
 							<h4>
-								<a href="/profiles/view/{profileId}" target="_blank">
-								{applicantName} <br/><small>{applicantPositionLabel}</small>
+								<a href="/profile/{{$profile->id}}" target="_blank">
+								@{{application.profile.name}} <br/><small>{{$application->profile->position->label}}</small>
 								</a>
 							</h4>
 
 							<ul class="list-inline clearfix">
 								<li>
 									<label>
-										<input type="checkbox" name="applicants[]" class="applicantsSelector" value="{applicationId}" > Selecionar
+										<input type="checkbox" name="applicants[]" class="applicantsSelector" value="{{$application->id}}" > Selecionar
 									</label>
 								</li>
 								<!--
@@ -124,43 +129,44 @@
 					                        <i class='fa fa-cog fa-lg'></i> A&ccedil;&otilde;es <span class="caret"></span>
 					                    </a>
 					                    <ul class='dropdown-menu dropdown-menu-right' >
-					                    	<li><a href="/selections/changeCandidates/2/{applicationId}" class="text-info"><i class="fa fa-comments-o"></i> Entrevistar</a></li>
+					                    	<li><a href="/selection/changeCandidates/2/{{$application->id}}" class="text-info"><i class="fa fa-comments-o"></i> Entrevistar</a></li>
 
 						                    <li role="separator" class="divider"></li>
-						                    <li><a href='/selections/messageCandidates/{applicationId}'><i class='fa fa-envelope-o'></i> Enviar mensagem</a></li>
-						                    <li><a href='/selections/requestDocuments/{applicationId}'><i class='fa fa-file-o'></i> Solicitar documentos</a></li>
+						                    <li><a href='/selection/messageCandidates/{{$application->id}}'><i class='fa fa-envelope-o'></i> Enviar mensagem</a></li>
+						                    <li><a href='/selection/requestDocuments/{{$application->id}}'><i class='fa fa-file-o'></i> Solicitar documentos</a></li>
 						                    <!--
 						                    <li role="separator" class="divider"></li>
-						                    <li><a href="#" onclick="toggleJobStatus('{{$job->id}}')" ><i class='fa fa-eye-slash' ></i> Desativar</a></li> -->
+						                    <li><a href="#" onclick="toggleJobStatus('{{$selection->id}}')" ><i class='fa fa-eye-slash' ></i> Desativar</a></li> -->
 						                    <li role="separator" class="divider"></li>
-						                    <li class="text-danger"><a href="/selections/removeCandidates/{applicationId}"  ><i class='fa fa-times' ></i> Desclassificar</a></li>
+						                    <li class="text-danger"><a href="/selection/removeCandidates/{{$application->id}}"  ><i class='fa fa-times' ></i> Desclassificar</a></li>
 					                    </ul> 
 					                </div>
 								</li>
 							</ul>
 						</div>
-						{/applicants}
+						
+
 					</div>
 				</div>
 
 				<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-					<div class="list-group">
-						<div class="list-group-item">
-							<h3 class="list-group-item-heading">Em entrevista</h3>
+					<div class="card card-default">
+						<div class="card-block">
+							<h3 class="card-title">Em entrevista</h3>
 						</div>
 
-						{applicantsInterview}
-						<div class="list-group-item">
+						
+						<div class="card-block">
 							<h4>
-								<a href="/profiles/view/{profileId}" target="_blank">
-								{applicantName} <br/><small>{applicantPositionLabel}</small>
+								<a href="/profile/{{$profile->id}}" target="_blank">
+								@{{application->profile->name}} <br/><small>{{$application->profile->position->label}}</small>
 								</a>
 							</h4>
 
 							<ul class="list-inline clearfix">
 								<li>
 									<label>
-									<input type="checkbox" name="applicants[]" class="applicantsSelector" value="{applicationId}" > Selecionar
+									<input type="checkbox" name="applicants[]" class="applicantsSelector" value="{{$application->id}}" > Selecionar
 									</label>
 								</li>
 								<!--
@@ -173,47 +179,35 @@
 					                    <a href='#' class='btn btn-default btn-sm dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true' >
 					                        <i class='fa fa-cog fa-lg'></i> A&ccedil;&otilde;es <span class="caret"></span>
 					                    </a>
-					                    <ul class='dropdown-menu dropdown-menu-right' >
-					                    	<li><a href='/selections/messageCandidates/{applicationId}'><i class='fa fa-thumbs-up'></i> Aprovar p/ fase final</a></li>
-
-					                    	<li role="separator" class="divider"></li>
-
-						                    <li><a href='/selections/messageCandidates/{applicationId}'><i class='fa fa-envelope-o'></i> Enviar mensagem</a></li>
-						                    <li><a href='/selections/requestDocuments/{applicationId}'><i class='fa fa-file-o'></i> Solicitar documentos</a></li>
-
-						                    <!--
-						                    <li role="separator" class="divider"></li>
-						                    <li><a href="#" onclick="toggleJobStatus('{{$job->id}}')" ><i class='fa fa-eye-slash' ></i> Desativar</a></li> -->
-						                    <li role="separator" class="divider"></li>
-						                    <li class="text-danger"><a href="/selections/removeCandidates/{applicationId}"  ><i class='fa fa-times' ></i> Desclassificar</a></li>
-					                    </ul> 
+					                    
 					                </div>
 								</li>
 							</ul>
 						</div>
-						{/applicantsInterview}
+						
+
 					</div>	
 				</div>
 				<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-					<div class="list-group">
-						<div class="list-group-item">
-							<h3 class="list-group-item-heading">Em fase final</h3>
+					<div class="card card-default">
+						<div class="card-block">
+							<h3 class="card-title">Em fase final</h3>
 						</div>
 
 						{applicantsSelected}
-						<div class="list-group-item">
+						<div class="card-block">
 							<h4>
-								<a href="/profiles/view/{profileId}" target="_blank">
-								{applicantName} <br/><small>{applicantPositionLabel}</small>
+								<a href="/profile/{{$profile->id}}" target="_blank">
+								@{{application->profile->name}} <br/><small>{{$application->profile->position->label}}</small>
 								</a>
 							</h4>
 
 							<ul class="list-inline">
 								<li>
-									<input type="checkbox" name="applicants[]" class="applicantsSelector" value="{applicationId}" >
+									<input type="checkbox" name="applicants[]" class="applicantsSelector" value="{{$application->id}}" >
 								</li>
 								<!--<li class="text-{applicantCompatibilityColor}">{applicantCompatibility}% compat.</li>-->
-								<li><a href="/selections/changeCandidates/4/{applicationId}" class="btn btn-success btn-sm"><i class="fa fa-check-square-o"></i> Aprovar</a></li>					
+								<li><a href="/selection/changeCandidates/4/{{$application->id}}" class="btn btn-success btn-sm"><i class="fa fa-check-square-o"></i> Aprovar</a></li>					
 								
 								<li class="float-right clearfix">
 							
@@ -222,15 +216,15 @@
 					                        <i class='fa fa-cog fa-lg'></i> <span class="caret"></span>
 					                    </a>
 					                    <ul class='dropdown-menu dropdown-menu-right' >
-						                    <li><a href='/selections/messageCandidates/{applicationId}'><i class='fa fa-envelope-o'></i> Enviar mensagem</a></li>
+						                    <li><a href='/selection/messageCandidates/{{$application->id}}'><i class='fa fa-envelope-o'></i> Enviar mensagem</a></li>
 						                    <li role="separator" class="divider"></li>
-						                    <li><a href='/selections/requestDocuments/{applicationId}'><i class='fa fa-file-o'></i> Solicitar documentos</a></li>
+						                    <li><a href='/selection/requestDocuments/{{$application->id}}'><i class='fa fa-file-o'></i> Solicitar documentos</a></li>
 
 						                    <!--
 						                    <li role="separator" class="divider"></li>
-						                    <li><a href="#" onclick="toggleJobStatus('{{$job->id}}')" ><i class='fa fa-eye-slash' ></i> Desativar</a></li> -->
+						                    <li><a href="#" onclick="toggleJobStatus('{{$selection->id}}')" ><i class='fa fa-eye-slash' ></i> Desativar</a></li> -->
 						                    <li role="separator" class="divider"></li>
-						                    <li><a href="/selections/removeCandidates/{applicationId}" class="text-danger" ><i class='fa fa-times' ></i> Eliminar</a></li>
+						                    <li><a href="/selection/removeCandidates/{{$application->id}}" class="text-danger" ><i class='fa fa-times' ></i> Eliminar</a></li>
 					                    </ul> 
 					                </div>
 								</li>
@@ -241,24 +235,24 @@
 					</div>
 				</div>
 					<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-					<div class="list-group">
-						<div class="list-group-item">
-							<h3 class="list-group-item-heading text-success">Candidatos aprovados</h3>
+					<div class="card card-default">
+						<div class="card-block">
+							<h3 class="card-block-heading text-success">Candidatos aprovados</h3>
 						</div>
-						<div class="list-group-item">
+						<div class="card-block">
 							<div class='dropdown' >
 			                    <a href='#' class='btn btn-block btn-default dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true' >
 			                        Aos finalistas <span class="caret"></span>
 			                    </a>
 			                    <ul class='dropdown-menu dropdown-menu-right' >
 				                    <li>
-				                    	<a href='/selections/messageFinalCandidates/{applicationId}'>
+				                    	<a href='/selection/messageFinalCandidates/{{$application->id}}'>
 				                    		<i class='fa fa-envelope-o'></i> Enviar mensagem
 				                    	</a>
 				                    </li>
 				                    <li role="separator" class="divider"></li>
 				                    <li>
-				                    	<a href='/selections/requestFinalDocuments/{applicationId}'>
+				                    	<a href='/selection/requestFinalDocuments/{{$application->id}}'>
 				                    		<i class='fa fa-file-o'></i> Solicitar documentos
 				                    	</a>
 				                    </li>
@@ -267,8 +261,8 @@
 				        </div>
 
 						{applicantsApproved}
-						<div class="list-group-item">
-							<h4>{applicantName} <br/><small>{applicantPositionLabel}</small></h4>
+						<div class="card-block">
+							<h4>@{{application->profile->name}} <br/><small>{{$application->profile->position->label}}</small></h4>
 
 							<ul class="list-inline">
 								<!--<li class="text-{applicantCompatibilityColor}">{applicantCompatibility}% compat.</li>-->
@@ -280,13 +274,13 @@
 					                    </a>
 					                    <ul class='dropdown-menu dropdown-menu-right' >
 						                    <li>
-						                    	<a href='/selections/messageCandidates/{applicationId}'>
+						                    	<a href='/selection/messageCandidates/{{$application->id}}'>
 						                    		<i class='fa fa-envelope-o'></i> Enviar mensagem
 						                    	</a>
 						                    </li>
 						                    <li role="separator" class="divider"></li>
 						                    <li>
-						                    	<a href='/selections/requestDocuments/{applicationId}'>
+						                    	<a href='/selection/requestDocuments/{{$application->id}}'>
 						                    		<i class='fa fa-file-o'></i> Solicitar documentos
 						                    	</a>
 						                    </li>
@@ -305,22 +299,22 @@
 
         </div> 
         <div class="tab-pane" id="removed"> 
-             <div class="list-group">
-				<div class="list-group-item">
-					<h3 class="list-group-item-heading">Candidatos eliminados</h3>
+             <div class="card card-default">
+				<div class="card-block">
+					<h3 class="card-title">Candidatos eliminados</h3>
 				</div>
 
 				{removedApplicants}
-				<div class="list-group-item">
+				<div class="card-block">
 					<h4>
-						<a href="/profiles/view/{profileId}" target="_blank">
-						{applicantName} <br/><small>{applicantPositionLabel}</small>
+						<a href="/profile/{{$profile->id}}" target="_blank">
+						@{{application->profile->name}} <br/><small>{{$application->profile->position->label}}</small>
 						</a>
 					</h4>
 
 					<ul class="list-inline">
 						<li>
-							<a href="/selections/changeCandidates/1/{applicationId}" >
+							<a href="/selection/changeCandidates/1/{{$application->id}}" >
 								<i class="fa fa-undo"></i> Recolocar candidato
 							</a>
 						</li>
@@ -336,7 +330,7 @@
 
 <p class="text-center">
 	<small>
-		<a href="#delete" onclick="deleteJob({selectionId},true)" class="text-danger" >
+		<a href="#delete" onclick="deleteJob({{$selection->id}},true)" class="text-danger" >
 			<i class='fa fa-times' ></i> Excluir processo seletivo
 		</a>
 		<br/>
@@ -345,76 +339,288 @@
 </p>
 
 
-<form method="post" action="" id="selectedApplicantsForm" >
-	<input type="hidden" name="selectionId"  value="{selectionId}" >
-	<div id="selectedApplicantsList">
+@endsection
+
+@section('local-footer')
+
+<script type="text/x-template" id="application-list-item-template">
+
+	<div class="card social-card share full-width" data-social="item">
+		
+		<div class="circle" data-toggle="tooltip" title="Label" data-container="body"></div>
+			
+		<div class="card-header clearfix">
+			<h5 style="font-size: 16px !important;" >
+				@{{application.profile.name}} <i class="fa fa-spinner fa-spin" v-show="isLoading" ></i>
+			</h5>
+	  		<h6>@{{application.profile.position.label}} 
+			    <span class="location semi-bold"><i
+			        class="fa fa-map-marker"></i> @{{application.profile.city}} <span v-html="application.profile.country.icon"></span>
+			    </span>
+	  		</h6>
+		</div>
+		<div class="card-description">
+
+			<p v-show="application.notes" >
+				@{{application.notes}}
+			</p>
+
+		  	<p v-show="application.salary" >
+		    	Pretens&atilde;o salarial: @{{application.salary}}
+		  	</p>
+
+		  	<div v-if="showDetails">
+			  	<div class="row" >
+			    	<div class="col" v-if="application.profile.stcw_regulations" >
+			      		<h6>Regras STCW</h6>
+			      		
+			      		<ul class="list-inline" >
+					        <li class="list-inline-item" v-for="stcw_regulation in application.profile.stcw_regulations" >
+					          <button type="button" class="btn btn-tag btn-tag-rounded btn-xs" >@{{stcw_regulation.stcw_regulation.regulation}}</button>
+					        </li>
+			    	  	</ul>
+			    	</div>
+			    	<div class="col" v-if="application.profile.seaman_book_types" >
+			      		<h6>Categorias CIR</h6>
+			      		
+			      		<ul class="list-inline">
+					        <li class="list-inline-item" v-for="seaman_book_type in application.profile.seaman_book_types" >
+					          <button type="button" class="btn btn-tag btn-tag-rounded btn-xs" >@{{seaman_book_type.seaman_book_type.label}}</button>
+					        </li>
+			      		</ul>
+			    	</div>
+			    	<div class="col" v-if="application.profile.certificates" >
+				      	<h6>Certificados</h6>
+				      	<ul class="list-inline" >
+				        	<li class="list-inline-item" v-for="certificate in application.profile.certificates" >
+				          		<button type="button" class="btn btn-tag btn-tag-rounded btn-xs" >@{{certificate.certificate_type.label}}</button>
+				        	</li>
+				      	</ul>
+				    </div>
+				</div>
+			  	<div class="row">
+				    <div class="col" v-if="application.profile.ships" >
+				      	<h6>Embarcações</h6>
+				      	<ul class="list-inline" >
+					        <li class="list-inline-item" v-for="ship in application.profile.ships" >
+					          	<button type="button" class="btn btn-tag btn-tag-rounded btn-xs" >@{{ship.ship_type.label}}</button>
+					        </li>
+				      	</ul>
+				    </div>
+			  	</div>
+			</div>
+			<div v-else>
+
+			</div>
+	  
+		</div>
+	
+		<div class="card-footer clearfix">
+	  
+		  	<ul class="list-inline">
+		    
+			    <li class="list-inline-item" v-if="application.status == 666" >
+			      	<a class="btn btn-primary btn-sm" href="javascript:;" @click="changeStatus(application.id, 0)"  >
+			        	<i class="fa fa-thumbs-up"></i> Reativar
+			      	</a>
+			    </li>
+			    <li class="list-inline-item" v-else>
+			      	<a href="javascript:;" class="btn btn-danger btn-sm" @click="changeStatus(application.id, 666)" >
+			        	<i class="fa fa-times"></i> Eliminar
+			      	</a>
+			    </li>
+
+			    <li class="list-inline-item" >
+			      	<a :href="'/recruiting/sendMessage/' + application.profile.id" class="btn btn-default btn-sm" title="Enviar e-mail (nova janela)" target="_blank" ><i class="fa fa-envelope-o"></i></a></li>
+
+			    <li class="list-inline-item float-right">
+			      	<a :href="'/profile/' + application.profile.id" target="_blank" class="btn btn-default btn-sm" title="Ver perfil (nova janela)" >
+			      		Perfil completo
+			      	</a>
+			    </li>
+
+		  	</ul>
+
+		</div>
 	</div>
-</form>
-
-
-<!-- Document preview modal -->
-
-
+</script>
 
 <script>
 
-function selectedApplicantsAction(actionType, applicationStatus)
-{
-	var formAction = '';
+Vue.component('application-list-item', {
 
-	switch(actionType)
-	{
-		case 'remove':
-			formUrl = 'removeCandidates';
-		break;
+  props: {
+    application: { required: true },
+  },
+  
+  data: function()  {
 
-		case 'change':
-			formUrl = 'changeCandidates/' + applicationStatus;
-		break;
+    return {
+      isLoading: false,
+    };
+  },
 
-		case 'message':
-			formUrl = 'messageCandidates';
-		break;
+  template: '#application-list-item-template',
 
-		case 'documents':
-			formUrl = 'requestDocuments';
-		break;
-	}
+  methods: {
 
-	$('#selectedApplicantsForm').attr('action', '/selections/' + formUrl).submit();
-}
+    changeStatus: function(application_id, status)  {
+
+      this.$emit('application:change', application_id, status);
+
+    }
+
+  },
+
+});
+	
+
+new Vue({
+
+		    el: '#up-app',
+		    data: {
+
+		    	applications: [],
+
+		        selection: [],
+
+		        selection_id: {{$selection->id}},
+		    },
+
+		    watch: {
+
+		        searchParameter: function (val) {
+
+		        }
+		    },
+
+		    computed: {
+
+		    	applicationsOnScreening: function()	{
+
+		    		var self = this;
+
+		    		return self.applications.filter( function( application )	{
+
+		    			if(application.status == 1)	{
+
+		    				return application;
+		    			}
+
+		    		});
+
+		    	},
+
+		    	applicationsOnInterviewing: function()	{
+
+		    		var self = this;
+
+		    		return self.applications.filter( function( application )	{
+
+		    			if(application.status == 2)	{
+
+		    				return application;
+		    			}
+
+		    		});
+		    		
+		    	},
+
+		    	applicationsOnEmploymentOffering: function()	{
+
+		    		var self = this;
+
+		    		return self.applications.filter( function( application )	{
+
+		    			if(application.status == 3)	{
+
+		    				return application;
+		    			}
+
+		    		});
+		    		
+		    	},
+
+		    	applicationsOnHiring: function()	{
+
+		    		var self = this;
+
+		    		return self.applications.filter( function( application )	{
+
+		    			if(application.status == 4)	{
+
+		    				return application;
+		    			}
+
+		    		});
+		    		
+		    	},
+
+		    	applicationsOnOnboarding: function()	{
+
+		    		var self = this;
+
+		    		return self.applications.filter( function( application )	{
+
+		    			if(application.status == 5)	{
+
+		    				return application;
+		    			}
+
+		    		});
+		    		
+		    	},
+		    },
+
+		    filters: {
+
+		    },
+
+		    beforeMount: function() {
+
+		        const vm = this;
+
+		        axios.get('/api/selection/' + vm.selection_id).then( function( response ) {
+
+		        	vm.selection = response.data;
+		        });
+
+		        axios.get('/api/selection/' + vm.selection_id + '/applications').then( function( response ) {
+
+		            vm.applications = response.data;
+		        });
+		    },
+
+		    mounted: function()	{
+
+		    },
+
+		    methods: {
+
+		    	changeApplicationStatus: function(application_id, status)	{
+
+		    		var vm = this;
+		    		var key = this.applications.findIndex( function(a){ return a.id === application_id });
+		    		
+		    		if(key >= 0)	{
+
+		    			var data = {status: status};
+
+		    			axios.patch('/api/application/' + application_id, data).then( function()	{
+
+		    				vm['applications'][key]['status'] = status;
+
+		    			});
+		    		}
+		    	}
+		    }
+
+		});
 
 $(document).ready(function()
 	{
-		$('#actionsBar').hide();
-
-		$('.selection-data-0').remove();
-
-		$('.applicantsSelector').change(function()
-			{
-				var applicationId = $( this ).val();
-				
-				if(this.checked === true)
-				{
-					var item = '<input type="hidden" name="selectedApplicant[]" id="selectedApplicant-' + applicationId + '" class="selectedApplicantsListItem" value="' + applicationId + '" >';
-					$('#selectedApplicantsList').append(item);
-				}
-				else
-				{
-					$('#selectedApplicant-' + applicationId).remove();
-				}
-
-				var totalCandidates = $('input[name="applicants[]"]:checked').length;
-				$('#numberOfSelectedCandidates').text(totalCandidates);
-
-				if(totalCandidates > 0)
-				{
-					$('#actionsBar').show();
-				}
-				else
-				{
-					$('#actionsBar').hide();
-				}
-			});
+		
 	});
 </script>
+
+@endsection

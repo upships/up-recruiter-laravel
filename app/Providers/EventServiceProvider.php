@@ -20,6 +20,14 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\UserAddedToCompany' => ['App\Listeners\AddRecruiter'],
         'App\Events\UserRemovedFromCompany' => ['App\Listeners\RemoveRecruiter'],
         'Illuminate\Auth\Events\Registered' => ['App\Listeners\RegisterLoggedUserCompany'],
+
+        'App\Events\ConversationMessageSent' => ['App\Listeners\SendConversationMessageEmail'],
+
+        'App\Events\JobClosed' => ['App\Listeners\CloseJob', 'App\Listeners\OpenSelection'],
+
+        'App\Events\ApplicantsEliminated' => ['App\Listeners\EliminateApplicants'],
+        'App\Events\ApplicantsQualified' => ['App\Listeners\UpdateApplicants'],
+
     ];
 
     /**

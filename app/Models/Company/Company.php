@@ -65,6 +65,11 @@ class Company extends Model
         return $this->hasMany('App\Models\Company\ProfileFolder');
     }
 
+    public function conversations()    {
+
+        return $this->hasMany('App\Models\Conversation\Conversation');
+    }
+
     public function getLinkAttribute()  {
 
         if(!$this->careers_link)    {

@@ -18,7 +18,7 @@
 <!-- templates -->
 <script id="selectionsListTemplate" type="text/x-jsrender">
 
-  <a href="/selections/view/{{:selectionId}}" class='list-group-item selections selection-status-{{:status}}' id='selection-{{:jobId}}'>
+  <a href="/selection/view/{{:selectionId}}" class='list-group-item selections selection-status-{{:status}}' id='selection-{{:jobId}}'>
     <div class="row">
       <div class="col-lg-9">
         <h3>{{:selectionPositionLabel}}</h3>

@@ -6,7 +6,7 @@
 				<h2>Elimina&ccedil;&atilde;o de candidatos</h2>
 				<ul class="list-inline">
 					<li>
-						Sele&ccedil;&atilde;o para <b>{selectionPositionLabel}</b>
+						Sele&ccedil;&atilde;o para <b>{{$selection->label}}</b>
 					</li>
 				</ul>
 			</div>
@@ -14,7 +14,7 @@
 
 				<ul class="list-inline clearfix">					
 					<li class="float-right">
-						<a href="/selections/view/{selectionId}" class="btn btn-default" ><i class='fa fa-times' ></i> Cancelar</a>
+						<a href="/selection/view/{{$selection->id}}" class="btn btn-default" ><i class='fa fa-times' ></i> Cancelar</a>
 					</li>
 					<li class="clearfix"></li>
 				</ul>
@@ -23,9 +23,9 @@
 	</div>
 </div>
 
-<form method="post" action="/selections/removeCandidatesAction" id="removeApplicantsForm" >
+<form method="post" action="/selection/removeCandidatesAction" id="removeApplicantsForm" >
 
-<input type="hidden" name="selectionId" value="{selectionId}" >
+<input type="hidden" name="selectionId" value="{{$selection->id}}" >
 <input type="hidden" name="companyId" value="{companyId}" >
 <input type="hidden" name="companyName" value="{companyName}" >
 <input type="hidden" name="companyEmail" value="{companyEmail}" >
@@ -39,8 +39,8 @@
 				
 				{applications}
 				<div class="list-group-item">
-					<h4 class="text-danger">{applicantName} <br/><small>{applicantPositionLabel}</small></h4>
-					<input type="hidden" name="applications[]" value="{applicationId}">
+					<h4 class="text-danger">{{$application->profile->name}} <br/><small>{{$application->profile->position->label}}</small></h4>
+					<input type="hidden" name="applications[]" value="{{$application->id}}">
 				</div>
 				{/applications}
 
@@ -59,7 +59,7 @@
 				</div>
 				<div class="panel-body">
 					<div class="form-group">
-						<input type="text" class="form-control" name="messageSubject" placeholder="Insira o assunto" value="Atualização sobre vaga para {selectionPositionLabel}">
+						<input type="text" class="form-control" name="messageSubject" placeholder="Insira o assunto" value="Atualização sobre vaga para {{$selection->label}}">
 					</div>
 					<div class="form-group">
 						<textarea name="applicationRemovedMessage" id="applicationRemovedMessage" placeholder="Escreva uma mensagem para informar que os candidatos foram eliminados. NÃO coloque o nome, apenas a mensagem direta." class="form-control" ></textarea>

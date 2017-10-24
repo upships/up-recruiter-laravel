@@ -6,7 +6,7 @@
 				<h2>Modificar status de candidatos</h2>
 				<ul class="list-inline">
 					<li>
-						Sele&ccedil;&atilde;o para <b>{selectionPositionLabel}</b>
+						Sele&ccedil;&atilde;o para <b>{{$selection->label}}</b>
 					</li>
 				</ul>
 			</div>
@@ -14,7 +14,7 @@
 
 				<ul class="list-inline clearfix">					
 					<li class="float-right">
-						<a href="/selections/view/{selectionId}" class="btn btn-default" ><i class='fa fa-times' ></i> Cancelar</a>
+						<a href="/selection/view/{{$selection->id}}" class="btn btn-default" ><i class='fa fa-times' ></i> Cancelar</a>
 					</li>
 					<li class="clearfix"></li>
 				</ul>
@@ -23,8 +23,8 @@
 	</div>
 </div>
 
-<form method="post" action="/selections/changeCandidatesAction" id="selectedApplicantsForm" >
-<input type="hidden" name="selectionId" value="{selectionId}" >
+<form method="post" action="/selection/changeCandidatesAction" id="selectedApplicantsForm" >
+<input type="hidden" name="selectionId" value="{{$selection->id}}" >
 	<div class="row">
 		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 			<div class="list-group">
@@ -47,8 +47,8 @@
 				</div>
 				{applications}
 				<div class="list-group-item">
-					<h4>{applicantName} <br/><small>{applicantPositionLabel}</small></h4>
-					<input type="hidden" name="applications[]" value="{applicationId}">
+					<h4>{{$application->profile->name}} <br/><small>{{$application->profile->position->label}}</small></h4>
+					<input type="hidden" name="applications[]" value="{{$application->id}}">
 				</div>
 				{/applications}
 

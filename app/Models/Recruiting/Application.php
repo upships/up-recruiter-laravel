@@ -25,6 +25,6 @@ class Application extends Model
 
     public function selection()	{
 
-    	return $this->belongsTo('App\Models\Profile');
+    	return $this->belongsTo('App\Models\Recruiting\Selection');
     }
 }

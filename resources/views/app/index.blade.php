@@ -146,7 +146,7 @@
                             <div class="list-group">
                                 <div class="list-group-item" v-for="selection in selections.list">
                                     <h4 class="list-group-item-heading">
-                                    <a :href="'/selections/' + selection.id">@{{selection.position.label}}</a></h4>
+                                    <a :href="'/selection/' + selection.id">@{{selection.position.label}}</a></h4>
                                     <ul class="list-inline m-b-10">
                                         <li><i class="fa fa-clock-o"></i> Em @{{selection.date}}</li>
                                         <li><i class="fa fa-users"></i> @{{selection.applications_count}} candidatos no processo</li>

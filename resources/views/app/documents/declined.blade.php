@@ -18,7 +18,7 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<h3>Documento recusado</h3>
-					Processo seletivo para {selectionPositionLabel} na empresa {companyName}
+					Processo seletivo para {{$selection->label}} na empresa {companyName}
 
 					<hr/>
 

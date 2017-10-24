@@ -12,7 +12,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 use App\Models\Job\Job;
 
-class JobCreated
+class JobClosed
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 

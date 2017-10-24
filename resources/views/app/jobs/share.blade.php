@@ -31,7 +31,7 @@
 			{/shareList}
 
 			<div class="list-group-item initiallyHidden showAtEnd" id='shareComplete'>
-				<a href="/job/view/{{$job->id}}" class="btn btn-success btn-lg" ><i class="fa fa-check"></i> Finalizar</a>
+				<a href="/job/{{$job->id}}" class="btn btn-success btn-lg" ><i class="fa fa-check"></i> Finalizar</a>
 			</div>
 		</div>
 	</div>

@@ -6,14 +6,14 @@
 				<h2>Listar documentos recebidos</h2>
 				<ul class="list-inline">
 					<li>
-						Processo seletivo para {selectionPositionLabel}
+						Processo seletivo para {{$selection->label}}
 					</li>
 				</ul>
 			</div>
 			<div class="list-group-item">
 				<ul class="list-inline">
 					<li>
-						<a href="/selections/view/{selectionId}" class="btn btn-default btn-fill" ><i class='fa fa-arrow-left' ></i> Voltar para processo</a>
+						<a href="/selection/view/{{$selection->id}}" class="btn btn-default btn-fill" ><i class='fa fa-arrow-left' ></i> Voltar para processo</a>
 					</li>
 				</ul>
 			</div>
@@ -53,12 +53,12 @@
 								<li>{receivedDocumentStatusLabel}</li>
 								<li>Em {receivedDocumentDate}</li>
 								<li class="approveDeclineDocument-{receivedDocumentStatus} approveDocumentButton-{receivedDocumentStatus}" >
-									<a href="/selections/approveDocument/{receivedDocumentId}" class="text-success">
+									<a href="/selection/approveDocument/{receivedDocumentId}" class="text-success">
 										<i class="fa fa-check"></i> Aprovar
 									</a>
 								</li>
 								<li class="approveDeclineDocument-{receivedDocumentStatus} declineDocumentButton-{receivedDocumentStatus}" >
-									<a href="/selections/declineDocument/{receivedDocumentId}" class="text-danger">
+									<a href="/selection/declineDocument/{receivedDocumentId}" class="text-danger">
 										<i class="fa fa-times"></i> Recusar
 									</a>
 								</li>

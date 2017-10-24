@@ -21,11 +21,11 @@
 	        <div class="tab-pane active" id="email">
 				<h2 class="">E-mail</h2>
 
-				<form method="post" action="/selections/messageCandidatesAction" id="selectedApplicantsForm" >
-					<input type="hidden" name="selectionId" value="{selectionId}" >
+				<form method="post" action="/selection/messageCandidatesAction" id="selectedApplicantsForm" >
+					<input type="hidden" name="selectionId" value="{{$selection->id}}" >
 
-					<input type="hidden" name="selectionId" value="{selectionId}" >
-					<input type="hidden" name="selectionPositionLabel" value="{selectionPositionLabel}" >
+					<input type="hidden" name="selectionId" value="{{$selection->id}}" >
+					<input type="hidden" name="selectionPositionLabel" value="{{$selection->label}}" >
 					
 					<input type="hidden" name="companyName" value="{companyName}" >
 	                                
@@ -36,16 +36,16 @@
 	                    <ul class="list-inline">
 							{applications}
 							<li class="m-b-5">
-								<input type="hidden" name="applications[{applicationId}][userId]" value="{userId}"  >
-								<input type="hidden" name="applications[{applicationId}][userName]" value="{applicantName}"  >
-								<input type="hidden" name="applications[{applicationId}][userEmail]" value="{applicantEmail}"  >
+								<input type="hidden" name="applications[{{$application->id}}][userId]" value="{userId}"  >
+								<input type="hidden" name="applications[{{$application->id}}][userName]" value="{{$application->profile->name}}"  >
+								<input type="hidden" name="applications[{{$application->id}}][userEmail]" value="{applicantEmail}"  >
 
 								<div class="btn-group">
-									<a href="/profiles/view/{profileId}" class="btn btn-default btn-custom text-left" target="_blank" title="{applicantPositionLabel}" >
-										{applicantName} 
+									<a href="/profile/{{$profile->id}}" class="btn btn-default btn-custom text-left" target="_blank" title="{{$application->profile->position->label}}" >
+										{{$application->profile->name}} 
 										<small class="text-muted" >({applicantEmail})</small>
 									</a>
-									<!-- <a href="#removeTo-{applicationId}" class="btn btn-default" title="Remover destinatário" onclick="removeApplicant({applicationId})" >
+									<!-- <a href="#removeTo-{{$application->id}}" class="btn btn-default" title="Remover destinatário" onclick="removeApplicant({{$application->id}})" >
 										<i class="fa fa-times"></i>
 									</a> -->
 								</div>
@@ -77,14 +77,14 @@
                     <ul class="list-inline clearfix">
 						<li><button type="submit" class="btn btn-success" >Enviar e-mails</button></li>
 						<li class="float-right">
-							<a href="/selections/view/{selectionId}" class="btn btn-default" ><i class='fa fa-times' ></i> Cancelar</a>
+							<a href="/selection/view/{{$selection->id}}" class="btn btn-default" ><i class='fa fa-times' ></i> Cancelar</a>
 						</li>
 						<li class="clearfix"></li>
 					</ul>
 				</form>
 			</div>
 			<div class="tab-pane" id="sms">
-				<form method="post" action="/selections/messageCandidatesViaSMSAction" id="msgSMS" >
+				<form method="post" action="/selection/messageCandidatesViaSMSAction" id="msgSMS" >
 				<p>Em breve</p>
 				</form>
 			</div>

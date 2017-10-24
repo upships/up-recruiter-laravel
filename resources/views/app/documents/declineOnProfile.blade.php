@@ -47,7 +47,7 @@
 				<ul class="list-inline clearfix">
 					<li><button type="submit" class="btn btn-success" >Solicitar novo documento</button></li>
 					<li class="float-right">
-						<a href="/profiles/view/{profileId}" class="btn btn-default" ><i class='fa fa-times' ></i> Cancelar</a>
+						<a href="/profile/{{$profile->id}}" class="btn btn-default" ><i class='fa fa-times' ></i> Cancelar</a>
 					</li>
 					<li class="clearfix"></li>
 				</ul>

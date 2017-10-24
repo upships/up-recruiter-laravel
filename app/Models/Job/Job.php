@@ -125,6 +125,10 @@ class Job extends Model
             break;
 
             case 2:
+                $label = 'Closed';
+            break;
+
+            case 66:
                 $label = 'Archived';
             break;
 

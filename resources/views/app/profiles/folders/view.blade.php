@@ -31,7 +31,7 @@
 					</span>
 
 					<h4 class="list-group-item-heading">
-			        	<a href="/profiles/view/{profileId}" target="_blank"><b>{userName}</b></a><br/>
+			        	<a href="/profile/{{$profile->id}}" target="_blank"><b>{userName}</b></a><br/>
 			        </h4>
 			        <p>{profilePositionLabel}</p>
 

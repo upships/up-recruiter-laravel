@@ -3,7 +3,7 @@
 	<input type="hidden" name="companyName" value="{companyName}">
 	<input type="hidden" name="companyEmail" value="{companyEmail}">
 	<input type="hidden" name="jobPositionLabel" value="{$job->position->label}">
-	<input type="hidden" name="selectionId" value="{selectionId}">
+	<input type="hidden" name="selectionId" value="{{$selection->id}}">
 
 	<div class="row m-b-10">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -21,7 +21,7 @@
 						</li>
 
 						<li class="float-right">
-							<a href="/selections/view/{selectionId}" class="btn btn-default btn-lg btn-fill" >
+							<a href="/selection/view/{{$selection->id}}" class="btn btn-default btn-lg btn-fill" >
 								N&atilde;o enviar <i class='fa fa-angle-right' ></i><i class='fa fa-angle-right' ></i>
 							</a>
 						</li>
@@ -70,21 +70,21 @@
 								
 								{selectedApplicants}
 								<div class="list-group-item">
-									<input type="hidden" name="selectedApplicants[{userId}][applicantName]" value="{applicantName}">
+									<input type="hidden" name="selectedApplicants[{userId}][applicantName]" value="{{$application->profile->name}}">
 									<input type="hidden" name="selectedApplicants[{userId}][applicantEmail]" value="{applicantEmail}">
 
 									<label>
 										<input type="checkbox" name="selectedApplicants[{userId}][userId]" value="{userId}" checked> 
-										 	{applicantName} / {applicationId}
+										 	{{$application->profile->name}} / {{$application->id}}
 									</label>
 									
 									<ul class="list-inline">
 										<li>
-											<a href="/profiles/view/{profileId}" target="_blank" title="Ver perfil">
+											<a href="/profile/{{$profile->id}}" target="_blank" title="Ver perfil">
 												Ver Perfil
 											</a>
 										</li>
-										<li>{applicantPositionLabel}</li>
+										<li>{{$application->profile->position->label}}</li>
 									</ul>
 								</div>
 								{/selectedApplicants}
@@ -132,21 +132,21 @@
 
 								{rejectedApplicants}
 								<div class="list-group-item">
-									<input type="hidden" name="selectedApplicants[{userId}][applicantName]" value="{applicantName}">
+									<input type="hidden" name="selectedApplicants[{userId}][applicantName]" value="{{$application->profile->name}}">
 									<input type="hidden" name="selectedApplicants[{userId}][applicantEmail]" value="{applicantEmail}">
 	
 									<label>
 										<input type="checkbox" name="rejectedApplicants[]" value="{userId}" checked> 
-										 	{applicantName} / {applicationId}
+										 	{{$application->profile->name}} / {{$application->id}}
 									</label>
 							
 									<ul class="list-inline">
 										<li>
-											<a href="/profiles/view/{profileId}" target="_blank">
+											<a href="/profile/{{$profile->id}}" target="_blank">
 												Ver perfil
 											</a>
 										</li>
-										<li>{applicantPositionLabel}</li>
+										<li>{{$application->profile->position->label}}</li>
 									</ul>
 								</div>
 								{/rejectedApplicants}
@@ -172,7 +172,7 @@
 					</li>
 
 					<li class="float-right">
-							<a href="/applications/view/{applicationId}" class="btn btn-default btn-lg btn-fill" >
+							<a href="/applications/view/{{$application->id}}" class="btn btn-default btn-lg btn-fill" >
 								N&atilde;o enviar <i class='fa fa-angle-right' ></i><i class='fa fa-angle-right' ></i>
 							</a>
 						</li>

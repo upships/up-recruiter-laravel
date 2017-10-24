@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Recruiting;
+namespace App\Http\Controllers\Conversation;
 
+use App\Models\Conversation\ConversationMessage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use App\Models\Recruiting\Selection;
-
-class SelectionController extends Controller
+class ConversationMessageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,15 +15,7 @@ class SelectionController extends Controller
      */
     public function index()
     {
-        
-        $selections = auth()->user()->company->selections()->withCount('applications')->get();
-
-        if(request()->ajax())   {
-
-            return response()->json($selections);
-        }
-
-        return view('app.selections.index');
+        //
     }
 
     /**
@@ -51,28 +42,21 @@ class SelectionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Conversation\ConversationMessage  $conversationMessage
      * @return \Illuminate\Http\Response
      */
-    public function show(Selection $selection)
+    public function show(ConversationMessage $conversationMessage)
     {
-
-        if(request()->ajax())   {
-
-            return response()->json($selection);
-            
-        }
-
-        return view('app.selections.view');
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Conversation\ConversationMessage  $conversationMessage
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(ConversationMessage $conversationMessage)
     {
         //
     }
@@ -81,10 +65,10 @@ class SelectionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Conversation\ConversationMessage  $conversationMessage
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, ConversationMessage $conversationMessage)
     {
         //
     }
@@ -92,10 +76,10 @@ class SelectionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Conversation\ConversationMessage  $conversationMessage
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ConversationMessage $conversationMessage)
     {
         //
     }

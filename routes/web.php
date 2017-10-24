@@ -78,16 +78,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function()	{
 
 	Route::get('job/{job}', 'Job\JobController@show');
 	Route::patch('job/{job}', 'Job\JobController@update');	// Returns the Request fields
-
 	
-	
-	
-	
-	
-	
-	
-	
-
 	/**
 	 *	Selections (API)
 	 *
@@ -106,7 +97,9 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function()	{
 	 *
 	 */
 
+	Route::get('selection/{selection}/applications', 'Recruiting\ApplicationController@index');
 	Route::get('job/{job}/applications', 'Job\JobApplicationController@index');
+
 	Route::get('application/{application}', 'Recruiting\ApplicationController@show');
 	Route::patch('application/{application}', 'Recruiting\ApplicationController@update');
 
@@ -257,9 +250,9 @@ Route::group(['middleware' => 'auth'], function()	{
 
 	Route::get('selection', 'Recruiting\SelectionController@index');
 	Route::get('selection/{selection}', 'Recruiting\SelectionController@show');
-	Route::get('selection/{selection}/documents', 'Recruiting\SelectionDocumentController@index');
-	Route::get('selection/{selection}/application/find', 'Recruiting\ApplicationController@findCandidates');
-	Route::get('selection/{selection}/application/insert', 'Recruiting\ApplicationController@insertCandidates');
+	Route::get('selection/{selection}/documents', 'Recruiting\SelectionDocumentController@index');	// View documents
+	Route::get('selection/{selection}/find_candidates', 'Recruiting\ApplicationController@findCandidates');	// Find candidates
+	Route::get('selection/{selection}/insert_candidates', 'Recruiting\ApplicationController@insertCandidates');	// Insert candidates
 	Route::post('selection/{selection}/application', 'Recruiting\ApplicationController@store');
 
 	Route::get('selection/{selection}/close', 'Recruiting\SelectionController@close');

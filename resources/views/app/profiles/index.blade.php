@@ -602,7 +602,7 @@ function messageSelectedProfiles()  {
 
 function addProfilesToJobCampaign() {
   var profiles = selectedProfilesInline();
-  var messageWindow = window.open('/selections/includeCandidates/' + profiles, '_blank');
+  var messageWindow = window.open('/selection/includeCandidates/' + profiles, '_blank');
   messageWindow.focus();
 }
 

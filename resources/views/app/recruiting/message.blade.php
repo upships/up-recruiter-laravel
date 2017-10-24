@@ -38,7 +38,7 @@
 								<input type="hidden" name="profiles[{profileId}][userEmail]" value="{userEmail}"  >
 
 								<div class="btn-group">
-									<a href="/profiles/view/{profileId}" class="btn btn-default btn-custom text-left" target="_blank" title="{userPositionLabel}" >
+									<a href="/profile/{{$profile->id}}" class="btn btn-default btn-custom text-left" target="_blank" title="{userPositionLabel}" >
 										{userName} 
 										<small class="text-muted" >({userEmail})</small>
 									</a>

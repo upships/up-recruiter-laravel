@@ -10,22 +10,21 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-use App\Models\Job\Job;
-
-class JobCreated
+class ApplicantsEliminated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $job;
+    public $applications;
+    public $message;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    
-    public function __construct(Job $job)
+    public function __construct($applications, $message = null)
     {
-        $this->job = $job;
+        $this->applications = $applications;
+        $this->message = $message;
     }
 }

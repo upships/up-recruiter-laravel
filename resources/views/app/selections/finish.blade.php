@@ -1,4 +1,4 @@
-<form method="post" action="/selections/finish/{selectionId}" id="finishSelectionForm" >
+<form method="post" action="/selection/finish/{{$selection->id}}" id="finishSelectionForm" >
 
 	<div class="row m-b-10">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -31,10 +31,10 @@
 
 				{applicants}
 				<div class="list-group-item">
-					<h4 class="list-group-item-heading">{applicantName}</h4>
-					{applicantPositionLabel}
+					<h4 class="list-group-item-heading">{{$application->profile->name}}</h4>
+					{{$application->profile->position->label}}
 
-					<input type="hidden" name="applicants[]" value="{applicationId}">
+					<input type="hidden" name="applicants[]" value="{{$application->id}}">
 				</div>
 				{/applicants}
 			</div>

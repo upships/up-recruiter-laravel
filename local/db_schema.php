@@ -152,7 +152,7 @@ integer('recruiter_id');
 integer('position_id');
 integer('ship_type_id')->nullable();
 string('instructions')->nullable();
-integer('status')->default(0);  // 0 - not published, 1 - published, 2 - archived, 666 - cancelled
+integer('status')->default(0);  // 0 - not published, 1 - published, 2 - closed, 66 - archived, 666 - cancelled
 integer('step')->default(0);
 
 datetime('expires_on')->nullable();

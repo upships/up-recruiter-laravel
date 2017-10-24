@@ -48,7 +48,7 @@
     <ul class="list-inline m-b-10">
       <li><a href="/profiles/view/{{:profileId}}" target="_blank" class="btn btn-default btn-sm" title="Ver perfil (nova janela)" >Perfil completo</a></li>
       <li>
-        <a href="/selections/includeCandidates/{{:profileId}}" target="_blank" class="btn btn-default btn-sm" title="Inserir em Processo Seletivo (nova janela)" >
+        <a href="/selection/includeCandidates/{{:profileId}}" target="_blank" class="btn btn-default btn-sm" title="Inserir em Processo Seletivo (nova janela)" >
           <i class="fa fa-briefcase"></i></i>
         </a>
       </li>

@@ -4,11 +4,11 @@
 
 <div class="row m-b-10">
 	<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-		<form method="post" action="/selections/requestDocumentsAction" id="selectedApplicantsForm" >
-			<input type="hidden" name="selectionId" value="{selectionId}" >
+		<form method="post" action="/selection/requestDocumentsAction" id="selectedApplicantsForm" >
+			<input type="hidden" name="selectionId" value="{{$selection->id}}" >
 
-			<input type="hidden" name="selectionId" value="{selectionId}" >
-			<input type="hidden" name="selectionPositionLabel" value="{selectionPositionLabel}" >
+			<input type="hidden" name="selectionId" value="{{$selection->id}}" >
+			<input type="hidden" name="selectionPositionLabel" value="{{$selection->label}}" >
 			
 			<input type="hidden" name="companyName" value="{companyName}" >
 			<input type="hidden" name="companyEmail" value="{companyEmail}" >
@@ -21,13 +21,13 @@
 					<ul class="list-unstyled">
 						{applications}
 						<li class="m-b-5">
-							<input type="hidden" name="applications[{applicationId}][userId]" value="{userId}"  >
-							<input type="hidden" name="applications[{applicationId}][userName]" value="{applicantName}"  >
-							<input type="hidden" name="applications[{applicationId}][userEmail]" value="{applicantEmail}"  >
+							<input type="hidden" name="applications[{{$application->id}}][userId]" value="{userId}"  >
+							<input type="hidden" name="applications[{{$application->id}}][userName]" value="{{$application->profile->name}}"  >
+							<input type="hidden" name="applications[{{$application->id}}][userEmail]" value="{applicantEmail}"  >
 
-							<input type="hidden" name="applications[{applicationId}][profileId]" value="{profileId}"  >
+							<input type="hidden" name="applications[{{$application->id}}][profileId]" value="{profileId}"  >
 
-							{applicantName} <small class="text-muted" >{applicantPositionLabel}</small>
+							{{$application->profile->name}} <small class="text-muted" >{{$application->profile->position->label}}</small>
 						</li>
 						{/applications}
 					</ul>
@@ -74,7 +74,7 @@ Para tal, basta clicar no link abaixo e efetuar o upload dos itens necessários.
 				<ul class="list-inline clearfix">
 					<li><button type="submit" class="btn btn-success" >Solicitar documentos</button></li>
 					<li class="float-right">
-						<a href="/selections/view/{selectionId}" class="btn btn-default" ><i class='fa fa-times' ></i> Cancelar</a>
+						<a href="/selection/view/{{$selection->id}}" class="btn btn-default" ><i class='fa fa-times' ></i> Cancelar</a>
 					</li>
 					<li class="clearfix"></li>
 				</ul>
