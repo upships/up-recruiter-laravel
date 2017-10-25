@@ -251,12 +251,18 @@ Route::group(['middleware' => 'auth'], function()	{
 	Route::get('selection', 'Recruiting\SelectionController@index');
 	Route::get('selection/{selection}', 'Recruiting\SelectionController@show');
 	Route::get('selection/{selection}/documents', 'Recruiting\SelectionDocumentController@index');	// View documents
-	Route::get('selection/{selection}/find_candidates', 'Recruiting\ApplicationController@findCandidates');	// Find candidates
-	Route::get('selection/{selection}/insert_candidates', 'Recruiting\ApplicationController@insertCandidates');	// Insert candidates
+
+	// Send messages to applicants
+	Route::get('selection/{selection}/send_message', 'Recruiting\SelectionMessageController@create');
+	Route::post('selection/send_message', 'Conversation\ConversationController@store');
+
+
+	Route::get('selection/{selection}/find_candidates', 'Recruiting\ApplicationController@find_candidates');	// Find candidates
+	Route::get('selection/{selection}/insert_candidates', 'Recruiting\ApplicationController@insert_candidates');	// Insert candidates
 	Route::post('selection/{selection}/application', 'Recruiting\ApplicationController@store');
 
 	Route::get('selection/{selection}/close', 'Recruiting\SelectionController@close');
-	Route::post('selection/{selection}/close', 'Recruiting\SelectionController@closeAction');
+	Route::post('selection/{selection}/close', 'Recruiting\SelectionController@close_action');
 
 	/**
 	 *	Applications
@@ -275,6 +281,15 @@ Route::group(['middleware' => 'auth'], function()	{
 	Route::get('account', 'AccountController@index');
 	Route::get('account/edit', 'AccountController@edit');
 	Route::patch('account', 'AccountController@update');
+
+	/**
+	 *	Messaging
+	 *
+	 */
+
+	Route::get('conversation/create', 'Conversation\ConversationController@create');
+	Route::post('conversation', 'Conversation\ConversationController@store');
+
 });
 
 

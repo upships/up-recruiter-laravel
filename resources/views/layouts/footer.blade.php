@@ -1,3 +1,4 @@
+
     <!-- BEGIN VENDOR JS -->
     <script src="/theme/assets/plugins/pace/pace.min.js" type="text/javascript"></script>
     <script src="/theme/assets/plugins/jquery/jquery-1.11.1.min.js" type="text/javascript"></script>
@@ -45,6 +46,27 @@
       </div>
     </script>
 
+
+    <script type="text/x-template" id="toolbar-template">
+      <div class="card card-default no-padding">
+        <div class="d-flex justify-content-origin my-2" >
+          <slot></slot>
+        </div>
+      </div>
+    </script>
+
+    <script type="text/x-template" id="toolbar-link-template">
+        <a :href="link" class="btn btn-tag btn-tag-light btn-tag-rounded mx-1" >
+          <i :class="'fa fa-' + icon"></i> <slot></slot>
+        </a>
+    </script>
+
+    <script type="text/x-template" id="toolbar-button-template">
+        <button type="button" class="btn btn-tag btn-tag-light btn-tag-rounded mx-1" >
+          <i :class="'fa fa-' + icon"></i> <slot></slot>
+        </button>
+    </script>
+
     <script>
 
         axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -72,6 +94,21 @@
           },
 
         });
+
+        Vue.component('toolbar', {
+          template: '#toolbar-template',
+        });
+
+        Vue.component('toolbar-button', {
+          props: ['icon'],
+          template: '#toolbar-button-template',
+        });
+
+        Vue.component('toolbar-link', {
+          props: ['link', 'icon'],
+          template: '#toolbar-link-template',
+        });
+
 
         Vue.component('select2', {
           props: ['options', 'value'],

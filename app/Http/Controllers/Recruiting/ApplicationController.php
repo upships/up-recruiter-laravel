@@ -17,7 +17,7 @@ class ApplicationController extends Controller
      */
     public function index(Selection $selection)
     {
-        $applications = $selection->applications()->with(['profile.position','profile.coc', 'profile.seaman_book_types.seaman_book_type', 'profile.languages.language', 'profile.dp.dp_type', 'profile.ships.ship_type', 'profile.stcw_regulations.stcw_regulation', 'profile.certificates.certificate_type'])->get();
+        $applications = $selection->applications()->with(['profile.position'])->get();
 
         return response()->json($applications);
     }
@@ -53,7 +53,7 @@ class ApplicationController extends Controller
     {
         if(request()->ajax())   {
 
-            return response()->json($application->load(['profile.position','profile.coc', 'profile.seaman_book_types.seaman_book_type', 'profile.languages.language', 'profile.dp.dp_type', 'profile.ships.ship_type', 'profile.stcw_regulations.stcw_regulation', 'profile.certificates.certificate_type']));
+            return response()->json($application->load(['profile.position']));
 
         }
 

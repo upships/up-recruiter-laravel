@@ -60,6 +60,7 @@
 								Link <i class="fa fa-external-link"></i>
 							</a>
 						</li>
+					</ul>
 				</div>
 				
 			</div>

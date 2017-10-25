@@ -72,14 +72,26 @@ class ConversationController extends Controller
         auth()->user()->company()->conversations()->save($conversation);
 
         // Add members
-        if($request->input('members')) {
+        if($request->input('recipients')) {
 
-            $conversation->members()->saveMany($request->input('members'));
+            // Members are User IDs
+            $users = User::whereIn('id', $request->input('recipients'))->get();
+
+            $users->each(function($user)  use ($conversation)  {
+
+                $member = [
+                            'conversation_id' => $conversation->id,
+                            'user_id' => $user->id,
+                            'user_type' => 2,
+                          ];
+
+                $conversation->members()->save($member);
+            });
         }
 
         // Add messages
 
-            // Get the Member ID of the current user, who is sending the message
+            // Insert the current recruiter as a recipient
             $sender = ConversationMember::where(['user_id' => auth()->user()->id, 'conversation_id' => $conversation->id])->first();
 
             // Dispatch the Event, which will in turn save the messages and send out e-mails and notifications.

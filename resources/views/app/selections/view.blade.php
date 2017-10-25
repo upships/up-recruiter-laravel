@@ -9,89 +9,78 @@
 <div class="row">
 	<div class="col">
 
-		<div class="card card-default">
-			<div class="card-block">
-				
-				<h2>{{$selection->label}}</h2>
+		<h2>Processo seletivo: {{$selection->label}}</h2>
 
-				<ul class="list-inline">
-					<li>
-						<i class='fa fa-clock-o' ></i> Postada em {{$selection->date}}
-					</li>
-					<li>
-						<i class='fa fa-users'></i> @{{applications.length}} candidatos
-					</li>
-				</ul>
-			</div>
-			<div class="card-block">
+		<toolbar>
+			<toolbar-button icon="clock-o" >Postada em {{$selection->date}}</toolbar-button>
+			<toolbar-button icon="users" >@{{applications.length}} candidatos</toolbar-button>
+		</toolbar>
 
-				<ul class="list-inline">
-					<li>
-						<a href="/selection/{{$selection->id}}/find_candidates" class="btn btn-primary">
-							<i class="fa fa-user-plus"></i> Incluir candidatos
-						</a>
-					</li>
-					
-					<li>
-						<a href="/selection/{{$selection->id}}/documents" class="btn btn-default" ><i class='fa fa-file-o' ></i> Documentos recebidos</a>
-					</li>
+		<ul class="list-inline">
+			<li>
+				<a href="/selection/{{$selection->id}}/find_candidates" class="btn btn-primary">
+					<i class="fa fa-user-plus"></i> Incluir candidatos
+				</a>
+			</li>
+			
+			<li>
+				<a href="/selection/{{$selection->id}}/documents" class="btn btn-default" ><i class='fa fa-file-o' ></i> Documentos recebidos</a>
+			</li>
 
-					<li class="float-right">
-						<a href="/selection/{{$selection->id}}/close" class="btn btn-success btn-fill" ><i class='fa fa-check' ></i> Finalizar processo</a>
-					</li>
-				</ul>
-			</div>
-		</div>
+			<li class="float-right">
+				<a href="/selection/{{$selection->id}}/close" class="btn btn-success btn-fill" ><i class='fa fa-check' ></i> Finalizar processo</a>
+			</li>
+		</ul>
 
 		<h2 class="card-title">Candidatos</h2>
 
 		<div class="row">
-			<div class="col">
+			<div class="col" v-if="applicationsOnScreening.length > 0">
 
 				<h3 class="card-title">Em avalia&ccedil;&atilde;o</h3>
 
 				<applications-list>
-					<application-list-item v-for="application in applicationsOnScreening" :application="application" :key="application.id" v-on:application:change="changeApplicationStatus" ></application-list-item>
+					<application-list-item v-for="application in applicationsOnScreening" :application="application" :selection_status="selection_status" :key="application.id" v-on:application:change="changeApplicationStatus" ></application-list-item>
 				</applications-list>
 
 			</div>
 
-			<div class="col">
+			<div class="col" v-if="applicationsOnInterviewing.length > 0">
 
 				<h3 class="card-title">Em entrevista</h3>
 
 				<applications-list>
-					<application-list-item v-for="application in applicationsOnInterviewing" :application="application" :key="application.id" v-on:application:change="changeApplicationStatus" ></application-list-item>
+					<application-list-item v-for="application in applicationsOnInterviewing" :application="application" :selection_status="selection_status" :key="application.id" v-on:application:change="changeApplicationStatus" ></application-list-item>
 				</applications-list>
 
 			</div>
 
-			<div class="col">
+			<div class="col" v-if="applicationsOnEmploymentOffering.length > 0">
 
 				<h3 class="card-title">Avaliando propostas</h3>
 
 				<applications-list>
-					<application-list-item v-for="application in applicationsOnEmploymentOffering" :application="application" :key="application.id" v-on:application:change="changeApplicationStatus" ></application-list-item>
+					<application-list-item v-for="application in applicationsOnEmploymentOffering" :application="application" :selection_status="selection_status" :key="application.id" v-on:application:change="changeApplicationStatus" ></application-list-item>
 				</applications-list>
 
 			</div>
 
-			<div class="col">
+			<div class="col" v-if="applicationsOnHiring.length > 0">
 
 				<h3 class="card-title">Em contrata&ccedil;&atilde;o</h3>
 
 				<applications-list>
-					<application-list-item v-for="application in applicationsOnHiring" :application="application" :key="application.id" v-on:application:change="changeApplicationStatus" ></application-list-item>
+					<application-list-item v-for="application in applicationsOnHiring" :application="application" :selection_status="selection_status" :key="application.id" v-on:application:change="changeApplicationStatus" ></application-list-item>
 				</applications-list>
 
 			</div>
 
-			<div class="col">
+			<div class="col" v-if="applicationsOnOnboarding.length > 0">
 
 				<h3 class="card-title">Em onboarding</h3>
 
 				<applications-list>
-					<application-list-item v-for="application in applicationsOnOnboarding" :application="application" :key="application.id" v-on:application:change="changeApplicationStatus" ></application-list-item>
+					<application-list-item v-for="application in applicationsOnOnboarding" :application="application" :selection_status="selection_status" :key="application.id" v-on:application:change="changeApplicationStatus" ></application-list-item>
 				</applications-list>
 
 			</div>
@@ -110,105 +99,94 @@
 		<div class="circle" data-toggle="tooltip" title="Label" data-container="body"></div>
 			
 		<div class="card-header clearfix">
-			<h5 style="font-size: 16px !important;" >
+			<h5 style="font-size: 16px !important;" @click="selectApplication" >
+				
 				@{{application.profile.name}} <i class="fa fa-spinner fa-spin" v-show="isLoading" ></i>
+
 			</h5>
-	  		<h6>@{{application.profile.position.label}} 
-			    <span class="location semi-bold"><i
-			        class="fa fa-map-marker"></i> @{{application.profile.city}} <span v-html="application.profile.country.icon"></span>
+	  		<h6 class="my-2">
+	  			<b>@{{application.profile.position.label}}</b>
+	  		</h6>
+
+	  		<h6>
+			    <span class="location semi-bold d-flex justify-content-between ">
+					@{{application.profile.city}}
+					<span v-html="application.profile.country.icon"></span> 
 			    </span>
 	  		</h6>
+
 		</div>
 		<div class="card-description">
 			
+			<div class="d-flex justify-content-around">
+
+		      	<a class="btn btn-tag btn-tag-light btn-tag-rounded" href="javascript:;" title="" @click="statusChange.isChanging = true" >
+		      		<i class="fa fa-refresh"></i> Etapa
+		      	</a>
+			      	
+		      	<a class="btn btn-tag btn-tag-light btn-tag-rounded" href="javascript:;" @click="sendMessage" title="Enviar mensagem" >
+		        	<i class="fa fa-envelope"></i>
+		      	</a>
+
+		      	<a class="btn btn-tag btn-tag-light btn-tag-rounded" href="javascript:;" @click="" title="Solicitar documentos" >
+		        	<i class="fa fa-file-pdf-o"></i>
+		      	</a>
+		  	</div>
+
+		  	<hr/>
+
+		  	<div class="my-2" v-show="statusChange.isChanging">
+		  		<h6>Alterar etapa</h6>
+			  	<div class="row" >
+			  		<div class="col my-1" v-for="status in selection_status" >
+			  			<button type="button" class="btn btn-default btn-xs" v-bind:class="{active: statusChange.status === status.id}" @click="statusChange.status = status.id" >
+			  				@{{status.label}}
+			  			</button>
+			  		</div>
+		        </div>
+		        <div class="form-group my-2">
+		        	<h6>Mensagem</h6>
+		        	<textarea class="form-control" placeholder="Escreva uma mensagem (opcional)" v-model="statusChange.message" ></textarea>
+		        </div>
+		        <ul class="list-inline my-2" >
+		        	<li class="list-inline-item">
+			        	<button type="button" class="btn btn-success btn-xs" @click="changeStatus" >
+			        		<i class="fa fa-check"></i> Confirmar
+			        	</button>
+			        </li>
+			        <li class="list-inline-item float-right">
+			        	<a href="javascript:;" class="text-muted" title="" @click="clearStepChange" >
+			      			Cancelar
+			    		</a>
+			        </li>
+			    </ul>
+			</div>
+
+			<div class="via">
+				<ul class="list-inline d-flex justify-content-around">
+					<li class="list-inline-item" >
+				      	<a href="javascript:;" title="" >
+				      		Perfil
+				      	</a>
+				    </li>
+				    <li class="list-inline-item float-right" v-if="!showDetails">
+						<a href="javascript:;" @click="showDetails = !showDetails" >Detalhes <i class="fa fa-angle-down"></i></a>
+				    </li>
+				    <li class="list-inline-item float-right" v-else>
+						<a href="javascript:;" @click="showDetails = !showDetails" >Detalhes <i class="fa fa-angle-up"></i></a>
+					</li>
+				</ul>
+			</div>
+
 			<div v-if="showDetails">
-
-				<p class="text-center">
-					<a href="javascript:;" @click="showDetails = !showDetails" >Fechar detalhes <i class="fa fa-angle-up"></i></a>
-				</p>
-
 				<h4>Detalhes</h4>
-				
 				<p v-show="application.notes" >
 					@{{application.notes}}
 				</p>
-
 			  	<p v-show="application.salary" >
 			    	Pretens&atilde;o salarial: @{{application.salary}}
 			  	</p>
-			  	<div class="row" >
-			    	<div class="col" v-if="application.profile.stcw_regulations" >
-			      		<h6>Regras STCW</h6>
-			      		
-			      		<ul class="list-inline" >
-					        <li class="list-inline-item" v-for="stcw_regulation in application.profile.stcw_regulations" >
-					          <button type="button" class="btn btn-tag btn-tag-rounded btn-xs" >@{{stcw_regulation.stcw_regulation.regulation}}</button>
-					        </li>
-			    	  	</ul>
-			    	</div>
-			    	<div class="col" v-if="application.profile.seaman_book_types" >
-			      		<h6>Categorias CIR</h6>
-			      		
-			      		<ul class="list-inline">
-					        <li class="list-inline-item" v-for="seaman_book_type in application.profile.seaman_book_types" >
-					          <button type="button" class="btn btn-tag btn-tag-rounded btn-xs" >@{{seaman_book_type.seaman_book_type.label}}</button>
-					        </li>
-			      		</ul>
-			    	</div>
-			    	<div class="col" v-if="application.profile.certificates" >
-				      	<h6>Certificados</h6>
-				      	<ul class="list-inline" >
-				        	<li class="list-inline-item" v-for="certificate in application.profile.certificates" >
-				          		<button type="button" class="btn btn-tag btn-tag-rounded btn-xs" >@{{certificate.certificate_type.label}}</button>
-				        	</li>
-				      	</ul>
-				    </div>
-				</div>
-			  	<div class="row">
-				    <div class="col" v-if="application.profile.ships" >
-				      	<h6>Embarcações</h6>
-				      	<ul class="list-inline" >
-					        <li class="list-inline-item" v-for="ship in application.profile.ships" >
-					          	<button type="button" class="btn btn-tag btn-tag-rounded btn-xs" >@{{ship.ship_type.label}}</button>
-					        </li>
-				      	</ul>
-				    </div>
-			  	</div>
 			</div>
-			<div class="text-center" v-else>
-				<a href="javascript:;" @click="showDetails = !showDetails" >Ver detalhes <i class="fa fa-angle-down"></i></a>
-			</div>
-	  
-		</div>
-	
-		<div class="card-footer clearfix">
-	  	
-		  	<ul>
-	        	<li><a :href='"/selection/messageCandidates/" + application.id'><i class='fa fa-thumbs-up'></i> Aprovar p/ fase final</a></li>
-	            <li><a :href='"/selection/messageCandidates/" + application.id'><i class='fa fa-envelope-o'></i> Enviar mensagem</a></li>
-	            <li><a :href='"/selection/requestDocuments/" + application.id'><i class='fa fa-file-o'></i> Solicitar documentos</a></li>
-	        </ul> 
-
-		  	<ul class="list-inline">
-		    
-			    <li class="list-inline-item" v-if="application.status == 666" >
-			      	<a class="btn btn-primary btn-sm" href="javascript:;" @click="changeStatus(application.id, 0)"  >
-			        	<i class="fa fa-thumbs-up"></i> Reativar
-			      	</a>
-			    </li>
-
-			    <li class="list-inline-item" v-else>
-			      	<a href="javascript:;" class="btn btn-danger btn-sm" @click="changeStatus(application.id, 666)" >
-			        	<i class="fa fa-times"></i> Eliminar
-			      	</a>
-			    </li>
-
-			    <li class="list-inline-item" >
-			      	<a :href="'/recruiting/sendMessage/' + application.profile.id" class="btn btn-default btn-sm" title="Enviar e-mail (nova janela)" target="_blank" ><i class="fa fa-envelope-o"></i></a>
-			    </li>
-
-		  	</ul>
-
 		</div>
 	</div>
 </script>
@@ -219,6 +197,7 @@ Vue.component('application-list-item', {
 
   props: {
     application: { required: true },
+    selection_status: { required: true },
   },
   
   data: function()  {
@@ -226,6 +205,15 @@ Vue.component('application-list-item', {
     return {
       isLoading: false,
       showDetails: false,
+
+      statusChange: {
+      	isChanging: false,
+      	sendMessage: false,
+      	message: null,
+      	status: null,
+      },
+
+      isSelected: false,
     };
   },
 
@@ -233,11 +221,31 @@ Vue.component('application-list-item', {
 
   methods: {
 
-    changeStatus: function(application_id, status)  {
+  	sendMessage: function()	{
 
-      this.$emit('application:change', application_id, status);
+  				var recipients = this.application.profile.user_id;
 
-    }
+    			window.location.href="/selection/" + this.application.selection_id + '/send_message?recipients=' + recipients;
+    		},
+
+  	clearStepChange: function()	{
+
+  		this.statusChange.isChanging = false;
+  		this.statusChange.status = null;
+  	},
+
+    changeStatus: function()  {
+
+    	if(this.statusChange.status)	{
+      		this.$emit('application:change', this.application.id, this.statusChange);
+      	}
+
+    },
+
+    selectApplication: function(application_id)	{
+
+
+    },
 
   },
 
@@ -246,145 +254,184 @@ Vue.component('application-list-item', {
 
 new Vue({
 
-		    el: '#up-app',
-		    data: {
+	    el: '#up-app',
+	    data: {
 
-		    	applications: [],
+	    	applications: [],
+	    	selectedApplications: [],
 
-		        selection: [],
+	        selection: [],
+	        selection_id: {{$selection->id}},
 
-		        selection_id: {{$selection->id}},
-		    },
+	        selection_status: [{id: 1,label: 'Avaliação'},{id: 2,label: 'Entrevista'},{id: 3,label: 'Proposta'},{id: 4,label: 'Contratação'},{id: 5,label: 'Onboarding'},],
+	    },
 
-		    watch: {
+	    methods: {
 
-		        searchParameter: function (val) {
+	    	getApplicationKey: function(application_id)	{
 
-		        }
-		    },
+	    		return this.applications.findIndex(function(a){return a.id === application_id}) >=0 ;
+	    	},
 
-		    computed: {
+	    	changeApplicationStatus: function(application_id, statusChange)	{
 
-		    	applicationsOnScreening: function()	{
+	    		var vm = this;
+	    		var key = this.getApplicationKey(application_id);
+	    		
+	    		if(key >= 0)	{
 
-		    		var self = this;
+	    			var data = {status: statusChange.status};
 
-		    		return self.applications.filter( function( application )	{
+	    			axios.patch('/api/application/' + application_id, data).then( function()	{
 
-		    			if(application.status == 1)	{
+	    				vm['applications'][key]['status'] = statusChange.status;
 
-		    				return application;
-		    			}
+	    			});
+	    		}
+	    	},
 
-		    		});
+	    	selectApplication: function(application_id)	{
 
-		    	},
+	    		var key = this.getApplicationKey(application_id);
 
-		    	applicationsOnInterviewing: function()	{
+	    		if(key)	{
 
-		    		var self = this;
+	    			this['applications'][key]['isSelected'] = true;
+	    			this.selectedApplication.push(this['applications'][key]);
+	    		}
+    		},
 
-		    		return self.applications.filter( function( application )	{
+    		deselectApplication: function(key)	{
 
-		    			if(application.status == 2)	{
+    			// Get Application ID
+    			var application_id = this['selectedApplication'][key]['id'];
 
-		    				return application;
-		    			}
+    			// Remove from list
+    			Vue.delete(this['selectedApplication'], key);
 
-		    		});
-		    		
-		    	},
+    			// Change "isSelected"
+    			this['applications'][this.getApplicationKey(application_id)]['isSelected'] = false;
+    		},
 
-		    	applicationsOnEmploymentOffering: function()	{
+    		messageManyApplicants: function()	{
 
-		    		var self = this;
+    			// Get Selected Applications
+    			var recipients = this.selectedApplications.filter(function(application)	{
+    								return application.profile.user.id;
+    							});
 
-		    		return self.applications.filter( function( application )	{
+    			// Trigger the method to send the message
+    			this.sendMessage(recipients);
+    		},
 
-		    			if(application.status == 3)	{
+    		sendMessage: function(recipients)	{
 
-		    				return application;
-		    			}
+    			var recipients = recipients.join(',');
 
-		    		});
-		    		
-		    	},
+    			window.location.href="/selection/" + this.selection_id + '/message?recipients=' + recipients;
+    		},
 
-		    	applicationsOnHiring: function()	{
+	    },
 
-		    		var self = this;
+	    computed: {
 
-		    		return self.applications.filter( function( application )	{
+	    	applicationsOnScreening: function()	{
 
-		    			if(application.status == 4)	{
+	    		var self = this;
 
-		    				return application;
-		    			}
+	    		return self.applications.filter( function( application )	{
 
-		    		});
-		    		
-		    	},
+	    			if(application.status == 1)	{
 
-		    	applicationsOnOnboarding: function()	{
+	    				return application;
+	    			}
 
-		    		var self = this;
+	    		});
 
-		    		return self.applications.filter( function( application )	{
+	    	},
 
-		    			if(application.status == 5)	{
+	    	applicationsOnInterviewing: function()	{
 
-		    				return application;
-		    			}
+	    		var self = this;
 
-		    		});
-		    		
-		    	},
-		    },
+	    		return self.applications.filter( function( application )	{
 
-		    filters: {
+	    			if(application.status == 2)	{
 
-		    },
+	    				return application;
+	    			}
 
-		    beforeMount: function() {
+	    		});
+	    		
+	    	},
 
-		        const vm = this;
+	    	applicationsOnEmploymentOffering: function()	{
 
-		        axios.get('/api/selection/' + vm.selection_id).then( function( response ) {
+	    		var self = this;
 
-		        	vm.selection = response.data;
-		        });
+	    		return self.applications.filter( function( application )	{
 
-		        axios.get('/api/selection/' + vm.selection_id + '/applications').then( function( response ) {
+	    			if(application.status == 3)	{
 
-		            vm.applications = response.data;
-		        });
-		    },
+	    				return application;
+	    			}
 
-		    mounted: function()	{
+	    		});
+	    		
+	    	},
 
-		    },
+	    	applicationsOnHiring: function()	{
 
-		    methods: {
+	    		var self = this;
 
-		    	changeApplicationStatus: function(application_id, status)	{
+	    		return self.applications.filter( function( application )	{
 
-		    		var vm = this;
-		    		var key = this.applications.findIndex( function(a){ return a.id === application_id });
-		    		
-		    		if(key >= 0)	{
+	    			if(application.status == 4)	{
 
-		    			var data = {status: status};
+	    				return application;
+	    			}
 
-		    			axios.patch('/api/application/' + application_id, data).then( function()	{
+	    		});
+	    		
+	    	},
 
-		    				vm['applications'][key]['status'] = status;
+	    	applicationsOnOnboarding: function()	{
 
-		    			});
-		    		}
-		    	}
-		    }
+	    		var self = this;
 
-		});
+	    		return self.applications.filter( function( application )	{
+
+	    			if(application.status == 5)	{
+
+	    				return application;
+	    			}
+
+	    		});
+	    		
+	    	},
+	    },
+
+	    beforeMount: function() {
+
+	        const vm = this;
+
+	        axios.get('/api/selection/' + vm.selection_id).then( function( response ) {
+
+	        	vm.selection = response.data;
+	        });
+
+	        axios.get('/api/selection/' + vm.selection_id + '/applications').then( function( response ) {
+
+	        	var applications = response.data.map( function(application)	{
+	        		application.isSelected = false;
+
+	        		return application;
+	        	});
+
+	            vm.applications = applications;
+	        });
+	    },
+	});
 
 $(document).ready(function()
 	{
