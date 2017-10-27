@@ -10,7 +10,7 @@ class ConversationMessage extends Model
 	
     public function conversation()	{
 
-    	return $this->belongsTo('App\Models\Conversation\Conversation');
+    	return $this->belongsTo('App\Models\Conversation');
     }
 
     public function conversation_member()	{

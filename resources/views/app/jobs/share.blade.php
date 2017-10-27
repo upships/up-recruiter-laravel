@@ -1,5 +1,5 @@
 <div class="row m-b-10">
-	<div class="col-lg-12 col-md-12">
+	<div class="col">
 
 		<div class="list-group m-b-10">
 			<div class="list-group-item">

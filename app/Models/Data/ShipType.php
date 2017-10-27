@@ -10,6 +10,6 @@ class ShipType extends Model
 	
     public function company()	{
 
-    	return $this->belongsTo('App\Models\Company\Company')->withDefault();
+    	return $this->belongsTo('App\Models\Company')->withDefault();
     }
 }

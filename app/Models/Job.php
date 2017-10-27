@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Job;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,7 +25,7 @@ class Job extends Model
 
     public function company()	{
 
-    	return $this->belongsTo('App\Models\Company\Company');
+    	return $this->belongsTo('App\Models\Company');
     }
 
     public function recruiter() {

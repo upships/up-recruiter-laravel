@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-sm-12">
+    <div class="col">
         <div class="bg-picture" style="background-image:url('{companyImageFull}')">
           <span class="bg-picture-overlay"></span><!-- overlay -->
           <!-- meta -->

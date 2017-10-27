@@ -1,5 +1,5 @@
 <div class="row">
-  	<div class="col-lg-12 col-md-12">
+  	<div class="col">
 
     	<div class="list-group" id='crewsList'>
       		<div class="list-group-item">

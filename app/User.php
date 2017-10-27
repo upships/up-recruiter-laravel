@@ -29,12 +29,12 @@ class User extends Authenticatable
 
     public function profile()   {
 
-        return $this->hasOne('App\Models\Profile\Profile');
+        return $this->hasOne('App\Models\Profile');
     }
 
     public function company()   {
 
-        return $this->belongsTo('App\Models\Company\Company');
+        return $this->belongsTo('App\Models\Company');
     }
 
     public function recruiter()   {

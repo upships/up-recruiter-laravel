@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Profile;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\Profile;
+
 class ProfileController extends Controller
 {
     /**
@@ -22,21 +24,6 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.
@@ -44,9 +31,26 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Profile $profile)
     {
-        //
+        if(request()->ajax())   {
+
+            $relationships = [
+                                'position',
+                                'coc.regulations.stcw_regulation', 'coc.country',
+                                'seaman_books.seaman_book_type', 'seaman_books.country',
+                                'languages.language',
+                                'dp.dp_type',
+                                'ships.ship_type',
+                                'stcw_regulations.stcw_regulation',
+                                'certificates.certificate_type',
+                                'native_language'
+                             ];
+
+            return response()->json($profile->load($relationships));
+        }
+
+        return view('app.profiles.view', compact('profile'));
     }
 
     /**
@@ -55,11 +59,7 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
-    }
-
+    
     /**
      * Update the specified resource in storage.
      *
@@ -67,19 +67,4 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

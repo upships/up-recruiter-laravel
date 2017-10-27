@@ -10,6 +10,6 @@ class JobBenefit extends Model
 	
     public function job()	{
 
-    	return $this->belongsTo('App\Models\Job\Job');
+    	return $this->belongsTo('App\Models\Job');
     }
 }

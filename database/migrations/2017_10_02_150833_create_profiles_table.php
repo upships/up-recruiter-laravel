@@ -18,7 +18,7 @@ class CreateProfilesTable extends Migration
             $table->timestamps();
 
             $table->integer('user_id');
-            $table->integer('nationality');
+            $table->integer('country_of_nationality');
             $table->integer('education_level_id')->nullable();
             
             $table->integer('position_id');

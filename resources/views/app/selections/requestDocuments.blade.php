@@ -25,7 +25,7 @@
 							<input type="hidden" name="applications[{{$application->id}}][userName]" value="{{$application->profile->name}}"  >
 							<input type="hidden" name="applications[{{$application->id}}][userEmail]" value="{applicantEmail}"  >
 
-							<input type="hidden" name="applications[{{$application->id}}][profileId]" value="{profileId}"  >
+							<input type="hidden" name="applications[{{$application->id}}][profileId]" value="{{$profile->id}}  >
 
 							{{$application->profile->name}} <small class="text-muted" >{{$application->profile->position->label}}</small>
 						</li>

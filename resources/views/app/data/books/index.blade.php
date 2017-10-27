@@ -49,7 +49,7 @@
 						        </form>
 							</div>
 								
-							@foreach($seaman_book_types as $seaman_book_type)
+							@foreach($seaman_book_types as $seaman_book)
 								<a class="list-group-item" href="/data/main/bookCategory/{bookCategoryId}">
 							        {bookCategoryFullLabel}
 							        <br/>

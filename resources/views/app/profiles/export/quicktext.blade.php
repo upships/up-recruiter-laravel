@@ -7,10 +7,10 @@
 <h4>Dados Pessoais</h4>
 
 <ul>
-	<li>Nome completo: {profileFullName}</li>
-	<li>Celular: {profilePhone}</li>
-	<li>Sexo: {profileGenderLabel}</li>
-	<li>Nascimento: {profileBirthday}</li>
+	<li>Nome completo: {{$profile->name}}</li>
+	<li>Celular: {{$profile->phone}}</li>
+	<li>Sexo: {{$profile->gender_label}}</li>
+	<li>Nascimento: {{$profile->birthday}}</li>
 	<li>Resid&ecirc;ncia: {profileLocation}</li>
 </ul>
 

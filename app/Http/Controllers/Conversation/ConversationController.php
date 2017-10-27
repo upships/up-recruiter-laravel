@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Conversation;
 
-use App\Models\Conversation\Conversation;
+use App\Models\Conversation;
+use App\Models\Conversation\ConversationMember;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -15,7 +17,14 @@ class ConversationController extends Controller
      */
     public function index()
     {
-        //
+        $conversations = Conversation::all(); //auth()->user()->company->conversations()->get();
+
+        if(request()->ajax())   {
+
+            return response()->json($conversations->load(['members', 'messages']));
+        }
+
+        return view('app.conversations.index', compact('conversations'));
     }
 
     /**
@@ -29,19 +38,15 @@ class ConversationController extends Controller
         if(request('recipients'))   {
 
             // Explode the string by comma then put them in an array
-            $recipients = explode(',', request('recipients'));
+            $users = explode(',', request('recipients'));
+            $users = \App\User::whereIn('id', $users)->get();
 
             // If there are recipients
-            if(count($recipients) > 0)  {
+            if($users->count() > 0)  {
 
-                $recipients = collect($recipients)->each( function ($recipient) {
+                $selection_id = request('selection_id');
 
-                    if(intval($recipient) > 0)  {
-                        return intval($recipient);
-                    }
-                });
-
-                return view('app.conversations.add', compact('recipients'));
+                return view('app.conversations.add', compact('users'));
             }
         }
         else {
@@ -58,32 +63,43 @@ class ConversationController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+
+            'users' => 'required',
+            'subject' => 'required',
+            'message' => 'required'
+        ]);
+
+
         $type = 1;
+
+        // Add conversation
+        $conversation = Conversation::make(['recruiter_id' => auth()->user()->recruiter->id ]);
 
         if($request->input('job_id'))  {
 
             $type = 2;
+            $conversation->job_id = $request->input('job_id');
+        }
+        elseif ($request->input('selection_id')) {
+            
+            $type = 3;
+            $conversation->selection_id = $request->input('selection_id');
         }
 
-        // Add conversation
+        $conversation->type = $type;
 
-        $conversation = Conversation::make(['type' => $type, 'job_id' => @$request->input('job_id'), 'recruiter' => auth()->user()->recruiter->id ]);
-
-        auth()->user()->company()->conversations()->save($conversation);
+        auth()->user()->company->conversations()->save($conversation);
 
         // Add members
-        if($request->input('recipients')) {
+        if($request->input('users')) {
 
             // Members are User IDs
-            $users = User::whereIn('id', $request->input('recipients'))->get();
+            $users = collect($request->input('users'));
 
-            $users->each(function($user)  use ($conversation)  {
+            $users->each(function($user_id) use ($conversation)  {
 
-                $member = [
-                            'conversation_id' => $conversation->id,
-                            'user_id' => $user->id,
-                            'user_type' => 2,
-                          ];
+                $member = ConversationMember::make(['conversation_id' => $conversation->id,'user_type' => 2, 'user_id' => $user_id]);
 
                 $conversation->members()->save($member);
             });
@@ -92,7 +108,10 @@ class ConversationController extends Controller
         // Add messages
 
             // Insert the current recruiter as a recipient
-            $sender = ConversationMember::where(['user_id' => auth()->user()->id, 'conversation_id' => $conversation->id])->first();
+            $sender = ConversationMember::create(['user_id' => auth()->user()->id, 'conversation_id' => $conversation->id, 'user_type' => 1]);
+
+            // Message Object
+            $message = (object) ['subject' => $request->input('subject'), 'message' => $request->input('message')];
 
             // Dispatch the Event, which will in turn save the messages and send out e-mails and notifications.
             event(new \App\Events\ConversationMessageSent($conversation, $sender, $message));
@@ -102,7 +121,7 @@ class ConversationController extends Controller
             return response()->json($conversation->load(['members', 'messages']));
         }
 
-        return redirect('/conversations/' . $conversation->id)->with('message', 'Message sent to users.');
+        return redirect('/conversation/' . $conversation->id)->with('message', 'Message sent to users.');
     }
 
     /**

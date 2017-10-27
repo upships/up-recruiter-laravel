@@ -287,8 +287,11 @@ Route::group(['middleware' => 'auth'], function()	{
 	 *
 	 */
 
-	Route::get('conversation/create', 'Conversation\ConversationController@create');
+	Route::get('conversation', 'Conversation\ConversationController@index');
+	Route::get('conversation/add', 'Conversation\ConversationController@create');
 	Route::post('conversation', 'Conversation\ConversationController@store');
+
+	Route::get('conversation/{conversation}', 'Conversation\ConversationController@show');
 
 });
 

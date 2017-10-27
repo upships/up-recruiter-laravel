@@ -6,7 +6,7 @@
 		<meta name="description" content="Curr&iacute;culo de {fullName}">
 		<meta name="author" content="VagasEmbarcado.com">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Currículo - {profilePositionLabel}</title>
+		<title>Currículo - {{$profile->position->label}}</title>
 
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
@@ -34,17 +34,17 @@
 
 					<div class="text-center">
 						<h2>Profissional Mar&iacute;timo</h2>
-						<h4>{profilePositionLabel}</h4>
+						<h4>{{$profile->position->label}}</h4>
 
 						<hr/>
 
-						{profileCity} - {profileState}
+						{{$profile->city}} - {{$profile->state}}
 
 						<hr/>
 
 					</div>
 					
-					{profileIntroduction}
+					{{$profile->introduction}}
 
 				</div>
 			</div>
@@ -61,10 +61,10 @@
 							<th>Est. Civil</th>
 						</tr>
 						<tr>
-							<td>{profileBirthday}</td>
-							<td>{profileGenderLabel}</td>
-							<td>{profileNationality}</td>
-							<td>{profileMaritalStatusLabel}</td>							
+							<td>{{$profile->birthday}}</td>
+							<td>{{$profile->gender_label}}</td>
+							<td>{{$profile->country_of_nationality->country->name}}</td>
+							<td>{{$profile->marital_status_label}}</td>							
 						</tr>
 						<tr>
 							<th>Passporte</th>
@@ -72,8 +72,8 @@
 							<th colspan="2">Febre amarela</th>
 						</tr>
 						<tr>
-							<td>{profilePassport}</td>
-							<td>{profilePassportExpires}</td>
+							<td>{{$passport->number}}</td>
+							<td>{{$passport->expiration_date}}</td>
 							<td colspan="2">
 								Validade {profileYellowFeverExpires}
 							</td>

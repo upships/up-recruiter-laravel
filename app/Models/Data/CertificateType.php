@@ -10,7 +10,7 @@ class CertificateType extends Model
 
     public function company()	{
 
-    	return $this->belongsTo('App\Models\Company\Company');
+    	return $this->belongsTo('App\Models\Company');
     }
 
     public function country()	{

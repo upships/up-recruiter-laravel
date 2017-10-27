@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Job;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use App\Models\Job\Job;
+use App\Models\Job;
 
 class JobClosingController extends Controller
 {

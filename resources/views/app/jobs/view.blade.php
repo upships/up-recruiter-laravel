@@ -136,8 +136,8 @@
 
 		        						<div v-if="availableApplications.length > 0" >
 							          		<applications-list filters="filters" >
-							          			<application-list-item v-for="application in availableApplications" :application="application" :key="application.id" v-on:application:change="changeApplicationStatus" ></application-list-item>
-							          		</applications-list>
+							          			<job-application v-for="application in availableApplications" :application="application" :key="application.id" v-on:application:change="changeApplicationStatus" ></job-application>
+							          		</applications>
 							          	</div>
 							          	<div v-else>
 							          		<h5><i class="fa fa-info-circle"></i> Nenhum candidato dispon&iacute;vel</h5>
@@ -148,8 +148,8 @@
 
 						          		<div v-if="eliminatedApplications.length > 0" >
 							          		<applications-list filters="filters" >
-							          			<application-list-item v-for="application in eliminatedApplications" :application="application" :key="application.id" v-on:application:change="changeApplicationStatus"></application-list-item>
-							          		</applications-list>
+							          			<job-application v-for="application in eliminatedApplications" :application="application" :key="application.id" v-on:application:change="changeApplicationStatus"></job-application>
+							          		</applications>
 							          	</div>
 							          	<div v-else>
 							          		<h5><i class="fa fa-info-circle"></i> Nenhum candidato eliminado</h5>
@@ -357,443 +357,318 @@
 
 @section('local-footer')
 
-<script type="text/x-template" id="application-list-item-template">
 
-	<div class="card social-card share full-width" data-social="item">
-		<div class="circle" data-toggle="tooltip" title="Label" data-container="body"></div>
-			<div class="card-header clearfix">
-				<h5 style="font-size: 16px !important;" >
-					@{{application.profile.name}} <i class="fa fa-spinner fa-spin" v-show="isLoading" ></i>
-				</h5>
-		  		<h6>@{{application.profile.position.label}} 
-				    <span class="location semi-bold"><i
-				        class="fa fa-map-marker"></i> @{{application.profile.city}} <span v-html="application.profile.country.icon"></span>
-				    </span>
-		  		</h6>
-			</div>
-			<div class="card-description">
 
-				<p v-show="application.remarks" >
-					@{{application.remarks}}
-				</p>
-
-		  	<p v-show="application.salary" >
-		    	Pretens&atilde;o salarial: @{{application.salary}}
-		  	</p>
-
-		  	<div class="row">
-		    	<div class="col" v-if="application.profile.stcw_regulations" >
-		      		<h6>Regras STCW</h6>
-		      		
-		      		<ul class="list-inline" >
-				        <li class="list-inline-item" v-for="stcw_regulation in application.profile.stcw_regulations" >
-				          <button type="button" class="btn btn-tag btn-tag-rounded btn-xs" >@{{stcw_regulation.stcw_regulation.regulation}}</button>
-				        </li>
-		    	  	</ul>
-		    	</div>
-		    	<div class="col" v-if="application.profile.seaman_book_types" >
-		      		<h6>Categorias CIR</h6>
-		      		
-		      		<ul class="list-inline">
-				        <li class="list-inline-item" v-for="seaman_book_type in application.profile.seaman_book_types" >
-				          <button type="button" class="btn btn-tag btn-tag-rounded btn-xs" >@{{seaman_book_type.seaman_book_type.label}}</button>
-				        </li>
-		      		</ul>
-		    	</div>
-		    	<div class="col" v-if="application.profile.certificates" >
-		      	<h6>Certificados</h6>
-		      	<ul class="list-inline" >
-		        	<li class="list-inline-item" v-for="certificate in application.profile.certificates" >
-		          		<button type="button" class="btn btn-tag btn-tag-rounded btn-xs" >@{{certificate.certificate_type.label}}</button>
-		        	</li>
-		      	</ul>
-		    </div>
-		  </div>
-		  	<div class="row">
-			    <div class="col" v-if="application.profile.ships" >
-			      	<h6>Embarcações</h6>
-			      	<ul class="list-inline" >
-				        <li class="list-inline-item" v-for="ship in application.profile.ships" >
-				          	<button type="button" class="btn btn-tag btn-tag-rounded btn-xs" >@{{ship.ship_type.label}}</button>
-				        </li>
-			      	</ul>
-			    </div>
-		  	</div>
-		  
-		</div>
-		
-		<div class="card-footer clearfix">
-		  
-		  	<ul class="list-inline">
-		    
-			    <li class="list-inline-item" v-if="application.status == 666" >
-			      	<a class="btn btn-primary btn-sm" href="javascript:;" @click="changeStatus(application.id, 0)"  >
-			        	<i class="fa fa-thumbs-up"></i> Reativar
-			      	</a>
-			    </li>
-			    <li class="list-inline-item" v-else>
-			      	<a href="javascript:;" class="btn btn-danger btn-sm" @click="changeStatus(application.id, 666)" >
-			        	<i class="fa fa-times"></i> Eliminar
-			      	</a>
-			    </li>
-
-			    <li class="list-inline-item" >
-			      	<a :href="'/recruiting/sendMessage/' + application.profile.id" class="btn btn-default btn-sm" title="Enviar e-mail (nova janela)" target="_blank" ><i class="fa fa-envelope-o"></i></a></li>
-
-			    <li class="list-inline-item float-right">
-			      	<a :href="'/profile/' + application.profile.id" target="_blank" class="btn btn-default btn-sm" title="Ver perfil (nova janela)" >
-			      		Perfil completo
-			      	</a>
-			    </li>
-
-		  	</ul>
-
-		</div>
-	</div>
-</script>
-
-<script>
+<script>			
 	
-	Vue.component('application-list-item', {
+	new Vue({
 
-      props: {
-        application: { required: true },
-      },
-      
-      data: function()  {
+	    el: '#up-app',
+	    data: {
 
-        return {
-          isLoading: false,
-        };
-      },
+	    	applications: [],
 
-      template: '#application-list-item-template',
+	        activeFilters: [],
 
-      methods: {
+	        filters: [],
 
-        changeStatus: function(application_id, status)  {
+	        filtersMeta: {
+	        				book: {
 
-          this.$emit('application:change', application_id, status);
+	        					label: 'Categorias CIR',
+	        					name: 'book',
+	        				},
 
-        }
+	        				stcw: {
 
-      },
+	        					label: 'STCW',
+	        					name: 'stcw',
+	        				},
 
-    });
+	        				location: {
 
-	$(document).ready(function() {
-			
-			new Vue({
+	        					label: 'Localização',
+	        					name: 'location',
+	        				},
 
-		    el: '#up-app',
-		    data: {
+	        				english: {
 
-		    	applications: [],
+	        					label: 'Inglês',
+	        					name: 'english',
+	        				},
 
-		        activeFilters: [],
+	        				// ships: {
+	        				// 	label: 'Embarcação',
+	        				// 	name: 'ship',
+	        				// 	items: {}
+	        				// },
+	        			},
+	        
+	        job: [],
 
-		        filters: [],
+	        job_id: {{$job->id}},
+	    },
 
-		        filtersMeta: {
-		        				book: {
+	    watch: {
 
-		        					label: 'Categorias CIR',
-		        					name: 'book',
-		        				},
+	        searchParameter: function (val) {
 
-		        				stcw: {
+	            // this.flagParameter = null;
 
-		        					label: 'STCW',
-		        					name: 'stcw',
-		        				},
+	            // var self = this;
 
-		        				location: {
+	            // this.visibleItems = this.certificates.filter( function(certificate) {
 
-		        					label: 'Localização',
-		        					name: 'location',
-		        				},
+	            //     if(self.searchParameter)   {
 
-		        				english: {
+	            //         // Search by name
 
-		        					label: 'Inglês',
-		        					name: 'english',
-		        				},
+	            //         return certificate.label.toLowerCase().indexOf( self.searchParameter.toLowerCase() ) >= 0;
+	            //     }
+	                
+	            //     else {
 
-		        				// ships: {
-		        				// 	label: 'Embarcação',
-		        				// 	name: 'ship',
-		        				// 	items: {}
-		        				// },
-		        			},
-		        
-		        job: [],
+	            //         return certificate;
+	            //     }
+	            // }); 
+	        }
+	    },
 
-		        job_id: {{$job->id}},
-		    },
+	    computed: {
 
-		    watch: {
+	    	availableApplications: function()	{
 
-		        searchParameter: function (val) {
+	    		var self = this;
 
-		            // this.flagParameter = null;
+	    		return self.applications.filter( function( application )	{
 
-		            // var self = this;
+	    			if(application.status == 0)	{
 
-		            // this.visibleItems = this.certificates.filter( function(certificate) {
+	    				return application;
+	    			}
 
-		            //     if(self.searchParameter)   {
+	    		});
 
-		            //         // Search by name
+	    	},
 
-		            //         return certificate.label.toLowerCase().indexOf( self.searchParameter.toLowerCase() ) >= 0;
-		            //     }
-		                
-		            //     else {
+	    	eliminatedApplications: function()	{
 
-		            //         return certificate;
-		            //     }
-		            // }); 
-		        }
-		    },
+	    		var self = this;
 
-		    computed: {
+	    		return self.applications.filter( function( application )	{
 
-		    	availableApplications: function()	{
+	    			if(application.status == 666)	{
 
-		    		var self = this;
+	    				return application;
+	    			}
 
-		    		return self.applications.filter( function( application )	{
+	    		});
+	    		
+	    	},
 
-		    			if(application.status == 0)	{
+	        visibleApplications: function()	{
 
-		    				return application;
-		    			}
+	        	var self = this;
 
-		    		});
+	        	if(self.activeFilters.length > 0)	{
 
-		    	},
+	        		return self.applications.filter( function(application) {
 
-		    	eliminatedApplications: function()	{
+		        		for(i = 0; i < self.activeFilters.length; i++)	{
 
-		    		var self = this;
+		        			var ac = self.activeFilters[i];
 
-		    		return self.applications.filter( function( application )	{
+		        			if(profile['filterableAttributes'][ac.key].findIndex( function(k) {return k === ac.value;}) >= 0)	{
 
-		    			if(application.status == 666)	{
+		        				return profile;
+		        			}
 
-		    				return application;
-		    			}
+		        		}
 
-		    		});
-		    		
-		    	},
+		        	});
+	        	}
+	        	
+	        	return self.applications;
+	        }
+	    },
 
-		        visibleApplications: function()	{
+	    filters: {
 
-		        	var self = this;
+	    	filterTypeLabel: function( filterType )	{
 
-		        	if(self.activeFilters.length > 0)	{
+	    		var self = this;
 
-		        		return self.applications.filter( function(application) {
+	    		return filterType;
 
-			        		for(i = 0; i < self.activeFilters.length; i++)	{
+	    		// var label = this['filtersMeta']['book']['label'];
 
-			        			var ac = self.activeFilters[i];
+	    		// return typeof label === 'string' ? label : filterType;
+	    	},
 
-			        			if(profile['filterableAttributes'][ac.key].findIndex( function(k) {return k === ac.value;}) >= 0)	{
+	    	filterItemLabel: function (filterItemId, filterType)	{
 
-			        				return profile;
-			        			}
+	    		return this['filtersMeta'][filterType][filterItemId]['label'];
+	    	}
 
-			        		}
+	    },
 
-			        	});
-		        	}
-		        	
-		        	return self.applications;
-		        }
-		    },
+	    beforeMount: function() {
 
-		    filters: {
+	        const vm = this;
 
-		    	filterTypeLabel: function( filterType )	{
+	        axios.get('/api/job/' + vm.job_id).then( function( response ) {
 
-		    		var self = this;
+	        	vm.job = response.data;
+	        	vm.filters = vm.job.filters;
+	        });
 
-		    		return filterType;
+	        axios.get('/api/job/' + vm.job_id + '/applications').then( function( response ) {
 
-		    		// var label = this['filtersMeta']['book']['label'];
+	            // Go through each profile, get their filterableAttributes and return to the Filters array
 
-		    		// return typeof label === 'string' ? label : filterType;
-		    	},
+	            var applications = response.data.map( function(application)	{
 
-		    	filterItemLabel: function (filterItemId, filterType)	{
+	            	application.profile.filterableAttributes = {book: [], stcw: [], english: [], location: []};
 
-		    		return this['filtersMeta'][filterType][filterItemId]['label'];
-		    	}
+	            	// // CIR: book
 
-		    },
+	            	// 	// Check if item already exists
 
-		    beforeMount: function() {
+	            	// var filterItemKey = application.profile.bookCategoryCode;
+	            	
+	            	// if(typeof filterItemKey === 'string')	{
 
-		        const vm = this;
+		            // 	if( vm.filters.book.findIndex( function(item) {return item === filterItemKey}) < 0)	{
 
-		        axios.get('/api/job/' + vm.job_id).then( function( response ) {
+		            // 		vm['filtersMeta']['book'][filterItemKey] = {label: application.profile.bookCategoryCode, id: application.profile.bookCategoryId};
+		            // 		vm.filters.book.push(filterItemKey);
+		            // 	}
 
-		        	vm.job = response.data;
-		        	vm.filters = vm.job.filters;
-		        });
+		            // 	application.profile.filterableAttributes.book.push(filterItemKey);
+		            // }
 
-		        axios.get('/api/job/' + vm.job_id + '/applications').then( function( response ) {
+		            // var filterItemKey = application.profile.profileState;
+	            	
+	            	// if(typeof filterItemKey === 'string')	{
 
-		            // Go through each profile, get their filterableAttributes and return to the Filters array
+		            // 	if( vm.filters.location.findIndex( function(item) {return item === filterItemKey}) < 0)	{
 
-		            var applications = response.data.map( function(application)	{
+		            // 		vm['filtersMeta']['location'][filterItemKey] = {label: application.profile.profileState, id: application.profile.profileState};
+		            // 		vm.filters.location.push(filterItemKey);
+		            // 	}
 
-		            	application.profile.filterableAttributes = {book: [], stcw: [], english: [], location: []};
+		            // 	application.profile.filterableAttributes.location.push(filterItemKey);
+		            // }
 
-		            	// // CIR: book
+		            // // STCW: stcw
 
-		            	// 	// Check if item already exists
-
-		            	// var filterItemKey = application.profile.bookCategoryCode;
+	            	// if(typeof application.profile.cocRegulations !== 'undefined')	{
 		            	
-		            	// if(typeof filterItemKey === 'string')	{
+		            // 	application.profile.cocRegulations.map( function(regulation) {
 
-			            // 	if( vm.filters.book.findIndex( function(item) {return item === filterItemKey}) < 0)	{
+			           //  	var filterItemKey = regulation.stcwRegulationCode;
+	            	
+			           //  	if(typeof filterItemKey === 'string')	{
 
-			            // 		vm['filtersMeta']['book'][filterItemKey] = {label: application.profile.bookCategoryCode, id: application.profile.bookCategoryId};
-			            // 		vm.filters.book.push(filterItemKey);
-			            // 	}
+				          //   	if( vm.filters.stcw.findIndex( function(item) {return item === filterItemKey}) < 0)	{
 
-			            // 	application.profile.filterableAttributes.book.push(filterItemKey);
-			            // }
+				          //   		vm['filtersMeta']['stcw'][filterItemKey] = {label: regulation.stcwRegulation, id: regulation.stcwRegulationCode};
+				          //   		vm.filters.stcw.push(filterItemKey);
+				          //   	}
+				          //   }
 
-			            // var filterItemKey = application.profile.profileState;
-		            	
-		            	// if(typeof filterItemKey === 'string')	{
+				          //   application.profile.filterableAttributes.stcw.push(filterItemKey);
 
-			            // 	if( vm.filters.location.findIndex( function(item) {return item === filterItemKey}) < 0)	{
+		            // 	});
+		            // }
 
-			            // 		vm['filtersMeta']['location'][filterItemKey] = {label: application.profile.profileState, id: application.profile.profileState};
-			            // 		vm.filters.location.push(filterItemKey);
-			            // 	}
+		            // // Inglês: english
 
-			            // 	application.profile.filterableAttributes.location.push(filterItemKey);
-			            // }
+		            // 	var filterItemKey = application.profile.profileEnglishLevel;
+	            	
+		            // 	if(typeof filterItemKey === 'string')	{
 
-			            // // STCW: stcw
+			           //  	if( vm.filters.english.findIndex( function(item) {return item === filterItemKey}) < 0)	{
 
-		            	// if(typeof application.profile.cocRegulations !== 'undefined')	{
-			            	
-			            // 	application.profile.cocRegulations.map( function(regulation) {
+			           //  		vm['filtersMeta']['english'][filterItemKey] = {label: application.profile.profileEnglishLevelLabel, id: filterItemKey};
+			           //  		vm.filters.english.push(filterItemKey);
+			           //  	}
 
-				           //  	var filterItemKey = regulation.stcwRegulationCode;
-		            	
-				           //  	if(typeof filterItemKey === 'string')	{
+			           //  	application.profile.filterableAttributes.english.push(filterItemKey);
+			           //  }
 
-					          //   	if( vm.filters.stcw.findIndex( function(item) {return item === filterItemKey}) < 0)	{
+			        return application;
+	            	
+	            	// Embarcação: ship
 
-					          //   		vm['filtersMeta']['stcw'][filterItemKey] = {label: regulation.stcwRegulation, id: regulation.stcwRegulationCode};
-					          //   		vm.filters.stcw.push(filterItemKey);
-					          //   	}
-					          //   }
+	            	// if(typeof item.workExperience !== 'undefined')	{
 
-					          //   application.profile.filterableAttributes.stcw.push(filterItemKey);
+	            	// 	item.workExperience.map( function(work) {
 
-			            // 	});
-			            // }
+	            	// 		if(typeof work.workShips !== 'undefined')	{
+		            // 			work.workShips.map( function(ship) {
 
-			            // // Inglês: english
+		            // 				key = ship.workShipTypeName;
 
-			            // 	var filterItemKey = application.profile.profileEnglishLevel;
-		            	
-			            // 	if(typeof filterItemKey === 'string')	{
+		            // 				if(typeof key !== 'undefined' && typeof vm['filters']['ship']['items'][key] === 'undefined' && key.length > 0)	{
 
-				           //  	if( vm.filters.english.findIndex( function(item) {return item === filterItemKey}) < 0)	{
+				          //   		//console.log('State key: ' + item.profileState + ' | ' + key);
 
-				           //  		vm['filtersMeta']['english'][filterItemKey] = {label: application.profile.profileEnglishLevelLabel, id: filterItemKey};
-				           //  		vm.filters.english.push(filterItemKey);
-				           //  	}
+				          //   		vm['filters']['ship']['items'][key] = 	{
+			           //  														label: ship.workShipTypeLabel,
+			           //  														id: ship.workShipTypeName,
+				          //   												};
+				          //   		}
 
-				           //  	application.profile.filterableAttributes.english.push(filterItemKey);
-				           //  }
+		            // 			});
+		            // 		}
+		            // 	});
+	            	// }
 
-				        return application;
-		            	
-		            	// Embarcação: ship
+	            });
 
-		            	// if(typeof item.workExperience !== 'undefined')	{
+	            vm.applications = applications;
+	        });
+	    },
 
-		            	// 	item.workExperience.map( function(work) {
+	    mounted: function()	{
 
-		            	// 		if(typeof work.workShips !== 'undefined')	{
-			            // 			work.workShips.map( function(ship) {
+	    },
 
-			            // 				key = ship.workShipTypeName;
+	    methods: {
 
-			            // 				if(typeof key !== 'undefined' && typeof vm['filters']['ship']['items'][key] === 'undefined' && key.length > 0)	{
+	    	notify: function(message, type)	{
 
-					          //   		//console.log('State key: ' + item.profileState + ' | ' + key);
+	    	},
 
-					          //   		vm['filters']['ship']['items'][key] = 	{
-				           //  														label: ship.workShipTypeLabel,
-				           //  														id: ship.workShipTypeName,
-					          //   												};
-					          //   		}
+	        deleteFilter: function(key)	{
 
-			            // 			});
-			            // 		}
-			            // 	});
-		            	// }
+	        	this.activeFilters.splice(key, 1);
+	        },
 
-		            });
+	        triggerFilter: function(key, value)	{
 
-		            vm.applications = applications;
-		        });
-		    },
+	    		this.activeFilters.push({key: key, value: value});
+	    	},
 
-		    mounted: function()	{
+	    	changeApplicationStatus: function(application_id, status)	{
 
-		    },
+	    		var vm = this;
+	    		var key = this.applications.findIndex( function(a){ return a.id === application_id });
+	    		
+	    		if(key >= 0)	{
 
-		    methods: {
+	    			var data = {status: status};
 
-		    	notify: function(message, type)	{
+	    			axios.patch('/api/application/' + application_id, data).then( function()	{
 
-		    	},
+	    				vm['applications'][key]['status'] = status;
 
-		        deleteFilter: function(key)	{
-
-		        	this.activeFilters.splice(key, 1);
-		        },
-
-		        triggerFilter: function(key, value)	{
-
-		    		this.activeFilters.push({key: key, value: value});
-		    	},
-
-		    	changeApplicationStatus: function(application_id, status)	{
-
-		    		var vm = this;
-		    		var key = this.applications.findIndex( function(a){ return a.id === application_id });
-		    		
-		    		if(key >= 0)	{
-
-		    			var data = {status: status};
-
-		    			axios.patch('/api/application/' + application_id, data).then( function()	{
-
-		    				vm['applications'][key]['status'] = status;
-
-		    			});
-		    		}
-		    	}
-		    }
-
-		});
+	    			});
+	    		}
+	    	}
+	    }
 
 	});
-
 </script>
 @endsection

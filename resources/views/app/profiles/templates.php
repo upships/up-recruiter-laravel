@@ -55,7 +55,7 @@
       <!-- <li><a href="#" class="btn btn-default btn-sm" title="Adicionar a pasta" >
           <i class="fa fa-folder-open-o"></i></a>
       </li> -->
-      <li><a href="/recruiting/sendMessage/{{:profileId}}" class="btn btn-default btn-sm" title="Enviar e-mail (nova janela)" target="_blank" ><i class="fa fa-envelope-o"></i></a></li>
+      <li><a href="/conversation/add{{:profileId}}" class="btn btn-default btn-sm" title="Enviar e-mail (nova janela)" target="_blank" ><i class="fa fa-envelope-o"></i></a></li>
       <!-- <li><a href="#" class="btn btn-default btn-sm" title="Compartilhar"><i class="fa fa-share"></i></a></li> -->
     </ul>
 

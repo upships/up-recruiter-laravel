@@ -1,6 +1,6 @@
 <form method="post" action="/selection/insertCandidatesAction" id="includeCandidateForm" >
 	<div class="row m-b-10">
-		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="col col-sm-12 col-xs-12">
 			<h2>Inserir candidatos a processo seletivo</h2>
 			<ul class="list-inline m-b-10">
 				<li>
@@ -38,8 +38,8 @@
 
 								{profiles}
 								<div class="list-group-item">
-									<h4 class="list-group-item-heading">{userName}</h4>
-									{profilePositionLabel}
+									<h4 class="list-group-item-heading">{{$profile->name}}</h4>
+									{{$profile->position->label}}
 
 									<input type="hidden" name="newCandidates[][userId]" value="{userId}">
 								</div>

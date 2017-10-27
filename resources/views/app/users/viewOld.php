@@ -27,7 +27,7 @@
 </div>
 
 <div class="row">
-  	<div class="col-lg-12 col-md-12">
+  	<div class="col">
 
 		<h3>
 	      	{profilesCount} Curr&iacute;culo(s) cadastrado(s)</span>
@@ -42,7 +42,7 @@
 </div>
 
 <div class="row">
-  	<div class="col-lg-12 col-md-12">
+  	<div class="col">
 
 		<div class="list-group">
 	      	<div class="list-group-item">
@@ -253,7 +253,7 @@
 
 				<ul>
 					<li><b>Nascimento</b>: {{:birthday}}</li>
-					<li><b>Nacionalidade</b>: {{:nationality}}</li>
+					<li><b>Nacionalidade</b>: {{:country_of_nationality}}</li>
 					<li><b>Passaporte</b>: {{:passport}}</li>
 					<li><b>Estado civil</b>: {{:maritalStatusLabel}}</li>
 				</ul>

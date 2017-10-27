@@ -10,7 +10,7 @@ class JobTraining extends Model
 
     public function job()	{
 
-    	return $this->belongsTo('App\Models\Job\Job');
+    	return $this->belongsTo('App\Models\Job');
     }
 
     public function training()	{

@@ -2,9 +2,9 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Models\Job\Job::class, function (Faker $faker) {
+$factory->define(App\Models\Job::class, function (Faker $faker) {
     
-	$company_id = factory(App\Models\Company\Company::class)->create()->id;
+	$company_id = factory(App\Models\Company::class)->create()->id;
 
     return [
         

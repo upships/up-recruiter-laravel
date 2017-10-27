@@ -3,7 +3,7 @@
 </div>
 
 <div class="row m-b-10">
-	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	<div class="col col-sm-12 col-xs-12">
 
 		<ul class="nav nav-tabs"> 
 	        <li class="active"> 
@@ -23,7 +23,7 @@
 
 				<form method="post" action="/recruiting/sendMessageAction" id="sendMessageForm" >
 
-					<input type="hidden" name="profileId" value="{profileId}" >
+					<input type="hidden" name="profileId" value="{{$profile->id}} >
 					<input type="hidden" name="companyName" value="{companyName}" >
 
                 	<h5 class="">Destinat&aacute;rios</h5>
@@ -32,17 +32,18 @@
 
 	                    <ul class="list-inline">
 							{profiles}
-							<li class="m-b-5" id="profiles-{profileId}">
-								<input type="hidden" name="profiles[{profileId}][userId]" value="{userId}"  >
-								<input type="hidden" name="profiles[{profileId}][userName]" value="{userName}"  >
-								<input type="hidden" name="profiles[{profileId}][userEmail]" value="{userEmail}"  >
+							<li class="m-b-5" id="profiles-{{$profile->id}}>
+								<input type="hidden" name="profiles[{{$profile->id}}][userId]" value="{userId}"  >
+								<input type="hidden" name="profiles[{{$profile->id}}][userName]" value="{{$profile->name}}"  >
+								<input type="hidden" name="profiles[{{$profile->id}}][userEmail]" value="{userEmail}"  >
 
 								<div class="btn-group">
 									<a href="/profile/{{$profile->id}}" class="btn btn-default btn-custom text-left" target="_blank" title="{userPositionLabel}" >
-										{userName} 
+										{{$profile->name}} 
 										<small class="text-muted" >({userEmail})</small>
 									</a>
-									<a href="#removeTo-{profileId}" class="btn btn-default" title="Remover destinatário" onclick="removeUser({profileId})" >
+									<a href="#removeTo-{{$profile->id}} class="btn btn-default" title="Remover destinatário" onclick="removeUser(<div class="row">
+{{$profile->id}})" >
 										<i class="fa fa-times"></i>
 									</a>
 								</div>

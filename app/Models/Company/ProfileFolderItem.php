@@ -8,7 +8,7 @@ class ProfileFolderItem extends Model
 {
     public function profile()	{
 
-    	return $this->belongsTo('App\Models\Profile\Profile');
+    	return $this->belongsTo('App\Models\Profile');
     }
 
     public function profile_folder()	{
@@ -18,6 +18,6 @@ class ProfileFolderItem extends Model
 
     public function company()	{
 
-    	return $this->belongsTo('App\Models\Company\Company');
+    	return $this->belongsTo('App\Models\Company');
     }
 }

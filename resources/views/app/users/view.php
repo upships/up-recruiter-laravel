@@ -46,7 +46,7 @@
 	  	<div class="tab-content">
 		  	<div role="tabpanel" class="tab-pane active" id="profiles"><!-- Profile tab -->
 			  	<div class="row">
-			  		<div class="col-lg-12 col-md-12">
+			  		<div class="col">
 
 			  			<div class="list-group m-b-10">
 			  				<div class="list-group-item">
@@ -78,7 +78,7 @@
 			<div role="tabpanel" class="tab-pane" id="sentProfiles"><!-- Sent profiles tab -->
 
 				<div class="row">
-				  	<div class="col-lg-12 col-md-12">
+				  	<div class="col">
 
 						<div class="list-group">
 					      	<div class="list-group-item">
@@ -290,7 +290,7 @@
 
 					<ul class="list-unstyled">
 						<li><b>Nascimento</b>: {{:birthday}}</li>
-						<li><b>Nacionalidade</b>: {{:nationality}}</li>
+						<li><b>Nacionalidade</b>: {{:country_of_nationality}}</li>
 						<li><b>Passaporte</b>: {{:passport}}</li>
 						<li><b>Estado civil</b>: {{:maritalStatusLabel}}</li>
 					</ul>

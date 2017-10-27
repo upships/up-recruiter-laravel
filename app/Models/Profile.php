@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Profile;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,7 +23,14 @@ class Profile extends Model
         return $this->hasMany('App\Models\Recruiting\Application');
     }
 
+    public function passports()  {
+        return $this->hasMany('App\Models\Profile\Passport');
+    }
 
+    public function visas() {
+        return $this->hasMany('App\Models\Profile\Visa');
+    }
+    
     public function certificates()	{
     	return $this->hasMany('App\Models\Profile\ProfileCertificate');
     }
@@ -44,7 +51,7 @@ class Profile extends Model
     	return $this->hasMany('App\Models\Profile\ProfileDocumentRequest');
     }
 
-    public function educations()	{
+    public function education()	{
     	return $this->hasMany('App\Models\Profile\ProfileEducation');
     }
 
@@ -58,10 +65,10 @@ class Profile extends Model
     }
 
     public function dp()	{
-    	return $this->hasOne('App\Models\Profile\Dp');
+    	return $this->hasMany('App\Models\Profile\Dp');
     }
 
-    public function seaman_book_types()	{
+    public function seaman_books()	{
     	return $this->hasMany('App\Models\Profile\SeamanBook');
     }
 
@@ -75,6 +82,14 @@ class Profile extends Model
 
     public function country()   {
         return $this->belongsTo('App\Models\Data\Country');
+    }
+
+    public function nationality()   {
+        return $this->belongsTo('App\Models\Data\Country', 'country_of_nationality');
+    }
+
+    public function native_language()   {
+        return $this->belongsTo('App\Models\Data\Language', 'native_language');
     }
 
     public function stcw_regulations()	{
@@ -115,13 +130,13 @@ class Profile extends Model
                             ];
         }
 
-        if(count($this->seaman_book_types) > 0) {
+        if(count($this->seaman_books) > 0) {
 
             $properties[] = [
-                                'name' => 'seaman_book_types',
+                                'name' => 'seaman_books',
                                 'label' => 'Seaman Book',
                                 'type' => 'value',
-                                'values' => $this->seaman_book_types()->get()->map( function($item) {
+                                'values' => $this->seaman_books()->get()->map( function($item) {
 
                                                 return ['id' => $item->seaman_book_type->id, 'value' => $item->seaman_book_type->label, 'country' => null, 'valid' => true];
                                             }),
@@ -162,7 +177,10 @@ class Profile extends Model
                                 'name' => 'dp',
                                 'label' => 'Dynamic Positioning',
                                 'type' => 'value',
-                                'values' => [['id' => $this->dp->dp_type->id, 'value' => $this->dp->dp_type->label, 'country' => null, 'valid' => true]],
+                                'values' => $this->dp()->get()->map( function($item) {
+
+                                                return ['id' => $item->dp_type->id, 'value' => $item->dp_type->label, 'country' => null, 'valid' => true];
+                                            }),
                             ];
         }
 

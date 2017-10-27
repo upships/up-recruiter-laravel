@@ -11,7 +11,7 @@ class CompanySeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Company\Company::class, 2)->create()->each( function($company)	{
+        factory(App\Models\Company::class, 2)->create()->each( function($company)	{
 
         	// Office
             $company->offices()->saveMany(
@@ -45,7 +45,7 @@ class CompanySeeder extends Seeder
                 );
 
         		// Create jobs
-        		factory(App\Models\Job\Job::class, 2)->create(['company_id' => $company->id, 'recruiter_id' => $recruiter->id])->each( function($job) {
+        		factory(App\Models\Job::class, 2)->create(['company_id' => $company->id, 'recruiter_id' => $recruiter->id])->each( function($job) {
 
         			// Job-related data
 
@@ -90,7 +90,7 @@ class CompanySeeder extends Seeder
                         );
 
         			// Create profiles
-        			factory(App\Models\Profile\Profile::class, 10)->create()->each( function($profile) use ($job)	{
+        			factory(App\Models\Profile::class, 10)->create()->each( function($profile) use ($job)	{
 
         				// Create application
                         $profile->applications()->save(
@@ -134,7 +134,7 @@ class CompanySeeder extends Seeder
         					});
 
         					// Seaman Book
-                            $profile->seaman_book_types()->save(
+                            $profile->seaman_books()->save(
         					   factory(App\Models\Profile\SeamanBook::class)->make()
                             );
 

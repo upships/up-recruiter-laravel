@@ -44,7 +44,7 @@
         <label for="bookCategoryId" class="control-label">Categorias CIR</label>
         <select class="select2" multiple data-placeholder="Selecione cat. CIR..." name="bookCategoryId" id="bookCategoryId">
           <option value="">Selecione uma categoria</option>
-          @foreach($seaman_book_types as $seaman_book_type)
+          @foreach($seaman_book_types as $seaman_book)
           <option value="{bookCategoryId}">{{$seaman_book_type->code}} - {bookCategoryLabel}</option>
           @endforeach
         </select>
@@ -596,7 +596,7 @@ function selectedProfilesInline() {
 
 function messageSelectedProfiles()  { 
   var profiles = selectedProfilesInline();
-  var messageWindow = window.open('/recruiting/sendMessage/' + profiles, '_blank');
+  var messageWindow = window.open('/conversation/add' + profiles, '_blank');
   messageWindow.focus();
 }
 

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\User;
-use App\Models\Company\Company;
+use App\Models\Company;
 use App\Models\Company\Recruiter;
 
 class UserController extends Controller

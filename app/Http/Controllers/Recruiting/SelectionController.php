@@ -17,7 +17,7 @@ class SelectionController extends Controller
     public function index()
     {
         
-        $selections = auth()->user()->company->selections()->withCount('applications')->get();
+        $selections = Selection::withCount('applications')->get(); //auth()->user()->company->selections()->withCount('applications')->get();
 
         if(request()->ajax())   {
 

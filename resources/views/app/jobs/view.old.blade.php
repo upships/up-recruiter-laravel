@@ -73,7 +73,7 @@
               </a>
             </li>
             <li class="list-inline-item" >
-              <a :href="'/recruiting/sendMessage/' + application.profile.id" class="btn btn-default btn-sm" title="Enviar e-mail (nova janela)" target="_blank" ><i class="fa fa-envelope-o"></i></a>
+              <a :href="'/conversation/add' + application.profile.id" class="btn btn-default btn-sm" title="Enviar e-mail (nova janela)" target="_blank" ><i class="fa fa-envelope-o"></i></a>
             </li>
 
             <li class="list-inline-item float-right">

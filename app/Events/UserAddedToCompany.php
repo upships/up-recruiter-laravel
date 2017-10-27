@@ -11,7 +11,7 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 use App\User;
-use App\Models\Company\Company;
+use App\Models\Company;
 
 class UserAddedToCompany
 {

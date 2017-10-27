@@ -11,7 +11,7 @@
 			</tr>
 			<tr>
 				<td>{dpNumber}</td>
-				<td>{dpTypeLabel}</td>
+				<td>{{$dp->dp_type->label}}</td>
 				<td>{dpExpiration}</td>
 			</tr>
 			<tr>

@@ -17,13 +17,13 @@
 					<ul class="list-unstyled">
 						{profiles}
 						<li class="m-b-5">
-							<input type="hidden" name="profiles[{profileId}][userId]" value="{userId}"  >
-							<input type="hidden" name="profiles[{profileId}][userName]" value="{userName}"  >
-							<input type="hidden" name="profiles[{profileId}][userEmail]" value="{userEmail}"  >
+							<input type="hidden" name="profiles[{{$profile->id}}][userId]" value="{userId}"  >
+							<input type="hidden" name="profiles[{{$profile->id}}][userName]" value="{{$profile->name}}"  >
+							<input type="hidden" name="profiles[{{$profile->id}}][userEmail]" value="{userEmail}"  >
 
-							<input type="hidden" name="profiles[{profileId}][profileId]" value="{profileId}"  >
+							<input type="hidden" name="profiles[{{$profile->id}}][profileId]" value="{{$profile->id}}"  >
 
-							<h4>{userName} <span class="text-muted" >{profilePositionLabel}</span></h4>
+							<h4>{{$profile->name}} <span class="text-muted" >{{$profile->position->label}}</span></h4>
 						</li>
 						{/profiles}
 					</ul>

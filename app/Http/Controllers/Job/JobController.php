@@ -12,8 +12,8 @@ use App\Models\Data\SeamanBookType;
 use App\Models\Data\CertificateType;
 use App\Models\Data\Language;
 
-use App\Models\Job\Job;
-use App\Models\Company\Company;
+use App\Models\Job;
+use App\Models\Company;
 
 class JobController extends Controller
 {

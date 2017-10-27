@@ -11,12 +11,12 @@ class Selection extends Model
     
     public function company()	{
 
-    	return $this->belongsTo('App\Models\Company\Company');
+    	return $this->belongsTo('App\Models\Company');
     }
 
     public function job()	{
 
-    	return $this->belongsTo('App\Models\Job\Job');
+    	return $this->belongsTo('App\Models\Job');
     }
 
     public function applications()	{

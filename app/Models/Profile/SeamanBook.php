@@ -8,11 +8,16 @@ class SeamanBook extends Model
 {
     public function profile()	{
 
-    	return $this->belongsTo('App\Models\Profile\Profile');
+    	return $this->belongsTo('App\Models\Profile');
     }
 
     public function seaman_book_type()	{
 
     	return $this->belongsTo('App\Models\Data\SeamanBookType');
+    }
+
+    public function country()   {
+
+        return $this->belongsTo('App\Models\Data\Country');
     }
 }

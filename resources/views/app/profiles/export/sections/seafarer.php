@@ -14,8 +14,8 @@
 				<th>Categoria</th>
 			</tr>
 			<tr>
-				<td>{bookNumber}</td>
-				<td>{bookExpiration}</td>
+				<td>{{$seaman_book->number}}</td>
+				<td>{{$seaman_book->expiration_date}}</td>
 				<td>{{$seaman_book_type->code}}</td>
 			</tr>
 			<tr>
@@ -39,8 +39,8 @@
 				<th>Regras</th>
 			</tr>
 			<tr>
-				<td>{cocNumber}</td>
-				<td>{cocExpiration}</td>
+				<td>{{$profile->coc->number}}</td>
+				<td>{{$profile->coc->expiration_date}}</td>
 				<td>{cocRegulationsInline}</td>
 			</tr>
 			<tr>

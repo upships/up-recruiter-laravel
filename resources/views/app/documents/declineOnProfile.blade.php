@@ -12,16 +12,16 @@
 			<input type="hidden" name="companyName" value="{companyName}" >
 			<input type="hidden" name="companyEmail" value="{companyEmail}" >
 
-			<input type="hidden" name="userName" value="{userName}" >
+			<input type="hidden" name="userName" value="{{$profile->name}}" >
 			<input type="hidden" name="userEmail" value="{userEmail}" >
-			<input type="hidden" name="profileId" value="{profileId}" >
+			<input type="hidden" name="profileId" value="{{$profile->id}}" >
 
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">Destinat&aacute;rio</h3>
 				</div>
 				<div class="panel-body">
-					<h4>{userName} <small>{userEmail}</small></h4>
+					<h4>{{$profile->name}} <small>{userEmail}</small></h4>
 				</div>
 			</div>
 

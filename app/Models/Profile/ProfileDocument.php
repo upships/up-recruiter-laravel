@@ -8,7 +8,7 @@ class ProfileDocument extends Model
 {
     public function profile()	{
 
-    	return $this->belongsTo('App\Models\Profile\Profile');
+    	return $this->belongsTo('App\Models\Profile');
     }
 
     public function document_type()	{

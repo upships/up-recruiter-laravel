@@ -4,7 +4,7 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Models\Profile\ProfileShip::class, function (Faker $faker) {
     
-    $profile_id = factory(App\Models\Profile\Profile::class)->create()->id;
+    $profile_id = factory(App\Models\Profile::class)->create()->id;
 
     return [
         

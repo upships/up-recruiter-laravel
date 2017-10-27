@@ -6,7 +6,7 @@
 	<input type="hidden" name="selectionId" value="{{$selection->id}}">
 
 	<div class="row m-b-10">
-		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="col col-sm-12 col-xs-12">
 
 			<div class="list-group">
 				<div class="list-group-item">
@@ -34,7 +34,7 @@
 	</div>
 
 	<div class="row">
-		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="col col-sm-12 col-xs-12">
 
 			<div class="panel panel-default">
 				<div class="panel-heading">
@@ -97,7 +97,7 @@
 	</div>
 
 	<div class="row">
-		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="col col-sm-12 col-xs-12">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h2 class="panel-title">Mensagem a ser enviada aos <span class="text-danger" >eliminados</span></h2>

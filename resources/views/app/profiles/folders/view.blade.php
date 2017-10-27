@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	<div class="col col-sm-12 col-xs-12">
 		
 		<div class="list-group">
 			<div class="list-group-item">
@@ -31,9 +31,9 @@
 					</span>
 
 					<h4 class="list-group-item-heading">
-			        	<a href="/profile/{{$profile->id}}" target="_blank"><b>{userName}</b></a><br/>
+			        	<a href="/profile/{{$profile->id}}" target="_blank"><b>{{$profile->name}}</b></a><br/>
 			        </h4>
-			        <p>{profilePositionLabel}</p>
+			        <p>{{$profile->position->label}}</p>
 
 			        <small><i>Adicionado em {profileFolderItemAddedAt}</i></small>
 			    </div>

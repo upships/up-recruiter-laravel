@@ -8,12 +8,17 @@ class Coc extends Model
 {
     public function profile()	{
 
-    	return $this->belongsTo('App\Models\Profile\Profile');
+    	return $this->belongsTo('App\Models\Profile');
     }
 
     public function regulations()	{
 
     	return $this->hasMany('App\Models\Profile\CocStcwRegulation');
+    }
+
+    public function country()   {
+
+        return $this->belongsTo('App\Models\Data\Country');
     }
 
     // public function properties()	{

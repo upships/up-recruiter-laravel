@@ -189,7 +189,7 @@ integer('type');    // 1 - sea, 2 - shore
 profiles
 
 integer('user_id');
-integer('nationality');
+integer('country_of_nationality');
 integer('education_level_id')->nullable();
             
 integer('position_id');

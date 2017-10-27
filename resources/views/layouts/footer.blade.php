@@ -25,10 +25,8 @@
     <script src="/theme/assets/js/scripts.js" type="text/javascript"></script>
     <!-- END PAGE LEVEL JS -->
 
-    <!-- Vue.js and Axios -->
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://unpkg.com/vue"></script>
-    <script src="https://unpkg.com/vue-toasted"></script>
+    
+    <!-- <script src="https://unpkg.com/vue-toasted"></script> -->
     
     <script type="text/x-template" id="select2-template">
       <select class="form-control" >
@@ -36,78 +34,14 @@
       </select>
     </script>
 
-    <script type="text/x-template" id="applications-list-template">
-      <div class="feed" >
-        <div class="day">
-          <div class="row">
-            <slot></slot>
-          </div>
-        </div>
-      </div>
-    </script>
-
-
-    <script type="text/x-template" id="toolbar-template">
-      <div class="card card-default no-padding">
-        <div class="d-flex justify-content-origin my-2" >
-          <slot></slot>
-        </div>
-      </div>
-    </script>
-
-    <script type="text/x-template" id="toolbar-link-template">
-        <a :href="link" class="btn btn-tag btn-tag-light btn-tag-rounded mx-1" >
-          <i :class="'fa fa-' + icon"></i> <slot></slot>
-        </a>
-    </script>
-
-    <script type="text/x-template" id="toolbar-button-template">
-        <button type="button" class="btn btn-tag btn-tag-light btn-tag-rounded mx-1" >
-          <i :class="'fa fa-' + icon"></i> <slot></slot>
-        </button>
-    </script>
+    <script src="/js/manifest.js"></script>
+    <script src="/js/vendor.js"></script>
+    <script src="/js/app.js"></script>
 
     <script>
 
-        axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-        
-        $(document).ready(function() {
-            
-            $(".sel2").select2();
-        });
-
-        Vue.component('applications-list', {
-
-          props: {
-
-            filters: {
-                        default: function() { return []; }
-                     },
-          },
-
-          template: '#applications-list-template',
-
-          mounted: function() {
-
-              // Compare filters
-          },
-
-        });
-
-        Vue.component('toolbar', {
-          template: '#toolbar-template',
-        });
-
-        Vue.component('toolbar-button', {
-          props: ['icon'],
-          template: '#toolbar-button-template',
-        });
-
-        Vue.component('toolbar-link', {
-          props: ['link', 'icon'],
-          template: '#toolbar-link-template',
-        });
+        // axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        // axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 
         Vue.component('select2', {

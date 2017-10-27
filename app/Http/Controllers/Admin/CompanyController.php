@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use App\Models\Company\Company;
+use App\Models\Company;
 use App\Models\Company\Recruiter;
 
 class CompanyController extends Controller

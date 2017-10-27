@@ -1,5 +1,5 @@
 <div class="row m-b-10">
-	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	<div class="col col-sm-12 col-xs-12">
 
 		<div class="list-group">
 			<div class="list-group-item">
@@ -34,7 +34,7 @@
 				{users}
 				<li class="list-group-item">
 
-					<h3 class="list-group-item-heading userName" >{userName}</h3>
+					<h3 class="list-group-item-heading userName" >{{$profile->name}}</h3>
 
 					<ul class="list-group">
 						{receivedDocuments}
