@@ -28,7 +28,7 @@ class CreateJobsTable extends Migration
             $table->integer('status')->default(0);  // 0 - not published, 1 - published, 2 - archived, 666 - cancelled
             $table->integer('step')->default(0);
 
-            $table->datetime('expires_on')->nullable();
+            $table->datetime('expires_at')->nullable();
 
             $table->text('description')->nullable();
             

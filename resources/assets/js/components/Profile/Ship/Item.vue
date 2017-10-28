@@ -1,6 +1,6 @@
 <template>
 
-	<div class="list-group-item" >
+	<div class="btn btn-default mr-2" >
 		{{ship.ship_type.label}}
 	</div>
 	
@@ -10,6 +10,5 @@
   export default {
 
   	props: ['ship']
-
   }
 </script>

@@ -9,6 +9,6 @@ $factory->define(App\Models\Company\CompanyOffice::class, function (Faker $faker
         'label' => $faker->streetName,
         'city' => $faker->city,
         'address' => $faker->address,
-        'country_id' => factory(App\Models\Data\Country::class)->create()->id,
+        'country_id' => $faker->numberBetween(1,10),
     ];
 });

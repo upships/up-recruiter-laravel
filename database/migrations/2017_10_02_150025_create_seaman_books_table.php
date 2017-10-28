@@ -22,8 +22,8 @@ class CreateSeamanBooksTable extends Migration
 
             $table->string('number');
 
-            $table->dateTime('issued_on')->nullable();
-            $table->dateTime('expires_on');
+            $table->dateTime('issued_at')->nullable();
+            $table->dateTime('expires_at');
 
             $table->text('remarks')->nullable();
 

@@ -12,5 +12,6 @@ $factory->define(App\Models\Job::class, function (Faker $faker) {
 		'ship_type_id' => $faker->numberBetween(1,10),
 		'status' => $faker->randomElement([0, 1, 2]),  // 0 - not published, 1 - published, 2 - archived, 666 - cancelled
 		'visibility' => $faker->randomElement([1, 2, 3]) ,  // 1 - visible, 2 - private, 3 - confidential company
+		'country_id' => $faker->numberBetween(1,10),
     ];
 });

@@ -1,18 +1,14 @@
 <template>
 	<div class="card card-default no-padding">
-      	<div class="list-group list-group-flush">
+      	<div class="card-block">
       		
-      		<div class="list-group-item">
-		    	<div class="mr-2">
-		    		Nativo
+      		<div class="d-flex align-content-start">
+		    	<div class="btn btn-default mr-2">
+		    		Native: {{language.label}}
 		    	</div>
-		    	<div>
-		    		{{language.label}}
-		    	</div>
-			</div>
-			
-			<slot></slot>
 
+				<slot></slot>
+			</div>
 		</div>
 	</div>
 </template>

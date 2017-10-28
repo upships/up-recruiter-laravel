@@ -1,13 +1,13 @@
 <template>
 	<div class="card card-default">
 		<div class="list-group list-group-flush">
-
+			
 			<div class="list-group-item">
 		    	<div class="mr-2">
 		    		País
 		    	</div>
 		    	<div>
-		    		{{coc.country.name}}
+		    		<b>{{coc.country.name}}</b> <span v-html='coc.country.icon'></span>
 		    	</div>
 			</div>
 

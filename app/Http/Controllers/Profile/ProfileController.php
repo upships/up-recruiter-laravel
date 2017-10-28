@@ -44,7 +44,9 @@ class ProfileController extends Controller
                                 'ships.ship_type',
                                 'stcw_regulations.stcw_regulation',
                                 'certificates.certificate_type',
-                                'native_language'
+                                'native_language',
+                                'nationality',
+                                'works.position', 'works.ships.ship_type',
                              ];
 
             return response()->json($profile->load($relationships));

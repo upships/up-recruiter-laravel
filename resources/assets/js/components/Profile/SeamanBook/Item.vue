@@ -1,4 +1,5 @@
 <template>
+  <div class="col">
   	<div class="card card-default no-padding">
       	<div class="list-group list-group-flush">
 
@@ -35,6 +36,7 @@
 	      	
         </div>
   	</div>
+  </div>
 </template>
 
 <script>

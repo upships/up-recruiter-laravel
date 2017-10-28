@@ -110,7 +110,7 @@ class CompanySeeder extends Seeder
                             );
 
         					// Education
-                            $profile->educations()->saveMany(
+                            $profile->education()->saveMany(
         					   factory(App\Models\Profile\ProfileEducation::class, 3)->make()
                             );
 

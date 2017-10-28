@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Coc extends Model
 {
+    protected $appends = ['expiration_date'];
+
     public function profile()	{
 
     	return $this->belongsTo('App\Models\Profile');
@@ -19,6 +21,18 @@ class Coc extends Model
     public function country()   {
 
         return $this->belongsTo('App\Models\Data\Country');
+    }
+
+    public function getExpirationDateAttribute()    {
+
+        if($this->expires_at)   {
+
+            $date = \Carbon\Carbon($this->expires_at);
+
+            return $date->format('d/m/Y');
+        }
+
+        return null;
     }
 
     // public function properties()	{

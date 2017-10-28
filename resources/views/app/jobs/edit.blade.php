@@ -99,8 +99,8 @@ Editar vaga {{$job->position->label}}
 
             <div class="col">
               <div class="form-group">
-                <label for="expires_on" >Validade <b>(mm/dd/yyyy)</b></label>
-                <input type="text" class="form-control datepicker" name="expires_on" value="{{$job->full_expiration_date}}" >
+                <label for="expires_at" >Validade <b>(mm/dd/yyyy)</b></label>
+                <input type="text" class="form-control datepicker" name="expires_at" value="{{$job->full_expiration_date}}" >
               </div>
             </div>
 

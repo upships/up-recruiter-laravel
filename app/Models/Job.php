@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Job extends Model
 {
-    protected $fillable = ['position_id', 'ship_type_id', 'instructions', 'status', 'step', 'expires_on', 'description', 'rotation', 'slug', 'salary', 'visibility', 'vacancies'];
+    protected $fillable = ['position_id', 'ship_type_id', 'instructions', 'status', 'step', 'expires_at', 'description', 'rotation', 'slug', 'salary', 'visibility', 'vacancies'];
     
     protected $appends = ['date', 'elapsed_time', 'visibility_label', 'status_label', 'expiration_date', 'full_expiration_date', 'filters'];
 
@@ -171,27 +171,27 @@ class Job extends Model
     public function getExpirationDateAttribute()    {
 
         // Checks if job has Slug
-        if(!$this->expires_on)    {
+        if(!$this->expires_at)    {
 
             // Label
-            $this->expires_on = \Carbon\Carbon::create()->addDays(30);
+            $this->expires_at = \Carbon\Carbon::create()->addDays(30);
             $this->save();
         }
 
-        return \Carbon\Carbon::parse($this->expires_on)->format('d/M');
+        return \Carbon\Carbon::parse($this->expires_at)->format('d/M');
     }
 
     public function getFullExpirationDateAttribute()    {
 
         // Checks if job has Slug
-        if(!$this->expires_on)    {
+        if(!$this->expires_at)    {
 
             // Label
-            $this->expires_on = \Carbon\Carbon::create()->addDays(30);
+            $this->expires_at = \Carbon\Carbon::create()->addDays(30);
             $this->save();
         }
 
-        return \Carbon\Carbon::parse($this->expires_on)->format('m/d/Y');
+        return \Carbon\Carbon::parse($this->expires_at)->format('m/d/Y');
     }
 
     public function getFiltersAttribute()   {

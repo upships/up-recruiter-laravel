@@ -6,5 +6,6 @@ $factory->define(App\Models\Data\SeamanBookType::class, function (Faker $faker) 
     
     return [
         'label' => $faker->randomElement(['MNC', 'MOC', '1ON', '1OM', 'CMT', 'IMT', '2OM', '2ON', 'POM', 'PON', 'TAA']),
+        'country_id' => $faker->numberBetween(1,10),
     ];
 });

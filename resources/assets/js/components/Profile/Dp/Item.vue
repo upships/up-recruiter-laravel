@@ -4,7 +4,7 @@
       		
       		<div class="list-group-item">
 	      		<div class="mr-2" >Tipo:</div>
-	      		<div class="mr-2" ><b>{{dp.type.label}}</b></div>
+	      		<div class="mr-2" ><b>{{dp.dp_type.label}}</b></div>
 	      	</div>
 	      	
 	      	<div class="list-group-item" v-if="dp.expires_at">

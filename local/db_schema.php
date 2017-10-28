@@ -51,8 +51,8 @@ integer('profile_id');
 integer('seaman_book_type_id');
 string('number');
 
-date('issued_on')->nullable();
-date('expires_on');
+date('issued_at')->nullable();
+date('expires_at');
 
 text('remarks')->nullable();
 
@@ -63,8 +63,8 @@ integer('profile_id');
             
 string('number')->nullable();
 
-date('issued_on')->nullable();
-date('expires_on')->nullable();
+date('issued_at')->nullable();
+date('expires_at')->nullable();
 
 text('remarks')->nullable();
 
@@ -117,8 +117,8 @@ integer('profile_id');
 integer('dp_type_id');
 string('number')->nullable();
 
-date('issued_on')->nullable();
-date('expires_on')->nullable();
+date('issued_at')->nullable();
+date('expires_at')->nullable();
 
 text('remarks')->nullable();
 
@@ -155,7 +155,7 @@ string('instructions')->nullable();
 integer('status')->default(0);  // 0 - not published, 1 - published, 2 - closed, 66 - archived, 666 - cancelled
 integer('step')->default(0);
 
-datetime('expires_on')->nullable();
+datetime('expires_at')->nullable();
 
 text('description')->nullable();
             
@@ -202,7 +202,7 @@ string('city');
 string('state')->nullable();
 integer('country_id');
 string('passport')->nullable();
-date('passport_expires_on')->nullable();
+date('passport_expires_at')->nullable();
 integer('english_level')->default(0);
 integer('native_language')->nullable();
 integer('registration_step')->default(0);
@@ -218,8 +218,8 @@ boolean('verified')->default(false);
 text('file')->nullable();
 text('remarks')->nullable();
 
-date('issued_on')->nullable();
-date('expires_on')->nullable();
+date('issued_at')->nullable();
+date('expires_at')->nullable();
 
 
 profile_ships
@@ -438,8 +438,8 @@ boolean('verified')->default(false);
 text('file')->nullable();
 text('remarks')->nullable();
 
-date('issued_on')->nullable();
-date('expires_on')->nullable();
+date('issued_at')->nullable();
+date('expires_at')->nullable();
 
 
 language_levels

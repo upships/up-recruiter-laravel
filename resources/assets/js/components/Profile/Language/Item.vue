@@ -1,12 +1,7 @@
 <template>
 	
-	<div class="list-group-item">
-    	<div class="mr-2">
-    		{{language.language.label}}
-    	</div>
-    	<div>
-    		{{language.level_label}}
-    	</div>
+	<div class="btn btn-default mr-2">
+    	{{language.language.label}} ({{language.level_label}})
 	</div>
 
 </template>

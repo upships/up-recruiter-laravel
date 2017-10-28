@@ -15,5 +15,6 @@ class AuxiliaryDataSeeder extends Seeder
         $this->call(StcwRegulationsTableSeeder::class);
         $this->call(LanguagesTableSeeder::class);
         $this->call(ShipTypesTableSeeder::class);
+        $this->call(CountriesTableSeeder::class);
     }
 }

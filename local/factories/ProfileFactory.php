@@ -7,7 +7,7 @@ $factory->define(App\Models\Profile::class, function (Faker $faker) {
         
         'user_id' => factory(App\User::class)->create()->id ,
 		
-		'country_of_nationality' => factory(App\Models\Data\Country::class)->create()->id ,
+		'country_of_nationality' => $faker->numberBetween(1,10) ,
 		            
 		'position_id' => factory(App\Models\Data\Position::class)->create()->id ,
 		
@@ -17,7 +17,7 @@ $factory->define(App\Models\Profile::class, function (Faker $faker) {
 
 		'city' => $faker->city ,
 
-		'country_id' => factory(App\Models\Data\Country::class)->create()->id ,
+		'country_id' => $faker->numberBetween(1,10) ,
 
 		'english_level' => $faker->randomElement([0, 1, 2, 3, 4]),
     ];

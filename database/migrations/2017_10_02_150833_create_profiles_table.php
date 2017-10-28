@@ -33,9 +33,6 @@ class CreateProfilesTable extends Migration
             $table->string('state')->nullable();
             $table->integer('country_id');
 
-            $table->string('passport')->nullable();
-            $table->dateTime('passport_expires_on')->nullable();
-
             $table->integer('english_level')->default(0);
             $table->integer('native_language')->nullable();
 

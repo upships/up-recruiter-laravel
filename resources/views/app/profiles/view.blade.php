@@ -79,89 +79,85 @@
 			            </div>
 			           	@endif
 
-			           	<h3>Informações marítimas</h3>
+			           	<div v-if="isLoaded" >
 
-			           	<div class="row" >
-			           		<div class="col">
-			           			<h4>Certificado de Compet&ecirc;ncia</h4>
+				           	<h3>Seafarer Information</h3>
 
-			           			<profile-coc :coc="profile.coc" ></profile-coc>
-			           		</div>
-			           		
-			           		<div class="col">
-			           			<h4>CIR</h4>
-
-			           			<div class="row" >
-			           				@foreach($profile->seaman_books as $seaman_book)
-			           				<div class="col" >
-			           					
-			           					<profile-seaman-books>
-			           						<profile-seaman-book v-for="seaman_book in profile.seaman_books" :seaman_book="seaman_book" :key="seaman_book.id" ></profile-seaman-book>
-			           					</profile-seaman-books>
-
-			           				</div>
-			           				@endforeach
-			           			</div>
-			           		</div>
-			           		
-			           		@if($profile->dp)
-			           			@foreach($profile->dp as $dp)
+				           	<div class="row" >
 				           		<div class="col">
+				           			<h4>CoC &amp; CoE</h4>
+
+				           			<profile-coc :coc="profile.coc" ></profile-coc>
+				           		</div>
+
+				           		<div class="col" v-if="profile.dp" >
 				           			<h4>Posicionamento Din&acirc;mico</h4>
 
 				           			<profile-dp>
 				           				<profile-dp-item v-for="dp in profile.dp" :dp="dp" :key="dp.id" ></profile-dp-item>
 				           			</profile-dp>
 				           		</div>
-				           		@endforeach
-			           		@endif
+				           	</div>
 
-			           		<div class="col">
-			           			<h4>Idiomas</h4>
+				           	<div class="row" >
+				           		<div class="col">
+				           			<h4>Seaman Book / SDB</h4>
+				           					
+		           					<profile-seaman-books>
+		           						<profile-seaman-book v-for="seaman_book in profile.seaman_books" :seaman_book="seaman_book" :key="seaman_book.id" ></profile-seaman-book>
+		           					</profile-seaman-books>
+				           		</div>
+				           	</div>
 
-			           			<profile-languages :native="profile.native_language" >
-			           				<profile-language v-for="language in profile.languages"  :language="language" :key="language.id" ></profile-language>
-			           			</profile-languages>
-			           		</div>
+				           	<div class="row">
 
-			           		@if($profile->ships)
+				           		<div class="col">
+				           			<h4>Idiomas</h4>
 
+				           			<profile-languages :language="profile.native_language" >
+
+				           				<profile-language v-for="language in profile.languages"  :language="language" :key="language.id" ></profile-language>
+
+				           			</profile-languages>
+				           		</div>
+				           	
 				           		<div class="col">
 				           			<h4>Experi&ecirc;ncia em embarcações</h4>
 
 				           			<profile-ships>
-				           				<profile-ship v-for="ship in profile.ships" :dp="ship" :key="ship.id" ></profile-ship>
+				           				<profile-ship v-for="ship in profile.ships" :ship="ship" :key="ship.id" ></profile-ship>
 				           			</profile-ships>
 				           		</div>
-			           		@endif
-			           	</div>
 
-			           	<div class="row">
-	                  		<div class="col">
+				           	</div>
 
-	                  			<h3>Experi&ecirc;ncia profissional</h3>
+				           	<div class="row">
+		                  		<div class="col">
 
-	                  			<profile-works>
-	                  				<profile-work v-for="work in profile.works" :work="work" :key="work.id" ></profile-work>
-	                  			</profile-works>
+		                  			<h3>Experi&ecirc;ncia profissional</h3>
 
-	                  		</div>
-	                  		<div class="col">
-	                  			
-	                  			<h3>Certificados</h3>
+		                  			<profile-works>
+		                  				<profile-work v-for="work in profile.works" :work="work" :key="work.id" ></profile-work>
+		                  			</profile-works>
 
-	                  			<profile-certificates>
-	                  				<profile-certificate v-for="certificate in profile.certificates" :certificate="certificate" :key="certificate.id" ></profile-certificate>
-	                  			</profile-certificates>
+		                  		</div>
+		                  		<div class="col">
+		                  			
+		                  			<h3>Certificados</h3>
 
-	                  			<h3>Formação</h3>
+		                  			<profile-certificates>
+		                  				<profile-certificate v-for="certificate in profile.certificates" :certificate="certificate" :key="certificate.id" ></profile-certificate>
+		                  			</profile-certificates>
 
-	                  			<profile-education>
-			                        <profile-education-item v-for="education in profile.education" :education="profile.education" :key="education.id" ></profile-education-item>
-			                    </profile-education>
+		                  			<h3>Formação</h3>
 
-	                  		</div>
-	                  	</div>
+		                  			<profile-education>
+				                        <profile-education-item v-for="education in profile.education" :education="profile.education" :key="education.id" ></profile-education-item>
+				                    </profile-education>
+
+		                  		</div>
+		                  	</div>
+		                </div>
 	                </div>
 
 	              	<div id="tab-personal" class="tab-pane">
@@ -346,7 +342,8 @@ new Vue({
 	data: {
 
 		profile: [],
-		profile_id: {{$profile->id}}
+		profile_id: {{$profile->id}},
+		isLoaded: false
 	},
 
 	beforeMount: function()	{
@@ -356,7 +353,7 @@ new Vue({
 		axios.get('/profile/' + vm.profile_id).then( function(response)	{
 
 			vm.profile = response.data;
-
+			vm.isLoaded = true;
 		});
 	}
 });

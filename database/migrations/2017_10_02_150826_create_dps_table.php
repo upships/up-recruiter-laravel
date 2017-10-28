@@ -22,8 +22,8 @@ class CreateDpsTable extends Migration
 
             $table->string('number')->nullable();
 
-            $table->dateTime('issued_on')->nullable();
-            $table->dateTime('expires_on')->nullable();
+            $table->dateTime('issued_at')->nullable();
+            $table->dateTime('expires_at')->nullable();
 
             $table->text('remarks')->nullable();
 

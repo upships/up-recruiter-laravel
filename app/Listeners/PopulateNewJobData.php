@@ -27,7 +27,7 @@ class PopulateNewJobData
     {
         $slugString = $event->job->position->label . ' ' . str_random(10);
 
-        $event->job->expires_on = \Carbon\Carbon::now()->addDays(28);
+        $event->job->expires_at = \Carbon\Carbon::now()->addDays(28);
         $event->job->slug = slug($slugString);
         
         $event->job->save();

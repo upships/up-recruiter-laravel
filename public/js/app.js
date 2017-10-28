@@ -484,11 +484,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	props: ['language']
@@ -501,10 +496,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
 //
 //
 //
@@ -614,6 +605,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -656,7 +649,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
 
 	props: ['ship']
-
 });
 
 /***/ }),
@@ -666,6 +658,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -30781,44 +30775,46 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card card-default no-padding" }, [
-    _c("div", { staticClass: "list-group list-group-flush" }, [
-      _c("div", { staticClass: "list-group-item" }, [
-        _c("div", { staticClass: "mr-2" }, [
-          _vm._v("\n      \t\t\t\tPaís\n      \t\t\t")
+  return _c("div", { staticClass: "col" }, [
+    _c("div", { staticClass: "card card-default no-padding" }, [
+      _c("div", { staticClass: "list-group list-group-flush" }, [
+        _c("div", { staticClass: "list-group-item" }, [
+          _c("div", { staticClass: "mr-2" }, [
+            _vm._v("\n      \t\t\t\tPaís\n      \t\t\t")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mr-2" }, [
+            _c("b", [_vm._v(_vm._s(_vm.seaman_book.country.name))])
+          ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "mr-2" }, [
-          _c("b", [_vm._v(_vm._s(_vm.seaman_book.country.name))])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "list-group-item" }, [
-        _c("div", { staticClass: "mr-2" }, [
-          _vm._v("\n      \t\t\t\tTipo\n      \t\t\t")
+        _c("div", { staticClass: "list-group-item" }, [
+          _c("div", { staticClass: "mr-2" }, [
+            _vm._v("\n      \t\t\t\tTipo\n      \t\t\t")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mr-2" }, [
+            _c("b", [_vm._v(_vm._s(_vm.seaman_book.seaman_book_type.label))])
+          ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "mr-2" }, [
-          _c("b", [_vm._v(_vm._s(_vm.seaman_book.seaman_book_type.label))])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "list-group-item" }, [
-        _c("div", { staticClass: "mr-2" }, [
-          _vm._v("\n      \t\t\t\tValidade\n      \t\t\t")
+        _c("div", { staticClass: "list-group-item" }, [
+          _c("div", { staticClass: "mr-2" }, [
+            _vm._v("\n      \t\t\t\tValidade\n      \t\t\t")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mr-2" }, [
+            _c("b", [_vm._v(_vm._s(_vm.seaman_book.expiration_date))])
+          ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "mr-2" }, [
-          _c("b", [_vm._v(_vm._s(_vm.seaman_book.expiration_date))])
+        _c("div", { staticClass: "list-group-item" }, [
+          _c(
+            "a",
+            { attrs: { href: "/profile/seaman_book/" + _vm.seaman_book.id } },
+            [_vm._v("detalhes")]
+          )
         ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "list-group-item" }, [
-        _c(
-          "a",
-          { attrs: { href: "/profile/seaman_book/" + _vm.seaman_book.id } },
-          [_vm._v("detalhes")]
-        )
       ])
     ])
   ])
@@ -30842,7 +30838,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._t("default")], 2)
+  return _c("div", { staticClass: "row" }, [_vm._t("default")], 2)
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -30957,12 +30953,14 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card card-default no-padding" }, [
-    _c(
-      "div",
-      { staticClass: "list-group list-group-flush" },
-      [_vm._t("default")],
-      2
-    )
+    _c("div", { staticClass: "card-block" }, [
+      _c(
+        "div",
+        { staticClass: "d-flex align-content-start" },
+        [_vm._t("default")],
+        2
+      )
+    ])
   ])
 }
 var staticRenderFns = []
@@ -31434,7 +31432,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "list-group-item" }, [
+  return _c("div", { staticClass: "btn btn-default mr-2" }, [
     _vm._v("\n\t" + _vm._s(_vm.ship.ship_type.label) + "\n")
   ])
 }
@@ -31565,7 +31563,9 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", [
-          _vm._v("\n\t    \t\t" + _vm._s(_vm.coc.country.name) + "\n\t    \t")
+          _c("b", [_vm._v(_vm._s(_vm.coc.country.name))]),
+          _vm._v(" "),
+          _c("span", { domProps: { innerHTML: _vm._s(_vm.coc.country.icon) } })
         ])
       ]),
       _vm._v(" "),
@@ -31635,7 +31635,7 @@ var render = function() {
         _c("div", { staticClass: "mr-2" }, [_vm._v("Tipo:")]),
         _vm._v(" "),
         _c("div", { staticClass: "mr-2" }, [
-          _c("b", [_vm._v(_vm._s(_vm.dp.type.label))])
+          _c("b", [_vm._v(_vm._s(_vm.dp.dp_type.label))])
         ])
       ]),
       _vm._v(" "),
@@ -32293,26 +32293,24 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card card-default no-padding" }, [
-    _c(
-      "div",
-      { staticClass: "list-group list-group-flush" },
-      [
-        _c("div", { staticClass: "list-group-item" }, [
-          _c("div", { staticClass: "mr-2" }, [
-            _vm._v("\n\t\t    \t\tNativo\n\t\t    \t")
+    _c("div", { staticClass: "card-block" }, [
+      _c(
+        "div",
+        { staticClass: "d-flex align-content-start" },
+        [
+          _c("div", { staticClass: "btn btn-default mr-2" }, [
+            _vm._v(
+              "\n\t\t    \t\tNative: " +
+                _vm._s(_vm.language.label) +
+                "\n\t\t    \t"
+            )
           ]),
           _vm._v(" "),
-          _c("div", [
-            _vm._v(
-              "\n\t\t    \t\t" + _vm._s(_vm.language.label) + "\n\t\t    \t"
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _vm._t("default")
-      ],
-      2
-    )
+          _vm._t("default")
+        ],
+        2
+      )
+    ])
   ])
 }
 var staticRenderFns = []
@@ -32334,14 +32332,14 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "list-group-item" }, [
-    _c("div", { staticClass: "mr-2" }, [
-      _vm._v("\n    \t\t" + _vm._s(_vm.language.language.label) + "\n    \t")
-    ]),
-    _vm._v(" "),
-    _c("div", [
-      _vm._v("\n    \t\t" + _vm._s(_vm.language.level_label) + "\n    \t")
-    ])
+  return _c("div", { staticClass: "btn btn-default mr-2" }, [
+    _vm._v(
+      "\n    \t" +
+        _vm._s(_vm.language.language.label) +
+        " (" +
+        _vm._s(_vm.language.level_label) +
+        ")\n\t"
+    )
   ])
 }
 var staticRenderFns = []
