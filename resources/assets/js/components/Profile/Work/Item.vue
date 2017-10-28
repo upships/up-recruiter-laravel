@@ -14,7 +14,7 @@
 	        	<div class="mr-2">
 	        		Per&iacute;odo: 
 
-	        		<span v-if="work.is_current">Emprego atual, in&iacute;cio em {{work.start_date}} ({{work.duration}} meses)</span>
+	        		<span v-if="work.is_current > 0">Emprego atual, in&iacute;cio em {{work.start_date}} ({{work.duration}})</span>
 	        		<span v-else>De {{work.start_date}} a {{work.end_date}} ({{work.duration}} meses)</span>
 	        	</div>
 	        </div>

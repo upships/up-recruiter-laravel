@@ -1,6 +1,6 @@
 <template>
 	
-	<div class="btn btn-default mr-2">
+	<div class="btn btn-tag btn-tag-light btn-tag-rounded mr-2">
     	{{language.language.label}} ({{language.level_label}})
 	</div>
 

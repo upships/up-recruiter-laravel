@@ -31432,9 +31432,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "btn btn-default mr-2" }, [
-    _vm._v("\n\t" + _vm._s(_vm.ship.ship_type.label) + "\n")
-  ])
+  return _c(
+    "div",
+    { staticClass: "btn btn-tag btn-tag-light btn-tag-rounded mr-2" },
+    [_vm._v("\n\t" + _vm._s(_vm.ship.ship_type.label) + "\n")]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -31470,14 +31472,14 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "mr-2" }, [
           _vm._v("\n\t        \t\tPeríodo: \n\n\t        \t\t"),
-          _vm.work.is_current
+          _vm.work.is_current > 0
             ? _c("span", [
                 _vm._v(
                   "Emprego atual, início em " +
                     _vm._s(_vm.work.start_date) +
                     " (" +
                     _vm._s(_vm.work.duration) +
-                    " meses)"
+                    ")"
                 )
               ])
             : _c("span", [
@@ -32298,13 +32300,17 @@ var render = function() {
         "div",
         { staticClass: "d-flex align-content-start" },
         [
-          _c("div", { staticClass: "btn btn-default mr-2" }, [
-            _vm._v(
-              "\n\t\t    \t\tNative: " +
-                _vm._s(_vm.language.label) +
-                "\n\t\t    \t"
-            )
-          ]),
+          _c(
+            "div",
+            { staticClass: "btn btn-tag btn-tag-light btn-tag-rounded mr-2" },
+            [
+              _vm._v(
+                "\n\t\t    \t\tNative: " +
+                  _vm._s(_vm.language.label) +
+                  "\n\t\t    \t"
+              )
+            ]
+          ),
           _vm._v(" "),
           _vm._t("default")
         ],
@@ -32332,15 +32338,19 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "btn btn-default mr-2" }, [
-    _vm._v(
-      "\n    \t" +
-        _vm._s(_vm.language.language.label) +
-        " (" +
-        _vm._s(_vm.language.level_label) +
-        ")\n\t"
-    )
-  ])
+  return _c(
+    "div",
+    { staticClass: "btn btn-tag btn-tag-light btn-tag-rounded mr-2" },
+    [
+      _vm._v(
+        "\n    \t" +
+          _vm._s(_vm.language.language.label) +
+          " (" +
+          _vm._s(_vm.language.level_label) +
+          ")\n\t"
+      )
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
