@@ -21,7 +21,9 @@ class CreateVisasTable extends Migration
             $table->integer('country_id');
 
             $table->string('type');
+            $table->string('number')->nullable();
 
+            $table->dateTime('issued_at')->nullable();
             $table->dateTime('expires_at')->nullable();
         });
     }

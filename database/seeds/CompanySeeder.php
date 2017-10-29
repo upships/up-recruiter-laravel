@@ -134,8 +134,20 @@ class CompanySeeder extends Seeder
         					});
 
         					// Seaman Book
-                            $profile->seaman_books()->save(
-        					   factory(App\Models\Profile\SeamanBook::class)->make()
+                            $profile->seaman_books()->saveMany(
+        					   factory(App\Models\Profile\SeamanBook::class, 3)->make()
+                            );
+
+                            $profile->passports()->saveMany(
+                               factory(App\Models\Profile\Passport::class, 3)->make()
+                            );
+
+                            $profile->visas()->saveMany(
+                               factory(App\Models\Profile\Visa::class, 3)->make()
+                            );
+
+                            $profile->coes()->saveMany(
+                               factory(App\Models\Profile\Coe::class, 3)->make()
                             );
 
         					// CoC

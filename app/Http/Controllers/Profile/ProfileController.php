@@ -38,6 +38,8 @@ class ProfileController extends Controller
             $relationships = [
                                 'position',
                                 'coc.regulations.stcw_regulation', 'coc.country',
+                                'coes.country',
+                                'passports.country','visas.country',
                                 'seaman_books.seaman_book_type', 'seaman_books.country',
                                 'languages.language',
                                 'dp.dp_type',

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Profile extends Model
 {
 
-    protected $appends = ['name', 'properties'];
+    protected $appends = ['name', 'properties', 'age', 'birth_date', 'gender_label', 'marital_status_label'];
 
     public function user()	{
 
@@ -101,6 +101,93 @@ class Profile extends Model
     public function getNameAttribute()  {
 
         return $this->user->name;
+    }
+
+    public function getBirthDateAttribute() {
+
+        if($this->birthday) {
+            return (new \Carbon\Carbon($this->birthday))->format('d/M/Y');
+        }
+        else {
+            return null;
+        }
+    }
+
+    public function getAgeAttribute() {
+
+        if($this->birthday) {
+            return (new \Carbon\Carbon($this->birthday))->diffInYears();
+        }
+        else {
+            return null;
+        }
+    }
+
+    public function getMaritalStatusLabelAttribute() {
+
+        switch($this->marital_status) {
+            
+            case 0:
+                $label = 'Not informed';
+
+            break;
+
+            case 1:
+                $label = 'Single';
+
+            break;
+
+            case 2:
+                $label = 'Married';
+
+            break;
+
+            case 3:
+                $label = 'Divorced';
+
+            break;
+
+            case 4:
+                $label = 'Other';
+
+            break;
+
+            default:
+                $label = 'Not informed';
+        }
+        
+        return $label;
+    }
+
+    public function getGenderLabelAttribute() {
+
+        switch($this->gender) {
+            
+            case 0:
+                $label = 'Not informed';
+
+            break;
+
+            case 1:
+                $label = 'Male';
+
+            break;
+
+            case 2:
+                $label = 'Female';
+
+            break;
+
+            case 3:
+                $label = 'Other';
+
+            break;
+
+            default:
+                $label = 'Not informed';
+        }
+        
+        return $label;
     }
 
     public function getPropertiesAttribute()    {

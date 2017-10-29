@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Models\Profile\Coc::class, function (Faker $faker) {
+$factory->define(App\Models\Profile\Passport::class, function (Faker $faker) {
     return [
         
         //'profile_id' => factory(App\Models\Profile::class)->create()->id,
@@ -11,5 +11,6 @@ $factory->define(App\Models\Profile\Coc::class, function (Faker $faker) {
 
 		'issued_at' => $faker->dateTimeBetween('-2 years', 'now'),
         'expires_at' => $faker->dateTimeBetween('-2 years', '+4 years'),
+
     ];
 });

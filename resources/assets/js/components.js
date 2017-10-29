@@ -18,8 +18,8 @@ Vue.component('profile-work', require('./components/Profile/Work/Item.vue'));
 Vue.component('profile-education', require('./components/Profile/Education/List.vue'));
 Vue.component('profile-education-item', require('./components/Profile/Education/Item.vue'));
 
-Vue.component('profile-coe', require('./components/Profile/Coe/List.vue'));
-Vue.component('profile-coe-item', require('./components/Profile/Coe/Item.vue'));
+Vue.component('profile-coes', require('./components/Profile/Coe/List.vue'));
+Vue.component('profile-coe', require('./components/Profile/Coe/Item.vue'));
 
 Vue.component('profile-dp', require('./components/Profile/Dp/List.vue'));
 Vue.component('profile-dp-item', require('./components/Profile/Dp/Item.vue'));

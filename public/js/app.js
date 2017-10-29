@@ -286,8 +286,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+	props: ['coe']
+});
 
 /***/ }),
 
@@ -31869,7 +31895,39 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._t("default")], 2)
+  return _c("div", { staticClass: "card card-default" }, [
+    _c("div", { staticClass: "list-group list-group-flush" }, [
+      _c("div", { staticClass: "list-group-item" }, [
+        _c("div", { staticClass: "mr-2" }, [
+          _vm._v("\n\t    \t\tCountry\n\t    \t")
+        ]),
+        _vm._v(" "),
+        _c("div", [
+          _c("b", [_vm._v(_vm._s(_vm.coe.country.name))]),
+          _vm._v(" "),
+          _c("span", { domProps: { innerHTML: _vm._s(_vm.coe.country.icon) } })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "list-group-item" }, [
+        _c("div", { staticClass: "mr-2" }, [
+          _vm._v("\n\t    \t\tExpires on\n\t    \t")
+        ]),
+        _vm._v(" "),
+        _c("div", [
+          _vm._v(
+            "\n\t    \t\t" + _vm._s(_vm.coe.expiration_date) + "\n\t    \t"
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "list-group-item" }, [
+        _c("a", { attrs: { href: "/profile/coe/" + _vm.coe.id } }, [
+          _vm._v("details")
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -32910,8 +32968,8 @@ Vue.component('profile-work', __webpack_require__("./resources/assets/js/compone
 Vue.component('profile-education', __webpack_require__("./resources/assets/js/components/Profile/Education/List.vue"));
 Vue.component('profile-education-item', __webpack_require__("./resources/assets/js/components/Profile/Education/Item.vue"));
 
-Vue.component('profile-coe', __webpack_require__("./resources/assets/js/components/Profile/Coe/List.vue"));
-Vue.component('profile-coe-item', __webpack_require__("./resources/assets/js/components/Profile/Coe/Item.vue"));
+Vue.component('profile-coes', __webpack_require__("./resources/assets/js/components/Profile/Coe/List.vue"));
+Vue.component('profile-coe', __webpack_require__("./resources/assets/js/components/Profile/Coe/Item.vue"));
 
 Vue.component('profile-dp', __webpack_require__("./resources/assets/js/components/Profile/Dp/List.vue"));
 Vue.component('profile-dp-item', __webpack_require__("./resources/assets/js/components/Profile/Dp/Item.vue"));

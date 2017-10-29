@@ -14,6 +14,11 @@ class Coe extends Model
     	return $this->belongsTo('App\Models\Profile');
     }
 
+    public function country()   {
+
+        return $this->belongsTo('App\Models\Data\Country');
+    }
+
     public function getExpirationDateAttribute()    {
 
         if($this->expires_at)   {
