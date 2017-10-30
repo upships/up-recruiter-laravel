@@ -13,9 +13,9 @@
       			</h2>
 	  		</div>
 	      	
-        <selections>
-            <selection v-for="selection in selections" :selection="selection" :key="selection.id" ></selection>
-        </selections>
+        <selections-list>
+            <selections-item v-for="selection in selections" :selection="selection" :key="selection.id" ></selections-item>
+        </selections-list>
 
 
       </div>

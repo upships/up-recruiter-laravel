@@ -3,10 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Company extends Model
 {
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'logo_path', 'careers_url'];
 
     public function recruiters()	{
 
@@ -20,7 +21,7 @@ class Company extends Model
 
     public function jobs()	{
 
-    	return $this->hasMany('App\Models\Job\Job');
+    	return $this->hasMany('App\Models\Job');
     }
 
     public function selections()  {
@@ -70,7 +71,7 @@ class Company extends Model
         return $this->hasMany('App\Models\Conversation\Conversation');
     }
 
-    public function getLinkAttribute()  {
+    public function getCareersUrlAttribute()  {
 
         if(!$this->careers_link)    {
 
@@ -79,5 +80,19 @@ class Company extends Model
         }
 
         return 'https://' . $this->careers_link . '.upships.com';
+    }
+
+    public function getLogoPathAttribute()  {
+
+        if($this->logo)    {
+
+            $url = Storage::get($this->logo);
+        }
+        else {
+
+            $url = 'https://placehold.it/100x100';
+        }
+
+        return $url;
     }
 }

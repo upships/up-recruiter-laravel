@@ -10,6 +10,10 @@ Editar vaga {{$job->position->label}}
     {{method_field('PATCH')}}
     {{csrf_field()}}
 
+    @if($job->status == 0)
+    <input type="hidden" name="status" value="1" >
+    @endif
+
     <div class="row">
       <div class="col">
         

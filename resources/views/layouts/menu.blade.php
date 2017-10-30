@@ -19,39 +19,40 @@
         <ul class="menu-items">
           <li class="m-t-30 ">
             <a href="/" class="detailed">
-              <span class="title">In&iacute;cio</span>
+              <span class="title">Dashboard</span>
             </a>
             <span class="bg-success icon-thumbnail"><i class="pg-home"></i></span>
           </li>
           <li class="">
             <a href="/profile" class="detailed">
-              <span class="title">Talentos</span>
+              <span class="title">Resumes</span>
             </a>
             <span class="icon-thumbnail"><i class="pg-search"></i></span>
           </li>
           
           <li>
             <a href="javascript:;">
-              Recrutamento
+              <span>Recruiting</span>
+              <span class=" arrow"></span>
             </a>
             <span class="icon-thumbnail"><i class="fa fa-user-plus"></i></span>
             <ul class="sub-menu">
               <li class="">
-                <a href="/selection">Processos seletivos</a>
+                <a href="/selection">Selection processes</a>
                 <span class="icon-thumbnail">P</span>
               </li>
               <li class="">
-                <a href="/job">Vagas</a>
+                <a href="/job">Job openings</a>
                 <span class="icon-thumbnail"><i class="pg-suitcase"></i></span>
               </li>
               <li class="">
-                <a href="/crew">Tripulantes</a>
+                <a href="/crew">Crews</a>
                 <span class="icon-thumbnail"><i class="fa fa-users"></i></span>
               </li>
             </ul>
           </li>
           
-          <li>
+          <!-- <li>
             <a href="javascript:;">
               Insights
             </a>
@@ -64,23 +65,30 @@
               </li>
               
             </ul>
-          </li>
+          </li> -->
 
           <li>
-            <a href="javascript:;"><span class="title">Configura&ccedil;&otilde;es</span>
-            <span class=" arrow"></span></a>
+            <a href="javascript:;">
+              <span>Settings</span>
+              <span class=" arrow"></span>
+            </a>
             <span class="icon-thumbnail"><i class="pg-settings"></i></span>
             <ul class="sub-menu">
               <li class="">
-                <a href="color.html">Empresa</a>
+                <a href="/settings">System</a>
+                <span class="icon-thumbnail"><i class="fa fa-building-o"></i></span>
+              </li>
+
+              <li class="">
+                <a href="/company">Company info</a>
                 <span class="icon-thumbnail"><i class="fa fa-building-o"></i></span>
               </li>
               <li class="">
-                <a href="/account">Conta</a>
+                <a href="/account">Account</a>
                 <span class="icon-thumbnail"><i class="fa fa-user"></i></span>
               </li>
               <li class="">
-                <a href="/data">Dados</a>
+                <a href="/data">Data</a>
                 <span class="icon-thumbnail">D</span>
               </li>
               <li class="">
@@ -114,7 +122,7 @@
                 <ul class="hidden-md-down notification-list no-margin hidden-sm-down b-grey b-l b-r no-style p-l-30 p-r-20">
 
                     <li class="p-r-10 inline">
-                      <a href="#" class="header-icon"><i class="fa fa-plus"></i> Nova vaga</a>
+                      <a href="#" class="header-icon"><i class="fa fa-plus"></i> Add job</a>
                     </li>
 
                 </ul>

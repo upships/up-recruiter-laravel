@@ -25,7 +25,7 @@
 		    		Regras STCW
 		    	</div>
 		    	<div class="mr-2" v-for="regulation in coc.regulations" >
-		    		{{regulation.regulation}}
+		    		{{regulation.stcw_regulation.regulation}}
 		    	</div>
 			</div>
 

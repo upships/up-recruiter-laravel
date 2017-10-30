@@ -69,7 +69,7 @@ class JobController extends Controller
 
         event(new \App\Events\JobCreated($job));
 
-        return redirect('/job/' . $job->id)->with('message','Vaga adicionada');
+        return redirect('/job/' . $job->id . '/edit')->with('message','Vaga adicionada');
     }
 
     /**

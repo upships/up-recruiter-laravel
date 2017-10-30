@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Profile extends Model
 {
 
-    protected $appends = ['name', 'properties', 'age', 'birth_date', 'gender_label', 'marital_status_label'];
+    protected $appends = ['name', 'properties', 'age', 'birth_date', 'gender_label', 'marital_status_label', 'location', 'phone'];
 
     public function user()	{
 
@@ -117,6 +117,45 @@ class Profile extends Model
 
         if($this->birthday) {
             return (new \Carbon\Carbon($this->birthday))->diffInYears();
+        }
+        else {
+            return null;
+        }
+    }
+
+    public function getPhoneAttribute() {
+
+        if($this->user->phone_country & $this->user->phone) {
+            
+            return '(+' . $this->user->phone_country . ') ' . $this->user->phone;
+        }
+        else {
+
+            return null;
+        }
+    }
+
+    public function getLocationAttribute() {
+
+        $location_items = [];
+
+        if($this->city) {
+            
+            $location_items[] = $this->city;
+        }
+
+        if($this->state) {
+            
+            $location_items[] = $this->state;
+        }
+
+        if($this->country) {
+            
+            $location_items[] = $this->country->name;
+        }
+
+        if(count($location_items) > 0) {
+            return implode(", ", $location_items);
         }
         else {
             return null;

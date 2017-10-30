@@ -1,13 +1,26 @@
-Vue.component('applications', require('./components/ApplicationsList.vue'));
-Vue.component('job-application', require('./components/JobApplication.vue'));
+
+/* Interface components */
 
 Vue.component('toolbar', require('./components/Toolbar.vue'));
 Vue.component('toolbar-item', require('./components/ToolbarItem.vue'));
 
-Vue.component('selections', require('./components/Selection/List.vue'));
-Vue.component('selection', require('./components/Selection/Item.vue'));
+/* Jobs components */
 
-Vue.component('selection-application', require('./components/Selection/ApplicationsListItem.vue'));
+Vue.component('job-applications', require('./components/Job/Application/List.vue'));
+Vue.component('job-application', require('./components/Job/Application/Item.vue'));
+
+Vue.component('jobs-list', require('./components/Job/List.vue'));
+Vue.component('jobs-item', require('./components/Job/Item.vue'));
+
+/* Selections components */
+
+Vue.component('selections-list', require('./components/Selection/List.vue'));
+Vue.component('selections-item', require('./components/Selection/Item.vue'));
+
+/* Profile Components */
+
+Vue.component('selection-applications', require('./components/Selection/Application/List.vue'));
+Vue.component('selection-application', require('./components/Selection/Application/Item.vue'));
 
 Vue.component('profile-certificates', require('./components/Profile/Certificate/List.vue'));
 Vue.component('profile-certificate', require('./components/Profile/Certificate/Item.vue'));

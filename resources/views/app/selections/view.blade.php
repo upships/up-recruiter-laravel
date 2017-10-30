@@ -70,9 +70,9 @@
 
 				<h3 class="card-title">Em avalia&ccedil;&atilde;o</h3>
 
-				<applications>
+				<selection-applications>
 					<selection-application v-for="application in applicationsOnScreening" :application="application" :selection_status="selection_status" :key="application.id" v-on:application:change="changeApplicationStatus" v-on:application:select="toggleSelectApplication" ></selection-application>
-				</applications>
+				</selection-applications>
 
 			</div>
 
@@ -80,9 +80,9 @@
 
 				<h3 class="card-title">Em entrevista</h3>
 
-				<applications>
+				<selection-applications>
 					<selection-application v-for="application in applicationsOnInterviewing" :application="application" :selection_status="selection_status" :key="application.id" v-on:application:change="changeApplicationStatus" v-on:application:select="toggleSelectApplication" ></selection-application>
-				</applications>
+				</selection-applications>
 
 			</div>
 
@@ -90,9 +90,9 @@
 
 				<h3 class="card-title">Avaliando propostas</h3>
 
-				<applications>
+				<selection-applications>
 					<selection-application v-for="application in applicationsOnEmploymentOffering" :application="application" :selection_status="selection_status" :key="application.id" v-on:application:change="changeApplicationStatus" v-on:application:select="toggleSelectApplication" ></selection-application>
-				</applications>
+				</selection-applications>
 
 			</div>
 
@@ -100,9 +100,9 @@
 
 				<h3 class="card-title">Em contrata&ccedil;&atilde;o</h3>
 
-				<applications>
+				<selection-applications>
 					<selection-application v-for="application in applicationsOnHiring" :application="application" :selection_status="selection_status" :key="application.id" v-on:application:change="changeApplicationStatus" v-on:application:select="toggleSelectApplication" ></selection-application>
-				</applications>
+				</selection-applications>
 
 			</div>
 
@@ -110,9 +110,9 @@
 
 				<h3 class="card-title">Em onboarding</h3>
 
-				<applications>
+				<selection-applications>
 					<selection-application v-for="application in applicationsOnOnboarding" :application="application" :selection_status="selection_status" :key="application.id" v-on:application:change="changeApplicationStatus" v-on:application:select="toggleSelectApplication" ></selection-application>
-				</applications>
+				</selection-applications>
 
 			</div>
 		</div>
