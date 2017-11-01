@@ -18,15 +18,15 @@ class CompanySeeder extends Seeder
     		  factory(App\Models\Company\CompanyOffice::class, 2)->make()
             );
 
-    		// Email
-            $company->emails()->saveMany(
-    		  factory(App\Models\Company\CompanyEmail::class, 2)->make()
-            );
+    		// // Email
+      //       $company->emails()->saveMany(
+    		//   factory(App\Models\Company\CompanyEmail::class, 2)->make()
+      //       );
     		
-    		// Phone
-            $company->phones()->saveMany(
-    		  factory(App\Models\Company\CompanyPhone::class, 2)->make()
-            );
+    		// // Phone
+      //       $company->phones()->saveMany(
+    		//   factory(App\Models\Company\CompanyPhone::class, 2)->make()
+      //       );
 
     		// Crew
             $company->crews()->save(

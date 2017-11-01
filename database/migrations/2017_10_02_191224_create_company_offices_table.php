@@ -18,6 +18,7 @@ class CreateCompanyOfficesTable extends Migration
             $table->timestamps();
 
             $table->integer('company_id');
+
             $table->string('label');
 
             $table->string('address');

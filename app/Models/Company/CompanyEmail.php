@@ -10,4 +10,9 @@ class CompanyEmail extends Model
 
     	return $this->belongsTo('App\Models\Company');
     }
+
+    public function office()	{
+
+    	return $this->belongsTo('App\Models\Company\CompanyOffice');
+    }
 }

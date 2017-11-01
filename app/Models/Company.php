@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Storage;
 
 class Company extends Model
 {
-    protected $fillable = ['name', 'logo_path', 'careers_url'];
+    protected $fillable = ['name', 'url', 'logo', 'company_type_id', 'description', 'careers_link'];
+    protected $appends = ['logo_path', 'careers_url', 'other_phones', 'other_emails'];
 
     public function recruiters()	{
 
@@ -17,6 +18,11 @@ class Company extends Model
     public function users()    {
 
         return $this->hasMany('App\User');
+    }
+
+    public function careers_page()    {
+
+        return $this->hasOne('App\Models\Company\Career');
     }
 
     public function jobs()	{
@@ -29,19 +35,30 @@ class Company extends Model
         return $this->hasMany('App\Models\Recruiting\Selection');
     }
 
-    public function emails()	{
-
-    	return $this->hasMany('App\Models\Company\CompanyEmail');
-    }
-
     public function offices()	{
 
     	return $this->hasMany('App\Models\Company\CompanyOffice');
     }
 
-    public function phones()	{
+    public function getOtherPhonesAttribute()	{
 
-    	return $this->hasMany('App\Models\Company\CompanyPhone');
+    	return $this->phones();
+    }
+
+    public function getOtherEmailsAttribute()   {
+
+        return $this->emails();
+    }
+
+
+    public function scopePhones($query)  {
+
+        return $query->where('has_office', false)->get();
+    }
+
+    public function scopeEmails($query)  {
+
+        return $query->where('has_office', false)->get();
     }
 
 
@@ -86,7 +103,7 @@ class Company extends Model
 
         if($this->logo)    {
 
-            $url = Storage::get($this->logo);
+            $url = Storage::url($this->logo);
         }
         else {
 

@@ -20,7 +20,10 @@ class CreateCompaniesTable extends Migration
             $table->integer('company_type_id')->nullable();
             
             $table->string('name');
+            
             $table->string('logo')->nullable();
+            $table->string('logo_white')->nullable();
+
             $table->string('url')->nullable();
             $table->text('description')->nullable();
 

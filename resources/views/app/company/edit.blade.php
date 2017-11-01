@@ -1,61 +1,58 @@
+@extends('layouts.master')
+
+@section('page-title','Vagas em aberto')
+
+@section('content')
+
 <div class="row">
-  <div class="col-lg-12"><h1>Editar dados da empresa</h1></div>
-</div>
+  <div class="col">
+  	<h2>Edit Company information</h2>
 
-<div class="panel panel-default">
-	<div class="panel-body">
+  	<div class="card card-default">
+  		<div class="card-block">
 
-		<form method="post" action="/company/editAction" role="form" >
-			<input type="hidden" name="companyId" value="{companyId}" >
-			<div class="row" >
-				<div class="col-md-12" >
+			<form method="post" action="/company" role="form" enctype="multipart/form-data" >
 				
-					<div class="form-group" >
-						<label for="companyName" >Nome</label>
-						<input type="text" class="form-control" name="companyName" value="{companyName}" />
-					</div>
+				{{csrf_field()}}
 
-					<div class="form-group" >
-						<label for="companyEmail" >Email principal</label>
-						<input type="companyEmail" class="form-control" name="companyEmail" value="{companyEmail}" />
-					</div>
+				{{method_field('PATCH')}}
 
-					<div class="form-group" >
-						<label for="companyPhone_code" >Telefone</label>
-						<input type="text" class="form-control" companyName='companyPhone' data-mask="99-9999-9999" value="{companyPhone}" />
-					</div>
-
-					<div class="form-group" >
-						<label for="companyCountry" >Pa&iacute;s de origem</label>
-						<input type="text" class="form-control" name="companyCountry" value="{companyCountry}" />
-					</div>
-
-					<div class="form-group" >
-						<label for="location" >Localiza&ccedil;&atilde;o</label>
-						<input type="text" class="form-control" name="location" value="{companyLocation}" />
-					</div>
-
-					<div class="form-group" >
-						<label for="companySite" >Site</label>
-						<input type="text" class="form-control" name="companySite" value="{companySite}" />
-					</div>
-
-					<div class="form-group" >
-						<label for="companyInfo" >Texto sobre a empresa</label>
-						<textarea name="companyInfo" class="form-control">{companyInfo}</textarea>
-					</div>
-					
-					<ul class="list-inline">
-						<li>
-							<button type="submit" class="btn btn-success"><i class="icon-checkbox-checked" ></i>Concluir</button>
-						</li>
-						<li class="float-right">
-							<a href='/company' class="btn btn-default"><i class="icon-cancel-circle" ></i>Cancelar</a>
-						</li>
-						<li class="clearfix"></li>
-					</ul>
+				<div class="form-group" >
+					<label for="name" >Nome</label>
+					<input type="text" class="form-control" name="name" value="{{$company->name}}" />
 				</div>
-			</div>
-		</form>
+
+				<div class="form-group" >
+					<label for="url" >Main site</label>
+					<input type="text" class="form-control" name="url" value="{{$company->url}}" />
+				</div>
+
+				<div class="form-group" >
+					<label for="logo_file" >Colored logo</label>
+					<input type="file" class="form-control" name="logo_file" />
+				</div>
+
+				<div class="form-group" >
+					<label for="logo_white_file" >White logo</label>
+					<input type="file" class="form-control" name="logo_white_file" />
+				</div>
+
+				<div class="my-2 d-flex justify-content-between">
+					<div>
+						<button type="submit" class="btn btn-success">
+							<i class="fa fa-save" ></i> Save changes
+						</button>
+					</div>
+					<div>
+						<a href='/company' class="btn btn-default">
+							<i class="fa fa-times" ></i> Cancelar
+						</a>
+					</div>
+				</div>
+
+			</form>
+		</div>
 	</div>
 </div>
+
+@endsection

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Company;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\Company\CompanyEmail;
+
 class CompanyEmailController extends Controller
 {
     /**
@@ -35,7 +37,18 @@ class CompanyEmailController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, ['label' => 'required', 'address' => 'required|email']);
+        
+        $email = CompanyEmail::make($request->all());
+
+        auth()->user()->company->emails()->save($email);
+
+        if(request()->ajax())   {
+
+            return response()->json($email);
+        }
+
+        return back()->with('message', 'Email added');
     }
 
     /**

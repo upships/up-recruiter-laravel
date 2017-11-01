@@ -9,53 +9,80 @@
     
         <h2>Company information</h2>
 
-    </div>
-</div>
-<div class="row m-t-30">
-    <div class="col-sm-12">
-        <div class="panel panel-default p-0">
-            <div class="panel-body p-0">
+        <div class="card card-default no-padding">
+            <div class="d-flex align-content-start">
+                <div class="m-3">
+                    <img src="{{$company->logo_path}}" style="width: 80px;" >
+                </div>
+                <div>
+                    <h4>{{$company->name}}</h4>
 
-                <ul class="nav nav-tabs profile-tabs">
-                    <li class="active"><a data-toggle="tab" href="#about">Informa&ccedil;&otilde;es</a></li>
-                    <li class=""><a data-toggle="tab" href="#log">Registro de Atividades</a></li>
-                    <li class=""><a data-toggle="tab" href="#recruiters">Recrutadores</a></li>
-                    <li class=""><a data-toggle="tab" href="#settings">Configura&ccedil;&otilde;es</a></li>
-                </ul>
-
-                <div class="tab-content m-0"> 
-
-                    <div id="about" class="tab-pane active">
-
-                        @include('app.company.pages.about', ['company' => $company])
-
-                	</div>
-
-                    <!-- Activities -->
-                    <div id="log" class="tab-pane">
-
-                        @include('app.company.pages.activities', ['company' => $company])
-
-                    </div>
-
-                    <!-- Recruiters -->
-                    <div id="recruiters" class="tab-pane">
-						
-                        @include('app.company.pages.recruiters', ['company' => $company])
-
-                    </div>
-
-                    <!-- Settings -->
-                    <div id="settings" class="tab-pane">
-                    	
-                        @include('app.company.pages.settings', ['company' => $company])
+                    <div class="d-flex align-content-start">
+                        
+                        <a href="//{{$company->careers_url}}" target="_blank" class="m-2 btn btn-default btn-sm btn-rounded">
+                            Open Careers Page <i class="fa fa-external-link"></i>
+                        </a>
 
                     </div>
                 </div>
- 
-            </div> 
+            </div>
         </div>
+        
+        <div class="card card-borderless">
+            <ul class="nav nav-tabs nav-tabs-simple" role="tablist" data-init-reponsive-tabs="dropdownfx">
+                <li class="nav-item">
+                    <a class="active" href="#" data-toggle="tab" role="tab" data-target="#tab-about">
+                        Company info
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" data-toggle="tab" role="tab" data-target="#tab-recruiters"> 
+                        Recruiters
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" data-toggle="tab" role="tab" data-target="#tab-settings">
+                        Settings
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" data-toggle="tab" role="tab" data-target="#tab-log">
+                        Activity log
+                    </a>
+                </li>
+            </ul>
+
+            <div class="tab-content"> 
+
+                <div id="tab-about" class="tab-pane active">
+
+                    @include('app.company.pages.about', ['company' => $company])
+
+            	</div>
+
+                <!-- Activities -->
+                <div id="tab-log" class="tab-pane">
+
+                    @include('app.company.pages.activities', ['company' => $company])
+
+                </div>
+
+                <!-- Recruiters -->
+                <div id="tab-recruiters" class="tab-pane">
+        			
+                    @include('app.company.pages.recruiters', ['company' => $company])
+
+                </div>
+
+                <!-- Settings -->
+                <div id="tab-settings" class="tab-pane">
+                	
+                    @include('app.company.pages.settings', ['company' => $company])
+
+                </div>
+            </div>
+        </div>
+ 
     </div>
 </div>
-
 @endsection

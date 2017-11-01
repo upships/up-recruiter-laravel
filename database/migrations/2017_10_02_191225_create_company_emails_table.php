@@ -20,6 +20,9 @@ class CreateCompanyEmailsTable extends Migration
             $table->integer('company_id');
             $table->string('label');
             $table->string('address');
+
+            $table->integer('company_office_id')->nullable();
+            $table->boolean('has_office')->default(false);
         });
     }
 

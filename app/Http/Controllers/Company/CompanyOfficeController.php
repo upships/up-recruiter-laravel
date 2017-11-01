@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Company;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\Company\CompanyOffice;
+
 class CompanyOfficeController extends Controller
 {
     /**
@@ -35,7 +37,18 @@ class CompanyOfficeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, ['label' => 'required', 'address' => 'required|office', 'city' => 'required', 'country_id' => 'required']);
+        
+        $office = CompanyOffice::make($request->all());
+
+        auth()->user()->company->offices()->save($office);
+
+        if(request()->ajax())   {
+
+            return response()->json($office);
+        }
+
+        return back()->with('message', 'Office added');
     }
 
     /**

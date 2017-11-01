@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Company;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\Company\CompanyPhone;
+
 class CompanyPhoneController extends Controller
 {
     /**
@@ -35,7 +37,18 @@ class CompanyPhoneController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, ['label' => 'required', 'number' => 'required', 'country_code' => 'required']);
+        
+        $phone = CompanyPhone::make($request->all());
+
+        auth()->user()->company->phones()->save($phone);
+
+        if(request()->ajax())   {
+
+            return response()->json($phone);
+        }
+
+        return back()->with('message', 'Phone added');
     }
 
     /**
