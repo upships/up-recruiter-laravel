@@ -22,26 +22,9 @@ class CareerController extends Controller
 	    		$company->careers_page()->save(Career::make());
 	    	}
 
-	    	$careers_page = $company->careers_page;
+	    	$careers_page = $company->careers_page()->first();
 
-	    	// Explode settings, menu and content
-	    	$settings = collect(explode('|||', $careers_page->settings))->map(function($item) {
-
-                return explode('||', $item);
-            });
-
-
-            $menu = collect(explode('|||', $careers_page->menu))->map(function($item) {
-
-                return explode('||', $item);
-            });
-
-            $content = explode('|||', $careers_page->menu)->map(function($item) {
-
-                return explode('||', $item);
-            });
-
-            $page = ['settings' => $settings, 'content' => $content, 'menu' => $menu];
+            $page = ['settings' => $careers_page->settings, 'content' => $careers_page->content, 'menu' => $careers_page->menu];
 
  			return response()->json($page);
     	}

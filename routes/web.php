@@ -24,8 +24,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function()	{
 	Route::get('company/phones', 'Company\CompanyPhoneController@index');
 	Route::get('company/emails', 'Company\CompanyEmailController@index');
 
-	Route::get('company/career', 'Company\CareerController@view');
-	
+	Route::get('company/careers', 'Company\CareerController@show');
+
 	/**
 	 *	Crews (API)
 	 *
@@ -175,9 +175,9 @@ Route::group(['middleware' => 'auth'], function()	{
 	Route::post('company/recruiter', 'Company\RecruiterController@store');
 	Route::delete('company/recruiter/{recruiter}', 'Company\RecruiterController@destroy');
 
-	Route::get('company/career', 'Company\CareerController@view');
-	Route::get('company/career/edit', 'Company\CompanyController@edit');
-	Route::patch('company/career', 'Company\CompanyController@update');
+	Route::get('company/careers', 'Company\CareerController@show');
+	Route::get('company/careers/edit', 'Company\CompanyController@edit');
+	Route::patch('company/careers', 'Company\CompanyController@update');
 
 	Route::get('crew', 'Company\CrewController@index');
 	Route::get('crew/add', 'Company\CrewController@create');

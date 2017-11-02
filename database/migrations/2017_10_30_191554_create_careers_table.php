@@ -20,9 +20,9 @@ class CreateCareersTable extends Migration
 
             $table->integer('company_id');
 
-            $table->text('content')->nullable();
-            $table->text('menu')->nullable();
-            $table->text('settings')->nullable();
+            $table->json('content')->nullable();
+            $table->json('menu')->nullable();
+            $table->json('settings')->nullable();
 
         });
     }
