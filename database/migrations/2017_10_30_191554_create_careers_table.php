@@ -21,6 +21,8 @@ class CreateCareersTable extends Migration
             $table->integer('company_id');
 
             $table->json('content')->nullable();
+            $table->json('slides')->nullable();
+            $table->json('images')->nullable();
             $table->json('menu')->nullable();
             $table->json('settings')->nullable();
 

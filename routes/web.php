@@ -25,6 +25,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function()	{
 	Route::get('company/emails', 'Company\CompanyEmailController@index');
 
 	Route::get('company/careers', 'Company\CareerController@show');
+	Route::patch('company/careers', 'Company\CareerController@update');
 
 	/**
 	 *	Crews (API)

@@ -40,6 +40,23 @@ class CareerController extends Controller
 
     public function update(Request $request)	{
 
+        $company = auth()->user()->company()->first();
 
+        if($request->input('type')) {
+
+            $data = [$request->input('type') => $request->input('data')];
+        }
+        else {
+
+            $data = [
+                    'menu' => $request->input('menu'),
+                    'settings' => $request->input('settings'),
+                    'content' => $request->input('content'),
+                ];
+        }
+
+        $company->careers_page->update($data);
+
+        return response()->json($company->careers_page);
     }
 }

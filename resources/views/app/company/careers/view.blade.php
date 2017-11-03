@@ -8,64 +8,56 @@
     <div class="col">
     
         <h2>Careers page</h2>
-    </div>
-</div>
 
-<div class="row">
-    <div class="col">
+        <div class="card card-borderless">
+            <ul class="nav nav-tabs nav-tabs-simple" role="tablist" data-init-reponsive-tabs="dropdownfx">
+                <li class="nav-item">
+                    <a class="active" href="#" data-toggle="tab" role="tab" data-target="#tab-content"> 
+                        Content
+                    </a>
+                </li>
 
-        <h3>Menu items</h3>
-        
-        <div class="card card-default">
-            <div class="card-block">
+                <li class="nav-item">
+                    <a href="#" data-toggle="tab" role="tab" data-target="#tab-images">
+                        Images
+                    </a>
+                </li>
 
-                <div class="table-responsive">
-                    <table class="table table-hover" id="basicTable">
-                        <thead>
-                            <tr>Label</tr>
-                            <tr>Link</tr>
-                            <tr>&nbsp;</tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <input type="text" class="form-control" v-model="new_data.menu.label" placeholder="Label" >
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control" v-model="new_data.menu.link" placeholder="Link" >
-                                </td>
-                                <td>
+                <li class="nav-item">
+                    <a href="#" data-toggle="tab" role="tab" data-target="#tab-menus">
+                        Menus
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="#" data-toggle="tab" role="tab" data-target="#tab-settings">
+                        Settings
+                    </a>
+                </li>
+            </ul>
 
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-default" @click="addItem('menu')" >Save</button>
-                                </td>
-                            </tr>
-                            
-                            <tr v-for="(menu, key) in page.menu" >
-                                <td>@{{menu.label}}</td>
-                                <td>@{{menu.link}}</td>
-                                <td>
-                                    <a href="#del" @click="deleteItem('menu', key)" class="text-danger" >
-                                        <i class="fa fa-times"></i>
-                                    </a>
-                                </td>
-                            </tr>
+            <div class="tab-content">
 
-                        </tbody>
-                    </table>
+                <div id="tab-content" class="tab-pane active">
+                    @include('app.company.careers.tabs.content')
                 </div>
 
-                    
-                    
-                    
+                <div id="tab-images" class="tab-pane">
+                    @include('app.company.careers.tabs.images')
+                </div>
 
+                <div id="tab-menus" class="tab-pane">
+                    @include('app.company.careers.tabs.menus')
+                </div>
+
+                <div id="tab-settings" class="tab-pane">
+                    @include('app.company.careers.tabs.settings')
                 </div>
             </div>
         </div>
- 
     </div>
 </div>
+
 @endsection
 
 @section('local-footer')
@@ -89,6 +81,7 @@
                 menu: {
                     link: null,
                     label: null,
+                    has_changes: false,
                 },
             }
         },
@@ -101,7 +94,7 @@
 
                 if(response.data.menu)  {
 
-                    vm.page.menu = response.data.menu;    
+                    vm.page.menu = response.data.menu;
                 }
                 
                 if(response.data.settings)    {
@@ -139,12 +132,71 @@
                 }
 
                 this['page'][type].push(element);
+
+                this.update(type);
             },
 
             deleteItem: function(type, key) {
 
                 Vue.delete(this['page'][type], key);
+
+                this['new_data'][type]['has_changes'] = true;
+            },
+
+            update: function(type)  {
+
+                let vm = this;
+                let data = {type: type, data: this['page'][type] }
+
+                axios.patch('/api/company/careers', data).then( function(response)   {
+
+                    console.log('Updated');
+
+                    vm['new_data'][type]['has_changes'] = false;
+
+                });
+
+            },
+
+
+            moveItem: function (type, direction , key)  {
+
+                var elements = this['page'][type];
+                var length = elements.length;
+
+                if((direction == 'up' && key > 0) || (direction == 'down', key < length ))  {
+
+                    var replacedKey;
+                    var replacedItem;
+
+                    var temporaryKey = length++;
+
+                    // Get new key
+
+                    if(direction == 'up')   {
+
+                        replacedKey = key--;
+                    }
+                    else {
+
+                        replacedKey = key++;
+                    }
+                    
+                    originalItem = elements[key];
+                    replacedItem = elements[replacedKey];
+
+                    // Set temporary items
+
+
+                    // Switch items
+                    Vue.set(elements, replacedKey, originalItem);
+                    Vue.set(elements, key, replacedItem);
+
+                    // Signal that there are changes to be saved
+                    this['new_data'][type]['has_changes'] = true;
+                }
             }
+
 
         },
 

@@ -13,6 +13,8 @@ class Career extends Model
 		'content' => 'array'
 	];
 
+	protected $fillable = ['menu', 'settings', 'content'];
+
     public function company()    {
 
         return $this->belongsTo('App\Models\Company');
