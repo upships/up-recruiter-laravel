@@ -40,7 +40,7 @@
 <script>
 function shareJob(jobId)
 {
-  $.getJSON('/api/sharer/byJob/' + jobId, function( data )
+  $.getJSON('/json/sharer/byJob/' + jobId, function( data )
   {
     if(data !== null)
     {

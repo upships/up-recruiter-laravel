@@ -149,7 +149,7 @@
       </div> -->
       
       <div class="list-group-item">
-        <!-- <form method="post" action="/api/profiles/filter" target="_blank" > -->
+        <!-- <form method="post" action="/json/profiles/filter" target="_blank" > -->
         <!-- </form> -->
 
         <button type="button" onclick="filter();" class="btn btn-success" ><i class="fa fa-search"></i> Buscar talentos</button> <span class="filterLoadingMessage"><i class="fa fa-spinner fa-spin"></i> Carregando.. </span>
@@ -411,7 +411,7 @@ function filter()
       request.englishLevel = englishLevel;
     }
 
-    $.post('/api/profiles/getProfiles', initialRequest, function(res)
+    $.post('/json/profiles/getProfiles', initialRequest, function(res)
       {
           return res;
 
@@ -421,7 +421,7 @@ function filter()
 
             request.profiles = rawProfiles.profiles;
             
-            $. post('/api/profiles/filter', request, function(matchingProfiles){
+            $. post('/json/profiles/filter', request, function(matchingProfiles){
                 return matchingProfiles;
             })
             .done(function(res){
@@ -467,7 +467,7 @@ function filter()
 
 function getPositions()
 {
-    $.getJSON('/api/positions/index', function(res)
+    $.getJSON('/json/positions/index', function(res)
       {
           var template = $.templates("#positionsListItemTemplate");
           var htmlOutput = template.render(res.items);
@@ -480,7 +480,7 @@ function getPositions()
       });
 
 
-      $.getJSON('/api/positions/onshore', function(res)
+      $.getJSON('/json/positions/onshore', function(res)
       {
           var template = $.templates("#positionsListItemTemplate");
           var htmlOutput = template.render(res.items);
@@ -558,7 +558,7 @@ function toggleSelectedProfilesToolbar() {
 
 //     $('#profileLoadingIcon-' + profileId).show();
 
-//     $.getJSON('/api/profiles/view/' + profileId + '/full', function(response) {
+//     $.getJSON('/json/profiles/view/' + profileId + '/full', function(response) {
 //         return response;
 //     }).done(function( data )  {
 
@@ -614,7 +614,7 @@ function addProfilesToNewList() {
   if(profileFolderName.length > 0) {
       var data = {profileFolderName: profileFolderName};
 
-      $.post('/api/profiles/addFolder', data, function(response)  {
+      $.post('/json/profiles/addFolder', data, function(response)  {
           return response;
       }).done( function(data) {
           if(data.error === false)  {
@@ -633,7 +633,7 @@ function addProfilesToList(profileFolderId) {
 
     var data = {profiles: selectedProfiles};
 
-    $.post('/api/profiles/addToFolder/' + profileFolderId, data, function(response) {
+    $.post('/json/profiles/addToFolder/' + profileFolderId, data, function(response) {
       return response;
     }).done(function(data)  {
 
@@ -707,7 +707,7 @@ $(document).ready(function()
 
             var data = {name: name};
 
-              $.post('/api/profiles/searchByName', data, function(response) {
+              $.post('/json/profiles/searchByName', data, function(response) {
                   
                   return response;
 
@@ -740,7 +740,7 @@ $(document).ready(function()
   $('#experience-spinner').spinner({value:0, min: 0, max: 2000});
   $('#new-experience-form').hide();
 
-  $.getJSON('/api/profiles/index', function(response) {
+  $.getJSON('/json/profiles/index', function(response) {
     return response;
   }).done( function(data) {
       

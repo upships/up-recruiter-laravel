@@ -103,7 +103,7 @@ function loadCategory(categoryId,shouldClearPositions)
 	$('.categoryPositions').remove();
 	$('#categoryEditor').show();
 
-	$.getJSON('/api/categories/categoryPositions/' + categoryId, function(data)
+	$.getJSON('/json/categories/categoryPositions/' + categoryId, function(data)
 		{
 			var categoryLabel = data.categoryLabel;
 			var categoryPositions = data.categoryPositions;
@@ -139,7 +139,7 @@ function addPositionToCategory(positionId)
 	var categoryId = window.selectedCat;
 	$('#categoryLoadingMessage').show();
 
-	$.getJSON('/api/positions/changeCategory/' + positionId + '/' + categoryId, function(response)
+	$.getJSON('/json/positions/changeCategory/' + positionId + '/' + categoryId, function(response)
 	{
 		if(response.error === false)
 		{
@@ -166,7 +166,7 @@ function listPositions()
 	$('#positionsLoadingMessage').show();
 	$('#loadPositionsHere').show();
 
-	$.getJSON('/api/positions/index', function(data)
+	$.getJSON('/json/positions/index', function(data)
 	{
 		if(data.total > 0)
 		{
@@ -217,7 +217,7 @@ function deleteCurrentCategory()
 	{
 		console.log('Comando confirmado, removendo categoria');
 
-		$.getJSON('/api/categories/delete/' + window.selectedCat, function(response)
+		$.getJSON('/json/categories/delete/' + window.selectedCat, function(response)
 			{
 				if(response.error === false)
 				{

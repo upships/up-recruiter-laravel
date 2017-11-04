@@ -175,7 +175,7 @@
 
 		        const vm = this;
 
-		        axios.get('/api/job/' + vm.job_id + '/applications').then( function( response ) {
+		        axios.get('/json/job/' + vm.job_id + '/applications').then( function( response ) {
 
 		            vm.applications = response.data;
 		        });

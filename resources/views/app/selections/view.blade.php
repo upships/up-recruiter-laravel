@@ -162,7 +162,7 @@ new Vue({
 
 	    			var data = {status: statusChange.status};
 
-	    			axios.patch('/api/application/' + application_id, data).then( function()	{
+	    			axios.patch('/json/application/' + application_id, data).then( function()	{
 
 	    				vm['applications'][key]['status'] = statusChange.status;
 
@@ -329,12 +329,12 @@ new Vue({
 
 	        const vm = this;
 
-	        axios.get('/api/selection/' + vm.selection_id).then( function( response ) {
+	        axios.get('/json/selection/' + vm.selection_id).then( function( response ) {
 
 	        	vm.selection = response.data;
 	        });
 
-	        axios.get('/api/selection/' + vm.selection_id + '/applications').then( function( response ) {
+	        axios.get('/json/selection/' + vm.selection_id + '/applications').then( function( response ) {
 
 	        	var applications = response.data.map( function(application)	{
 	        		application.isSelected = false;

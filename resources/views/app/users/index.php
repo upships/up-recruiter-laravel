@@ -149,7 +149,7 @@
       {
         $('#pageLoader').show();
 
-        $.getJSON('/api/users/search/' + query, function(data)
+        $.getJSON('/json/users/search/' + query, function(data)
           {
             if(data.total > 0)
             {

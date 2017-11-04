@@ -516,13 +516,13 @@
 
 	        const vm = this;
 
-	        axios.get('/api/job/' + vm.job_id).then( function( response ) {
+	        axios.get('/json/job/' + vm.job_id).then( function( response ) {
 
 	        	vm.job = response.data;
 	        	vm.filters = vm.job.filters;
 	        });
 
-	        axios.get('/api/job/' + vm.job_id + '/applications').then( function( response ) {
+	        axios.get('/json/job/' + vm.job_id + '/applications').then( function( response ) {
 
 	            // Go through each profile, get their filterableAttributes and return to the Filters array
 
@@ -660,7 +660,7 @@
 
 	    			var data = {status: status};
 
-	    			axios.patch('/api/application/' + application_id, data).then( function()	{
+	    			axios.patch('/json/application/' + application_id, data).then( function()	{
 
 	    				vm['applications'][key]['status'] = status;
 

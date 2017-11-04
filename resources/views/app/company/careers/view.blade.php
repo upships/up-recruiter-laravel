@@ -110,7 +110,7 @@
 
             let vm = this;
 
-            axios.get('/api/company/careers').then(function(response)    {
+            axios.get('/json/company/careers').then(function(response)    {
 
                 if(response.data.menus)    {
                     
@@ -171,7 +171,7 @@
                 var vm = this;
 
                 // Send order to delete file
-                axios.delete('/api/company/careers/image', data).then(function(response)    {
+                axios.delete('/json/company/careers/image', data).then(function(response)    {
 
                     vm.deleteItem('images', key);
 
@@ -185,7 +185,7 @@
                 let vm = this;
                 let data = {type: type, data: this['page'][type] }
 
-                axios.patch('/api/company/careers', data).then( function(response)   {
+                axios.patch('/json/company/careers', data).then( function(response)   {
 
                     console.log('Updated');
 
@@ -258,7 +258,7 @@
                 
                 let vm = this;
 
-                axios.post('/api/company/careers/image', this.new_data.images).then( function(response) {
+                axios.post('/json/company/careers/image', this.new_data.images).then( function(response) {
 
                     let thisImage = {file: response.data.file, caption: response.data.caption};
 

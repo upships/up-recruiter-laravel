@@ -441,7 +441,7 @@
 
 function loadWorks(profileId)
 {
-  $.getJSON('/api/profiles/works/' + profileId, function( result ){
+  $.getJSON('/json/profiles/works/' + profileId, function( result ){
     
     var data = result.items;
     var template = $.templates("#worksTemplate");
@@ -456,7 +456,7 @@ function loadWorks(profileId)
 
 function loadCertificates(profileId)
 {
-  $.getJSON('/api/profiles/certificates/' + profileId, function( result ){
+  $.getJSON('/json/profiles/certificates/' + profileId, function( result ){
     
     var data = result.items;
     var template = $.templates("#certificatesTemplate");
@@ -471,7 +471,7 @@ function loadCertificates(profileId)
 
 function loadEducation(profileId)
 {
-  $.getJSON('/api/profiles/education/' + profileId, function( result ){
+  $.getJSON('/json/profiles/education/' + profileId, function( result ){
     
     var data = result.items;
     
@@ -497,7 +497,7 @@ function loadLanguages(profileId)
 
 function loadExtras(profileId)
 {
-  $.getJSON('/api/profiles/extras/' + profileId, function( result ){
+  $.getJSON('/json/profiles/extras/' + profileId, function( result ){
     
     var data = result.items;
     var template = $.templates("#extrasTemplate");
@@ -522,7 +522,7 @@ $(function()
   isSeafarerCheck(profileId);
 
   // Load job applications
-  $.getJSON('/api/profiles/applications/' + profileId, function( result ){
+  $.getJSON('/json/profiles/applications/' + profileId, function( result ){
     
     var data = result.items;
     var template = $.templates("#remoteApplicationTemplate");

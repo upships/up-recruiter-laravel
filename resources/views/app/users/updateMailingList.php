@@ -29,7 +29,7 @@
 
 <script>
 
-$.getJSON('/api/users/listall', function(data)
+$.getJSON('/json/users/listall', function(data)
   {
     var users = data.items;
 

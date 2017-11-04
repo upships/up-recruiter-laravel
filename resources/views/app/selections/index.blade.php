@@ -40,7 +40,7 @@
 
       var vm = this;
 
-      axios.get('/api/selection').then( function(response)  {
+      axios.get('/json/selection').then( function(response)  {
 
         vm.selections = response.data;
 

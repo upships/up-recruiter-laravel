@@ -117,7 +117,7 @@
 
 function viewDocument(receivedDocumentId)
 {
-	$.getJSON('/api/documents/view/' + receivedDocumentId, function(res)
+	$.getJSON('/json/documents/view/' + receivedDocumentId, function(res)
 		{
 			var receivedDocumentFileType = res.receivedDocumentFileType;
 			var receivedDocumentFile = res.receivedDocumentFile;

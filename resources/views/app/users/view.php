@@ -384,7 +384,7 @@ function loadProfile(profileId)
 {
 	console.log('Carregando currículo ' + profileId);
   	
-  	$.getJSON('/api/profiles/view/' + profileId, function( result ){
+  	$.getJSON('/json/profiles/view/' + profileId, function( result ){
     
     console.log('Curriculo carregado, seguem os dados');
     console.log(result);
@@ -433,7 +433,7 @@ function loadProfile(profileId)
 
 function listProfiles(userId)
 {
-	$.getJSON('/api/profiles/listByUser/' + userId, function( result ){
+	$.getJSON('/json/profiles/listByUser/' + userId, function( result ){
     	
     	var total = result.total;
 

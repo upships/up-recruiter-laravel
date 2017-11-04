@@ -13,7 +13,7 @@
 
 Auth::routes();
 
-Route::group(['prefix' => 'api', 'middleware' => 'auth'], function()	{
+Route::group(['prefix' => 'json', 'middleware' => 'auth'], function()	{
 
 	/**
 	 *	Company data (API)

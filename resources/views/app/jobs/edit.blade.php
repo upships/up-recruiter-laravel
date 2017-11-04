@@ -546,7 +546,7 @@ Editar vaga {{$job->position->label}}
         var item_id = this['job'][list][key]['id'];
         var self = this;
 
-        axios.delete('/api/job_property/' + property + '/' + item_id).then( function()  {
+        axios.delete('/json/job_property/' + property + '/' + item_id).then( function()  {
 
           Vue.delete(self['job'][list], key);
 
@@ -561,7 +561,7 @@ Editar vaga {{$job->position->label}}
           var data = { ship_type_id: this.new_property.ship_type.id, job_id: this.job_id, months: this.new_property.ship_type.months };
           var self = this;
 
-          axios.post('/api/job_property/' + self.job_id + '/ship_type', data).then( function(response)  {
+          axios.post('/json/job_property/' + self.job_id + '/ship_type', data).then( function(response)  {
 
             self.job.ship_types.push(response.data);
 
@@ -583,7 +583,7 @@ Editar vaga {{$job->position->label}}
           var data = { language_id: this.new_property.language.id, job_id: this.job_id, level: this.new_property.language.level };
           var self = this;
 
-          axios.post('/api/job_property/' + self.job_id + '/language', data).then( function(response)  {
+          axios.post('/json/job_property/' + self.job_id + '/language', data).then( function(response)  {
 
             self.job.languages.push(response.data);
 
@@ -605,7 +605,7 @@ Editar vaga {{$job->position->label}}
           var data = { value: this.new_property.experience, job_id: this.job_id};
           var self = this;
 
-          axios.post('/api/job_property/' + self.job_id + '/experience', data).then( function(response)  {
+          axios.post('/json/job_property/' + self.job_id + '/experience', data).then( function(response)  {
 
             self.job.experiences.push(response.data);
 
@@ -626,7 +626,7 @@ Editar vaga {{$job->position->label}}
           var data = { value: this.new_property.requirement, job_id: this.job_id};
           var self = this;
 
-          axios.post('/api/job_property/' + self.job_id + '/requirement', data).then( function(response)  {
+          axios.post('/json/job_property/' + self.job_id + '/requirement', data).then( function(response)  {
 
             self.job.requirements.push(response.data);
 
@@ -647,7 +647,7 @@ Editar vaga {{$job->position->label}}
           var data = { certificate_type_id: this.new_property.certificate_type.id, job_id: this.job_id};
           var self = this;
 
-          axios.post('/api/job_property/' + self.job_id + '/certificate_type', data).then( function(response)  {
+          axios.post('/json/job_property/' + self.job_id + '/certificate_type', data).then( function(response)  {
 
             self.job.certificate_types.push(response.data);
             self.new_property.certificate_type.id = null;
@@ -667,7 +667,7 @@ Editar vaga {{$job->position->label}}
           var data = { seaman_book_type_id: this.new_property.seaman_book_type.id, job_id: this.job_id };
           var self = this;
 
-          axios.post('/api/job_property/' + self.job_id + '/seaman_book_type', data).then( function(response)  {
+          axios.post('/json/job_property/' + self.job_id + '/seaman_book_type', data).then( function(response)  {
 
             self.job.seaman_book_types.push(response.data);
             self.new_property.seaman_book_type.id = null;
@@ -687,7 +687,7 @@ Editar vaga {{$job->position->label}}
           var data = { stcw_regulation_id: this.new_property.stcw_regulation.id, job_id: this.job_id};
           var self = this;
 
-          axios.post('/api/job_property/' + self.job_id + '/stcw_regulation', data).then( function(response)  {
+          axios.post('/json/job_property/' + self.job_id + '/stcw_regulation', data).then( function(response)  {
 
             self.job.stcw_regulations.push(response.data);
 
@@ -709,7 +709,7 @@ Editar vaga {{$job->position->label}}
           var data = { value: this.new_property.benefit, job_id: this.job_id};
           var self = this;
 
-          axios.post('/api/job_property/' + self.job_id + '/benefit', data).then( function(response)  {
+          axios.post('/json/job_property/' + self.job_id + '/benefit', data).then( function(response)  {
 
             self.job.benefits.push(response.data);
 
@@ -728,13 +728,13 @@ Editar vaga {{$job->position->label}}
 
       var self = this;
 
-      axios.get('/api/job/' + self.job_id).then(  function(response)  {
+      axios.get('/json/job/' + self.job_id).then(  function(response)  {
 
         self.job = response.data;
 
       });
 
-      axios.get('/api/job_data').then(  function(response)  {
+      axios.get('/json/job_data').then(  function(response)  {
 
         self.data = response.data;
 

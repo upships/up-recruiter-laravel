@@ -59,7 +59,7 @@
 
             const self = this;
 
-            axios.get('/api/job').then( function(response) {
+            axios.get('/json/job').then( function(response) {
 
                 self.jobs.list = response.data;
                 self.jobs.loaded = true;

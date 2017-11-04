@@ -330,7 +330,7 @@ function loadProfile(profileId)
 {
 	console.log('Carregando currículo ' + profileId);
   	
-  	$.getJSON('/api/profiles/view/' + profileId, function( result ){
+  	$.getJSON('/json/profiles/view/' + profileId, function( result ){
     
     console.log('Curriculo carregado, seguem os dados');
     console.log(result);

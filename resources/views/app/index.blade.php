@@ -218,13 +218,13 @@
 
             const self = this;
 
-            axios.get('/api/job').then( function(response) {
+            axios.get('/json/job').then( function(response) {
 
                 self.jobs.list = response.data;
                 self.jobs.loaded = true;
             });
 
-            axios.get('/api/selection').then( function(response) {
+            axios.get('/json/selection').then( function(response) {
 
                 self.selections.list = response.data;
                 self.selections.loaded = true;
