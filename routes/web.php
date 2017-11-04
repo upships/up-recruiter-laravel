@@ -26,6 +26,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function()	{
 
 	Route::get('company/careers', 'Company\CareerController@show');
 	Route::patch('company/careers', 'Company\CareerController@update');
+	Route::post('company/careers/image', 'Company\CareerController@upload_image');
+	Route::delete('company/careers/image', 'Company\CareerController@destroy_image');
 
 	/**
 	 *	Crews (API)

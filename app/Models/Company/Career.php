@@ -3,21 +3,31 @@
 namespace App\Models\Company;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Career extends Model
 {
 	protected $casts = [
 
 		'settings' => 'array',
-		'menu' => 'array',
-		'content' => 'array'
+		'menus' => 'array',
+		'content' => 'array',
+		'images' => 'array',
+		'slides' => 'array',
 	];
 
-	protected $fillable = ['menu', 'settings', 'content'];
+	protected $appends = ['image_path'];
+
+	protected $fillable = ['menus', 'settings', 'content', 'images', 'slides'];
 
     public function company()    {
 
         return $this->belongsTo('App\Models\Company');
+    }
+
+    public function getImagePathAttribute()	{
+
+    	return Storage::url('');
     }
 
 }

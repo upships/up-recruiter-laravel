@@ -18,6 +18,12 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="#" data-toggle="tab" role="tab" data-target="#tab-slides"> 
+                        Slides
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="#" data-toggle="tab" role="tab" data-target="#tab-images">
                         Images
                     </a>
@@ -40,6 +46,10 @@
 
                 <div id="tab-content" class="tab-pane active">
                     @include('app.company.careers.tabs.content')
+                </div>
+
+                <div id="tab-slides" class="tab-pane">
+                    @include('app.company.careers.tabs.slides')
                 </div>
 
                 <div id="tab-images" class="tab-pane">
@@ -70,20 +80,30 @@
 
         data: {
 
+            image_path: null,
+
             page: {
-                menu: [],
+                menus: [],
                 settings: [],
-                content: []
+                content: [],
+                images: [],
+                slides: []
             },
 
-            new_data:   {
+            new_data: null,
 
-                menu: {
-                    link: null,
-                    label: null,
-                    has_changes: false,
-                },
-            }
+            text_editor_settings: {
+                        
+                        btns: [
+                            
+                            ['undo', 'redo'],
+                            ['formatting'],
+                            ['strong', 'em', 'del'],
+                            ['link'],
+                            ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+                            ['unorderedList', 'orderedList'],
+                        ]
+                }
         },
 
         beforeMount: function() {
@@ -92,10 +112,21 @@
 
             axios.get('/api/company/careers').then(function(response)    {
 
-                if(response.data.menu)  {
-
-                    vm.page.menu = response.data.menu;
+                if(response.data.menus)    {
+                    
+                    vm.page.menus = response.data.menus;
                 }
+
+                if(response.data.slides)    {
+
+                    vm.page.slides = response.data.slides;
+                }
+
+                if(response.data.images)    {
+                    
+                    vm.page.images = response.data.images;
+                }
+                
                 
                 if(response.data.settings)    {
 
@@ -107,31 +138,21 @@
                     vm.page.content = response.data.content;
                 }
 
+                vm.image_path = response.data.image_path;
             });
+
+            this.resetSchema();
         },
 
         methods: {
 
             addItem: function(type) {
 
-                var element = {};
-
-                switch(type)    {
-
-                    case 'menu':
-
-                        element = {
-                            link: this.new_data.menu.link,
-                            label: this.new_data.menu.label,
-                        }
-
-                        this.new_data.menu.link = null;
-                        this.new_data.menu.label = null;
-
-                    break;
-                }
+                var element = this['new_data'][type];
 
                 this['page'][type].push(element);
+
+                this.resetSchema();
 
                 this.update(type);
             },
@@ -141,6 +162,22 @@
                 Vue.delete(this['page'][type], key);
 
                 this['new_data'][type]['has_changes'] = true;
+            },
+
+            deleteImage: function(key) {
+
+                var image = this['page']['images'][key];
+                var data = {params: {file: image.file}};
+                var vm = this;
+
+                // Send order to delete file
+                axios.delete('/api/company/careers/image', data).then(function(response)    {
+
+                    vm.deleteItem('images', key);
+
+                    vm.update('images');
+
+                });
             },
 
             update: function(type)  {
@@ -157,7 +194,6 @@
                 });
 
             },
-
 
             moveItem: function (type, direction , key)  {
 
@@ -195,7 +231,119 @@
                     // Signal that there are changes to be saved
                     this['new_data'][type]['has_changes'] = true;
                 }
-            }
+            },
+
+            onFileChange: function(e) {
+                
+                let files = e.target.files || e.dataTransfer.files;
+                
+                if (!files.length) return;
+
+                this.createImage(files[0]);
+            },
+
+            createImage: function(file) {
+                
+                let reader = new FileReader();
+                let vm = this;
+                reader.onload = (e) => {
+                    
+                    vm.new_data.images.file = e.target.result;
+                };
+
+                reader.readAsDataURL(file);
+            },
+
+            upload: function(){
+                
+                let vm = this;
+
+                axios.post('/api/company/careers/image', this.new_data.images).then( function(response) {
+
+                    let thisImage = {file: response.data.file, caption: response.data.caption};
+
+                    vm.new_data.images = {file: null, captio: null, has_changes: false};
+                    
+                    vm.page.images.push(thisImage);
+
+                    vm.update('images');
+                });
+            },
+
+            addContentImage: function() {
+
+                this.new_data.content.images.push(this.new_data.content_image);
+
+                this.resetSchema('content_image');
+            },
+
+            resetSchema: function(type) {
+
+                var schema = {
+
+                                menus: {
+                                    link: null,
+                                    label: null,
+                                    has_changes: false,
+                                },
+
+                                images: {
+
+                                    file: null,
+                                    caption: null,
+                                    has_changes: false,
+                                },
+
+                                content: {
+
+                                    type: null,
+                                    title: null,
+                                    subtitle: null,
+                                    text: null,
+                                    background: {
+                                        file: null,
+                                        opacity: null,
+                                    },
+
+                                    images: [],
+
+                                    has_changes: false,
+                                },
+
+                                content_image: {
+                                    file: null,
+                                    caption: null,
+                                },
+
+                                slides:     {
+
+                                    title: null,
+                                    subtitle: null,
+                                    text: null,
+
+                                    button: {
+                                        text: null,
+                                        link: null,
+                                    },
+
+                                    background: {
+                                        file: null,
+                                        opacity: null,
+                                    },
+
+                                    has_changes: false,
+                                }
+                            };
+
+                if(type)    {
+
+                    this['new_data'][type] = schema[type];
+                }
+                else {
+
+                    this.new_data = schema;
+                }
+            },
 
 
         },

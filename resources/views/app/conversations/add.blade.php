@@ -87,11 +87,12 @@
 		    data: {
 
 		    	message: null,
+		    	
 		    	config: {
 						
 						btns: [
 					        
-					        ['undo', 'redo'], // Only supported in Blink browsers
+					        ['undo', 'redo'],
 					        ['formatting'],
 					        ['strong', 'em', 'del'],
 					        ['link'],

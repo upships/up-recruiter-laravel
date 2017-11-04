@@ -23,7 +23,7 @@ class CreateCareersTable extends Migration
             $table->json('content')->nullable();
             $table->json('slides')->nullable();
             $table->json('images')->nullable();
-            $table->json('menu')->nullable();
+            $table->json('menus')->nullable();
             $table->json('settings')->nullable();
 
         });
