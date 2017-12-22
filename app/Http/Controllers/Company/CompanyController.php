@@ -63,6 +63,22 @@ class CompanyController extends Controller
             }
         }
 
+        if(request('favicon_file')) {
+
+            // Upload file
+            $path = $request->file('favicon_file')->store('public/images');
+
+            if($path) {
+
+                // Dispatch an event with the old file name to delete it if it exists
+                //event(new CertificateFileModified($certificate->file));
+
+                $company->favicon = $path;
+
+                $company->save();
+            }
+        }
+
         if(request('logo_white_file')) {
 
             // Upload file

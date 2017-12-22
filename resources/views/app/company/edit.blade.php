@@ -12,7 +12,7 @@
   		<div class="card-block">
 
 			<form method="post" action="/company" role="form" enctype="multipart/form-data" >
-				
+
 				{{csrf_field()}}
 
 				{{method_field('PATCH')}}
@@ -37,7 +37,12 @@
 					<input type="file" class="form-control" name="logo_white_file" />
 				</div>
 
-				<div class="my-2 d-flex justify-content-between">
+        <div class="form-group" >
+					<label for="favicon_file" >Favicon</label>
+					<input type="file" class="form-control" name="favicon_file" />
+				</div>
+
+				<div class="my-3 d-flex justify-content-between">
 					<div>
 						<button type="submit" class="btn btn-success">
 							<i class="fa fa-save" ></i> Save changes

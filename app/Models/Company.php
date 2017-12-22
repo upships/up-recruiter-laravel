@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 class Company extends Model
 {
     protected $fillable = ['name', 'url', 'logo', 'company_type_id', 'description', 'careers_link'];
-    protected $appends = ['logo_path', 'careers_url', 'other_phones', 'other_emails'];
+    protected $appends = ['logo_path', 'logo_url', 'favicon_url' , 'careers_url', 'other_phones', 'other_emails'];
 
     public function recruiters()	{
 
@@ -111,5 +111,27 @@ class Company extends Model
         }
 
         return $url;
+    }
+
+    public function getFaviconPathAttribute()  {
+
+        if($this->favicon)    {
+
+            $url = Storage::url($this->favicon);
+        }
+        else {
+
+            $url = 'https://placehold.it/100x100';
+        }
+
+        return $url;
+    }
+
+    public function getLogoUrlAttribute() {
+      return url($this->logo_path);
+    }
+
+    public function getFaviconUrlAttribute()  {
+      return url($this->favicon_path);
     }
 }

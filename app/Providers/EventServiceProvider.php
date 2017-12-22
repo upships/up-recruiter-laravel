@@ -19,7 +19,8 @@ class EventServiceProvider extends ServiceProvider
 
         'App\Events\UserAddedToCompany' => ['App\Listeners\AddRecruiter'],
         'App\Events\UserRemovedFromCompany' => ['App\Listeners\RemoveRecruiter'],
-        'Illuminate\Auth\Events\Registered' => ['App\Listeners\RegisterLoggedUserCompany'],
+
+        //'Illuminate\Auth\Events\Authenticated' => ['App\Listeners\RegisterLoggedUserCompany'],
 
         'App\Events\ConversationMessageSent' => ['App\Listeners\SendConversationMessageEmail'],
 

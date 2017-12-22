@@ -7,8 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Job extends Model
 {
     protected $fillable = ['position_id', 'ship_type_id', 'instructions', 'status', 'step', 'expires_at', 'description', 'rotation', 'slug', 'salary', 'visibility', 'vacancies'];
-    
-    protected $appends = ['date', 'elapsed_time', 'visibility_label', 'status_label', 'expiration_date', 'full_expiration_date', 'filters'];
+
+    protected $appends = ['date', 'elapsed_time', 'visibility_label', 'status_label', 'expiration_date', 'full_expiration_date', 'filters', 'identifier'];
+
+    public function getRouteKeyName() {
+
+        return 'slug';
+    }
 
     public function getSlug()   {
 
@@ -67,7 +72,7 @@ class Job extends Model
 
         return $this->hasMany('App\Models\Job\JobShipType');
     }
-    
+
     public function experiences()	{
 
     	return $this->hasMany('App\Models\Job\JobExperience');
@@ -200,7 +205,7 @@ class Job extends Model
 
         // Seaman book types
         if(count($this->seaman_book_types) > 0) {
-        
+
             $filters[] = [
                             'name' => 'seaman_book_types',
                             'label' => 'Seaman Book Types',
@@ -215,7 +220,7 @@ class Job extends Model
 
         // STCW Regulations
         if(count($this->stcw_regulations) > 0) {
-        
+
             $filters[] = [
                             'name' => 'stcw_regulations',
                             'label' => 'STCW Regulations',
@@ -230,7 +235,7 @@ class Job extends Model
 
         // Ship types
         if(count($this->ship_types) > 0) {
-        
+
             $filters[] = [
                             'name' => 'ship_types',
                             'label' => 'Ship Types',
@@ -245,7 +250,7 @@ class Job extends Model
 
         // Certificate Types
         if(count($this->certificate_types) > 0) {
-        
+
             $filters[] = [
                             'name' => 'certificate_types',
                             'label' => 'Certificates',
@@ -260,14 +265,14 @@ class Job extends Model
 
         // Languages
         if(count($this->languages) > 0) {
-        
+
             $filters[] = [
                             'name' => 'languages',
                             'label' => 'Languages',
                             'type' => 'scale',
                             'condition' => 'and',
                             'values' => $this->languages()->get()->map( function($language) {
-                                
+
                                 return ['id' => $language->language->id, 'label' => $language->language->label, 'scale' => $language->level];
                             })
 
@@ -276,5 +281,10 @@ class Job extends Model
 
         return $filters;
 
+    }
+
+    function getIdentifierAttribute() {
+
+        return $this->getSlug();
     }
 }

@@ -36,14 +36,15 @@
     <body class="fixed-header menu-pin menu-behind">
         <div class="register-container full-height sm-p-t-30">
           <div class="d-flex justify-content-center flex-column full-height ">
-            <img src="/images/logo.png" alt="logo" data-src="/images/logo.png" data-src-retina="/images/logo_2x.png" width="78" height="22">
-            
+
+            <img src="/images/text.png" alt="logo" data-src="/images/text.png" data-src-retina="/images/text_retina.png" width="150" >
+
             <p>
                 Your account will be validated by an administrator
             </p>
-            
+
             <form class="form-horizontal p-t-15" method="POST" action="{{ route('register') }}">
-                
+
                 {{ csrf_field() }}
 
                 <div class="row my-2">
@@ -60,7 +61,7 @@
                         @endif
                     </div>
                 </div>
-                
+
                 <div class="row my-2">
                     <div class="col">
                         <div class="form-group form-group-default">
@@ -107,7 +108,7 @@
             </form>
           </div>
         </div>
-    
+
         <!-- BEGIN VENDOR JS -->
         <script src="/theme/assets/plugins/pace/pace.min.js" type="text/javascript"></script>
         <script src="/theme/assets/plugins/jquery/jquery-1.11.1.min.js" type="text/javascript"></script>

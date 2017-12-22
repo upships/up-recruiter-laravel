@@ -8,14 +8,14 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    
+
     <link rel="icon" type="image/png" href="/images/logos/icon60.png">
 
     <link rel="apple-touch-icon" href="/images/logos/icon60.png">
     <link rel="apple-touch-icon" sizes="76x76" href="/images/logos/icon76.png">
     <link rel="apple-touch-icon" sizes="120x120" href="/images/logos/icon120.png">
     <link rel="apple-touch-icon" sizes="152x152" href="/images/logos/icon152.png">
-   
+
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-touch-fullscreen" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -58,14 +58,14 @@
             <!-- END Background Caption-->
             </div>
             <!-- END Login Background Pic Wrapper-->
-            
+
             <!-- START Login Right Container-->
             <div class="login-container bg-white">
                 <div class="p-l-50 m-l-20 p-r-50 m-r-20 p-t-50 m-t-30 sm-p-l-15 sm-p-r-15 sm-p-t-40">
                     <a href="/">
-                        <img src="/images/logos/text.png" alt="logo" data-src="/images/logos/text.png" data-src-retina="/images/logos/retina.png" height="22">
+                        <img src="/images/text.png" alt="logo" data-src="/images/text.png" data-src-retina="/images/text_retina.png" width="100">
                     </a>
-                  
+
                     <h3 class="p-t-35">Sign into your account</h3>
 
                     <form class="p-t-15" method="POST" action="{{ route('login') }}">
@@ -122,7 +122,7 @@
                 </div>
             </div>
         </div>
-    
+
     <!-- BEGIN VENDOR JS -->
     <script src="/theme/assets/plugins/pace/pace.min.js" type="text/javascript"></script>
     <script src="/theme/assets/plugins/jquery/jquery-1.11.1.min.js" type="text/javascript"></script>
