@@ -13,11 +13,11 @@ class JobController extends Controller
 
     public function index(Company $company)	{
 
-      return response()->json($company->jobs->load(['position']));
+      return response()->json($company->jobs->load('position'));
     }
 
     public function show(Job $job)	{
 
-    	return response()->json($job);
+    	return response()->json($job->load('position', 'ship_type'));
     }
 }

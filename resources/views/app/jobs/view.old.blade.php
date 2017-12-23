@@ -115,11 +115,11 @@
 			
 				<ul class="list-inline">
 					<li>
-						<a href="/job/{{$job->id}}/conclude" class="btn btn-success btn-fill" ><i class='fa fa-check' ></i> Iniciar processo seletivo</a>
+						<a href="/job/{{$job->identifier}}/conclude" class="btn btn-success btn-fill" ><i class='fa fa-check' ></i> Iniciar processo seletivo</a>
 					</li>
 
 					<li class="hidden-sm hidden-xs">
-						<a href="/job/{{$job->id}}/share/" class="btn btn-primary" ><i class='fa fa-share' ></i> Compartilhar</a>
+						<a href="/job/{{$job->identifier}}/share/" class="btn btn-primary" ><i class='fa fa-share' ></i> Compartilhar</a>
 					</li>
 
 					<li>
@@ -129,7 +129,7 @@
 					</li>
 
 					<li class="float-right">
-						<a href="/job/{{$job->id}}/edit" class="btn btn-default btn-fill" ><i class='fa fa-pencil-square-o' ></i> Editar</a>
+						<a href="/job/{{$job->identifier}}/edit" class="btn btn-default btn-fill" ><i class='fa fa-pencil-square-o' ></i> Editar</a>
 					</li>
 					
 					<li class="clearfix"></li>
@@ -435,11 +435,11 @@
 
 				<ul class="list-inline">
 					<li>
-						<a href="/job/disable/{{$job->id}}" class="btn btn-warning" ><i class='fa fa-eye-slash' ></i> Desativar</a>
+						<a href="/job/disable/{{$job->identifier}}" class="btn btn-warning" ><i class='fa fa-eye-slash' ></i> Desativar</a>
 					</li>
 					
 					<li class="float-right">
-						<a href="#delete" onclick="deleteJob({{$job->id}},true)" class="btn btn-danger" ><i class='fa fa-times' ></i> Excluir</a>
+						<a href="#delete" onclick="deleteJob({{$job->identifier}},true)" class="btn btn-danger" ><i class='fa fa-times' ></i> Excluir</a>
 					</li>
 				</ul>
 			</div>

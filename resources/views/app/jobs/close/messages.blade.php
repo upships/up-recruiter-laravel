@@ -1,5 +1,5 @@
 <form method="post" action="/job/concludeMessagesAction" >
-	<input type="hidden" name="jobId" value="{{$job->id}}">
+	<input type="hidden" name="jobId" value="{{$job->identifier}}">
 	<input type="hidden" name="companyName" value="{companyName}">
 	<input type="hidden" name="companyEmail" value="{companyEmail}">
 	<input type="hidden" name="jobPositionLabel" value="{$job->position->label}">

@@ -3,7 +3,7 @@
 
 @section('content')
 
-<form method="post" action="/job/{{$job->id}}/close" >
+<form method="post" action="/job/{{$job->identifier}}/close" >
 
 	{{csrf_field()}}
 	{{method_field('PATCH')}}
@@ -23,7 +23,7 @@
 						</li>
 
 						<li class="list-inline-item float-right">
-							<a href="/job/{{$job->id}}" class="btn btn-default btn-lg btn-fill" ><i class='fa fa-undo' ></i> Cancelar</a>
+							<a href="/job/{{$job->identifier}}" class="btn btn-default btn-lg btn-fill" ><i class='fa fa-undo' ></i> Cancelar</a>
 						</li>
 
 					</ul>
@@ -42,7 +42,7 @@
 				<div class="card-header">
 					<div class="card-title" >Mensagem aos selecionados</div>
 				</div>
-				<div class="card-block">	
+				<div class="card-block">
 					<div class="form-group">
 						<label for="qualified_subject" >Assunto</label>
 						<input type="text" id="qualified_subject" class="form-control" placeholder="Insira um assunto" value="Atualização sobre candidatura" name="qualified[message][subject]" >
@@ -58,7 +58,7 @@
 			<div class="card card-default">
 
 				<div class="list-group list-group-flush">
-					
+
 					<div class="list-group-item flex-column align-items-start" v-for="application in qualifiedApplications" >
 						<input type="hidden" name="qualified[applications][]" :value="application.id" checked="checked">
 
@@ -70,11 +70,11 @@
 
 	                	<span>@{{application.profile.position.label}}</span>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="col">
 
 			<h3><i class="fa fa-times text-danger"></i> Candidatos eliminados</h3>
@@ -103,7 +103,7 @@
 					<div class="list-group-item flex-column align-items-start" v-for="application in eliminatedApplications" >
 
 						<input type="hidden" name="eliminated[applications][]" :value="application.id" checked="checked">
-	                	
+
 	                	<h5 class="">
 	                		<a :href="'/profile/' + application.profile.id" target="_blank" class="text-danger" >
 	                			@{{application.profile.name}}
@@ -111,7 +111,7 @@
 	                	</h5>
 
 			            <span>@{{application.profile.position.label}}</span>
-			            
+
 					</div>
 
 				</div>
@@ -127,7 +127,7 @@
 <script>
 
 	$(document).ready(function() {
-			
+
 			new Vue({
 
 		    el: '#up-app',
@@ -135,7 +135,7 @@
 
 		    	applications: [],
 
-		        job_id: {{$job->id}},
+		        job_id: '{{$job->identifier}}',
 		    },
 
 		    computed: {
@@ -167,7 +167,7 @@
 		    			}
 
 		    		});
-		    		
+
 		    	},
 		    },
 

@@ -19,4 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/company/{company}', 'Api\CompanyController@show');
 Route::get('/company/{company}/jobs', 'Api\JobController@index');
-Route::get('/jobs/{job}', 'Api\JobController@show');
+Route::get('/job/{job}', 'Api\JobController@show');

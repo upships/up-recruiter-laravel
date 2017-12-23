@@ -5,7 +5,7 @@ Editar vaga {{$job->position->label}}
 
 @section('content')
 
-  <form method="post" action="/job/{{$job->id}}" >
+  <form method="post" action="/job/{{$job->identifier}}" >
     
     {{method_field('PATCH')}}
     {{csrf_field()}}
@@ -39,7 +39,7 @@ Editar vaga {{$job->position->label}}
               </li>
 
               <li class="list-inline-item float-right" >
-                <a href="/job/{{$job->id}}" class="btn btn-default" ><i class="fa fa-times"></i> Cancelar</a>
+                <a href="/job/{{$job->identifier}}" class="btn btn-default" ><i class="fa fa-times"></i> Cancelar</a>
               </li>
 
               <!-- <li class="list-inline-item float-right" >
@@ -468,7 +468,7 @@ Editar vaga {{$job->position->label}}
               </li>
 
               <li class="list-inline-item float-right" >
-                <a href="/job/{{$job->id}}" class="btn btn-default" ><i class="fa fa-times"></i> Cancelar</a>
+                <a href="/job/{{$job->identifier}}" class="btn btn-default" ><i class="fa fa-times"></i> Cancelar</a>
               </li>
             </ul>
 
@@ -503,7 +503,7 @@ Editar vaga {{$job->position->label}}
       
       job: [],
 
-      job_id: {{$job->id}},
+      job_id: '{{$job->identifier}}',
 
       new_property: {
 

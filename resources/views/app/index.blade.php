@@ -21,7 +21,7 @@
 
             <div class="card card-default">
                 <div class="card-block">
-                    
+
                     <h3>Vagas em aberto</h3>
 
                     <div class="" v-if="!jobs.loaded" >
@@ -30,11 +30,11 @@
                     <div v-else>
 
                         <div v-if="jobs.list.length > 0">
-                            
+
                             <div class="card card-default" v-for="job in jobs.list">
                                 <div class="card-block">
                                     <h4>
-                                        <a :href='"/job/" + job.id' >@{{job.position.label}}</a>
+                                        <a :href='"/job/" + job.identifier' >@{{job.position.label}}</a>
                                     </h4>
                                     <ul class='list-inline' >
                                         <li class="list-inline-item" >
@@ -43,17 +43,17 @@
                                         <li class="list-inline-item" >
                                             <i class='fa fa-users' ></i> @{{job.applications_count}} candidatos
                                         </li>
-                                    
+
                                     </ul>
                                     <ul class='list-inline' >
                                         <li class="list-inline-item" >
-                                            <a :href='"/job/" + job.id + "/close"' class="btn btn-success btn-xs" >
+                                            <a :href='"/job/" + job.identifier + "/close"' class="btn btn-success btn-xs" >
                                                 <i class='fa fa-check' ></i> Iniciar sele&ccedil;&atilde;o
                                             </a>
                                         </li>
 
                                         <li class="list-inline-item" >
-                                            <a :href='"/job/" + job.id + "/share"' class="btn btn-primary btn-xs" >
+                                            <a :href='"/job/" + job.identifier + "/share"' class="btn btn-primary btn-xs" >
                                                 <i class='fa fa-linkedin-square' ></i> Compartilhar
                                             </a>
                                         </li>
@@ -63,11 +63,11 @@
                                                     Mais
                                                 </button>
                                                 <div class="dropdown-menu">
-                                                    <a class="dropdown-item" :href='"/job/" + job.id + "/edit"'>Editar</a>
+                                                    <a class="dropdown-item" :href='"/job/" + job.identifier + "/edit"'>Editar</a>
                                                 </div>
                                             </div>
                                         </li>
-                                    </ul>    
+                                    </ul>
 
                                 </div>
                             </div>
@@ -102,7 +102,7 @@
                               @endforeach
                             </select>
                         </div>
-                            
+
                         <div class="form-group" >
                             <label for='ship_type_id'>Embarca&ccedil;&atilde;o</label>
                             <select class="full-width select2" name="ship_type_id" data-placeholder="Selecione uma função" required='required' >
@@ -112,7 +112,7 @@
                               @endforeach
                             </select>
                         </div>
-                            
+
                         <div class="form-group" >
                           <label for="privacy" >Privacidade da vaga</label>
                           <select class="form-control" name="privacy" >
@@ -136,7 +136,7 @@
                     </h3>
                 </div>
                 <div class="card-block">
-                    
+
                     <div class="" v-if="!selections.loaded" >
                         <i class='fa fa-spinner fa-spin' ></i> Carregando &uacute;ltimas vagas
                     </div>
@@ -150,7 +150,7 @@
                                     <ul class="list-inline m-b-10">
                                         <li><i class="fa fa-clock-o"></i> Em @{{selection.date}}</li>
                                         <li><i class="fa fa-users"></i> @{{selection.applications_count}} candidatos no processo</li>
-                                    </ul>  
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -162,17 +162,17 @@
 
                     </div>
                 </div>
-            </div>  
-        </div>    
+            </div>
+        </div>
     </div>
 
     <div class="row">
         <div class="col-lg-6 col-md-6">
             <h3>Adicionar recrutador</h3>
             <form method="post" action="/company/recruiter" >
-                
+
                 {{csrf_field()}}
-                
+
                 <div class="row">
                     <div class="col-lg-8 col-md-8 col-sm-" >
                         <div class="form-group" >

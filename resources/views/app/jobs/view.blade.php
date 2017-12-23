@@ -12,7 +12,7 @@
 				<div class="card-block">
 
 					<h3>
-						{{$job->position->label}} 
+						{{$job->position->label}}
 					</h3>
 
 					<div class="row">
@@ -48,11 +48,11 @@
 				<div class="card-footer">
 					<ul class="list-inline my-2">
 						<li class="list-inline-item">
-							<a href="/job/{{$job->id}}/close" class="btn btn-success" >Encerrar vaga</a>
+							<a href="/job/{{$job->identifier}}/close" class="btn btn-success" >Encerrar vaga</a>
 						</li>
 
 						<li class="list-inline-item">
-							<a href="/job/{{$job->id}}/edit" class="btn btn-default" >Editar</a>
+							<a href="/job/{{$job->identifier}}/edit" class="btn btn-default" >Editar</a>
 						</li>
 
 						<li class="list-inline-item float-right">
@@ -62,7 +62,7 @@
 						</li>
 					</ul>
 				</div>
-				
+
 			</div>
 
 			<div class="card card-borderless">
@@ -74,7 +74,7 @@
 			          <a href="#" data-toggle="tab" role="tab" data-target="#tab-job-info">Dados da vaga</a>
 			        </li>
 			    </ul>
-		    	
+
 		    	<div class="tab-content">
 		        	<div class="tab-pane active" id="tab-candidates">
 
@@ -97,7 +97,7 @@
 								</div>
 
 								<div v-if="filters.length > 0" >
-									
+
 									<div class="card card-default" v-for="(filter, key) in filters" >
 										<div class="list-group list-group-flush">
 											<div class="list-group-item">
@@ -114,7 +114,7 @@
 							</div>
 							<div class="col">
 								<h3>
-				            		Candidatos 
+				            		Candidatos
 				            		<span class="badge badge-secondary">@{{visibleApplications.length}}</span>
 				          		</h3>
 
@@ -171,7 +171,7 @@
 
 			        	<div class="row">
 							<div class="col-lg-6 col-md-6">
-								
+
 								<h4>Requisitos</h4>
 
 								<div class="card card-default m-b-10">
@@ -182,7 +182,7 @@
 											<h5>Categorias CIR</h5>
 
 											<ul class="list-inline">
-												@foreach($job->seaman_book_types as $job_seaman_book_type) 
+												@foreach($job->seaman_book_types as $job_seaman_book_type)
 													<li>
 														<button class="btn btn-default btn-sm">{{$job_seaman_book_type->seaman_book_type->label}}</button>
 													</li>
@@ -233,9 +233,9 @@
 									@if($job->experiences)
 
 										<div class="card-block">
-											
+
 											<h5>Outras experi&ecirc;ncias</h5>
-											
+
 											<ul>
 											@foreach($job->experiences as $experience)
 												<li>{{$experience->value}}</li>
@@ -263,9 +263,9 @@
 
 										<div class="card-block">
 											<h5 class="">Idiomas</h4>
-											
+
 											<ul>
-												@foreach($job->languages as $language) 
+												@foreach($job->languages as $language)
 													<li>
 														{{$language->language->label}}: {{$language->level_label}}
 													</li>
@@ -295,7 +295,7 @@
 								<div class="card card-default">
 									<div class="card-block">
 										<h4>Informa&ccedil;&otilde;es extras</h4>
-										
+
 										{{$job->extra}}
 
 									</div>
@@ -306,7 +306,7 @@
 								<div class="card card-default">
 									<div class="card-block">
 										<h4>N&uacute;mero de vagas</h4>
-										
+
 										{{$job->vacancies}}
 
 									</div>
@@ -317,7 +317,7 @@
 								<div class="card card-default">
 									<div class="card-block">
 										<h4>Local</h4>
-										
+
 										{{$job->location}}
 									</div>
 								</div>
@@ -327,22 +327,22 @@
 								<div class="card card-default">
 									<div class="card-block">
 										<h4>Remunera&ccedil;&atilde;o</h4>
-										
+
 										{{$job->salary}}
 									</div>
 								</div>
 								@endif
-								
+
 							</div>
 						</div>
 
 						<ul class="list-inline">
 							<li class="list-inline-item" >
-								<a href="/job/disable/{{$job->id}}" class="btn btn-warning" ><i class='fa fa-eye-slash' ></i> Desativar</a>
+								<a href="/job/disable/{{$job->identifier}}" class="btn btn-warning" ><i class='fa fa-eye-slash' ></i> Desativar</a>
 							</li>
-							
+
 							<li class="list-inline-item float-right">
-								<a href="#delete" onclick="deleteJob({{$job->id}},true)" class="btn btn-danger" ><i class='fa fa-times' ></i> Excluir</a>
+								<a href="#delete" onclick="deleteJob({{$job->identifier}},true)" class="btn btn-danger" ><i class='fa fa-times' ></i> Excluir</a>
 							</li>
 						</ul>
 					</div>
@@ -359,8 +359,8 @@
 
 
 
-<script>			
-	
+<script>
+
 	new Vue({
 
 	    el: '#up-app',
@@ -403,10 +403,10 @@
 	        				// 	items: {}
 	        				// },
 	        			},
-	        
+
 	        job: [],
 
-	        job_id: {{$job->id}},
+	        job_id: '{{$job->identifier}}',
 	    },
 
 	    watch: {
@@ -425,12 +425,12 @@
 
 	            //         return certificate.label.toLowerCase().indexOf( self.searchParameter.toLowerCase() ) >= 0;
 	            //     }
-	                
+
 	            //     else {
 
 	            //         return certificate;
 	            //     }
-	            // }); 
+	            // });
 	        }
 	    },
 
@@ -463,7 +463,7 @@
 	    			}
 
 	    		});
-	    		
+
 	    	},
 
 	        visibleApplications: function()	{
@@ -487,7 +487,7 @@
 
 		        	});
 	        	}
-	        	
+
 	        	return self.applications;
 	        }
 	    },
@@ -535,7 +535,7 @@
 	            	// 	// Check if item already exists
 
 	            	// var filterItemKey = application.profile.bookCategoryCode;
-	            	
+
 	            	// if(typeof filterItemKey === 'string')	{
 
 		            // 	if( vm.filters.book.findIndex( function(item) {return item === filterItemKey}) < 0)	{
@@ -548,7 +548,7 @@
 		            // }
 
 		            // var filterItemKey = application.profile.profileState;
-	            	
+
 	            	// if(typeof filterItemKey === 'string')	{
 
 		            // 	if( vm.filters.location.findIndex( function(item) {return item === filterItemKey}) < 0)	{
@@ -563,11 +563,11 @@
 		            // // STCW: stcw
 
 	            	// if(typeof application.profile.cocRegulations !== 'undefined')	{
-		            	
+
 		            // 	application.profile.cocRegulations.map( function(regulation) {
 
 			           //  	var filterItemKey = regulation.stcwRegulationCode;
-	            	
+
 			           //  	if(typeof filterItemKey === 'string')	{
 
 				          //   	if( vm.filters.stcw.findIndex( function(item) {return item === filterItemKey}) < 0)	{
@@ -585,7 +585,7 @@
 		            // // Inglês: english
 
 		            // 	var filterItemKey = application.profile.profileEnglishLevel;
-	            	
+
 		            // 	if(typeof filterItemKey === 'string')	{
 
 			           //  	if( vm.filters.english.findIndex( function(item) {return item === filterItemKey}) < 0)	{
@@ -598,7 +598,7 @@
 			           //  }
 
 			        return application;
-	            	
+
 	            	// Embarcação: ship
 
 	            	// if(typeof item.workExperience !== 'undefined')	{
@@ -655,7 +655,7 @@
 
 	    		var vm = this;
 	    		var key = this.applications.findIndex( function(a){ return a.id === application_id });
-	    		
+
 	    		if(key >= 0)	{
 
 	    			var data = {status: status};
