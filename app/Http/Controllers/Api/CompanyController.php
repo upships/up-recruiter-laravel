@@ -9,13 +9,17 @@ use App\Models\Company;
 
 class CompanyController extends Controller
 {
-    
+
     public function index()	{
 
     }
 
     public function show(Company $company)	{
 
-    	return response()->json($company->load(['careers_page']));
+      // Load jobs
+      $company->load(['careers_page']);
+      $company->newest_jobs = \App\Models\Job::where([['company_id', '=', $company->id], ['status', '=', 1]])->orderBy('created_at', 'desc')->take(5)->with('position')->get();
+
+    	return response()->json($company);
     }
 }

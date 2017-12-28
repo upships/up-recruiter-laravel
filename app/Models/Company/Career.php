@@ -16,7 +16,7 @@ class Career extends Model
 		'slides' => 'array',
 	];
 
-	protected $appends = ['image_path'];
+	protected $appends = ['image_path', 'sections'];
 
 	protected $fillable = ['menus', 'settings', 'content', 'images', 'slides'];
 
@@ -29,5 +29,9 @@ class Career extends Model
 
     	return Storage::url('');
     }
+
+		public function getSectionsAttribute()	{
+			return $this->content;
+		}
 
 }

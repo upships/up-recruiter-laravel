@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\Storage;
 class Company extends Model
 {
     protected $fillable = ['name', 'url', 'logo', 'company_type_id', 'description', 'careers_link'];
-    protected $appends = ['logo_path', 'logo_url', 'favicon_url' , 'careers_url', 'other_phones', 'other_emails'];
+
+    protected $appends = ['logo_path', 'logo_url', 'favicon_url' , 'careers_url', 'other_phones', 'other_emails', 'base_url'];
 
     public function recruiters()	{
 
@@ -133,5 +134,9 @@ class Company extends Model
 
     public function getFaviconUrlAttribute()  {
       return url($this->favicon_path);
+    }
+
+    public function getBaseUrlAttribute()  {
+      return url('/');
     }
 }
