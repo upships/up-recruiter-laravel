@@ -7,12 +7,11 @@ use App\Http\Controllers\Controller;
 
 use App\User;
 
-class UserController extends Controller
+class ProfileController extends Controller
 {
 
     public function show(Request $request)	{
 
-      return response()->json($request->user());
-
+      return response()->json($request->user()->profile);
     }
 }

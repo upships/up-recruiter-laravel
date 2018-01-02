@@ -18,20 +18,20 @@ class CreateProfilesTable extends Migration
             $table->timestamps();
 
             $table->integer('user_id');
-            $table->integer('country_of_nationality');
+            $table->integer('country_of_nationality')->nullable();
             $table->integer('education_level_id')->nullable();
-            
-            $table->integer('position_id');
-            $table->integer('profile_type_id');
+
+            $table->integer('position_id')->nullable();
+            $table->integer('profile_type_id')->nullable();
             $table->integer('ship_department_id')->nullable();
 
             $table->integer('gender')->nullable();
-            $table->dateTime('birthday');
+            $table->dateTime('birthday')->nullable();
             $table->integer('marital_status')->nullable();
 
-            $table->string('city');
+            $table->string('city')->nullable();
             $table->string('state')->nullable();
-            $table->integer('country_id');
+            $table->integer('country_id')->nullable();
 
             $table->integer('english_level')->default(0);
             $table->integer('native_language')->nullable();

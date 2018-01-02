@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\User;
+use App\Models\Profile;
 
 class AuthController extends Controller
 {
@@ -23,6 +24,10 @@ class AuthController extends Controller
                             'email' => $request->input('email'),
                             'password' => bcrypt($request->input('password')),
                           ]);
+
+      $profile = Profile::make();
+
+      $user->profile()->save($profile);
 
       return response()->json($user);
     }
