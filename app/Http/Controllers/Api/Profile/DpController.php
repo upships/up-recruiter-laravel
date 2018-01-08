@@ -1,46 +1,30 @@
 <?php
 
-namespace App\Http\Controllers\Profile;
+namespace App\Http\Controllers\Api\Profile;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class ProfileEducationController extends Controller
+use App\Models\Profile\Dp;
+
+class DpController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        $profile = $request->user->profile;
+     public function store(Request $request)
+     {
+         $profile = $request->user()->profile;
+         $dp = Dp::make($request->all());
+         $profile->dp()->save($dp);
 
-        $profile->education()->save($request->all());
+         $profile = $request->user()->profile;
 
-        return response()->json($profile->education);
-    }
+         return response()->json($profile->load(config('profile.load')));
+     }
 
     /**
      * Display the specified resource.

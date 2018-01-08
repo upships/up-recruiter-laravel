@@ -1,12 +1,12 @@
 @extends('layouts.master')
-@section('page-title','Funções')
+@section('page-title','Positions')
 
 @section('content')
 
 	<h2>Funções</h2>
 
 	<div class="row">
-	  	
+
 	  	<div class="col-3">
 	  		@include('app.data.menu')
 	  	</div>
@@ -14,9 +14,9 @@
 
 		  	<div class="list-group" >
 				<div class="list-group-item">
-			        
+
 			        <form method="post" action="/data/position" >
-			            
+
 			            {{csrf_field()}}
 
 						<div class="row" >
@@ -39,7 +39,7 @@
 				        </div>
 			    	</form>
 				</div>
-				
+
 				@foreach($positions as $position)
 					<a class="list-group-item" href="/data/position/{{$position->id}}">
 						{{$position->label}}

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SeamanBook extends Model
 {
+	protected $guarded = ['user_id'];
 	protected $appends = ['expiration_date', 'issue_date'];
 
     public function profile()	{

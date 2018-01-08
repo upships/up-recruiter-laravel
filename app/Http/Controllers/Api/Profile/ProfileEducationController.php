@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Profile;
+namespace App\Http\Controllers\Api\Profile;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Profile\ProfileEducation;
 
 class ProfileEducationController extends Controller
 {
@@ -12,19 +13,9 @@ class ProfileEducationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json($request->user()->profile->education);
     }
 
     /**
@@ -35,11 +26,13 @@ class ProfileEducationController extends Controller
      */
     public function store(Request $request)
     {
-        $profile = $request->user->profile;
+        $profile = $request->user()->profile;
+        $education = ProfileEducation::make($request->all());
+        $profile->education()->save($education);
 
-        $profile->education()->save($request->all());
+        $profile = $request->user()->profile;
 
-        return response()->json($profile->education);
+        return response()->json($profile->load(config('profile.load')));
     }
 
     /**

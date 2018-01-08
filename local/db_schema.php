@@ -1,9 +1,9 @@
-<?php 
+<?php
 
 company
 
 $table->integer('company_type_id')->nullable();
-            
+
 $table->string('name');
 $table->string('logo')->nullable();
 string('url')->nullable();
@@ -18,7 +18,7 @@ integer('selection_id')->nullable();
 integer('recruiter_id')->nullable();
 integer('status')->default(0);
 integer('type')->default(1);
-            
+
 integer('salary')->nullable();
 
 text('remarks')->nullable();
@@ -50,26 +50,20 @@ seaman_books
 integer('profile_id');
 integer('seaman_book_type_id');
 string('number');
-
 date('issued_at')->nullable();
 date('expires_at');
-
 text('remarks')->nullable();
-
 
 cocs
 
 integer('profile_id');
-            
 string('number')->nullable();
-
 date('issued_at')->nullable();
 date('expires_at')->nullable();
-
 text('remarks')->nullable();
-
 text('file')->nullable();
-
+integer('rank_id')
+integer('country_id')
 
 coc_stcw_regulations
 
@@ -77,6 +71,15 @@ integer('profile_id');
 integer('coc_id');
 integer('stcw_regulation_id');
 
+coes
+
+integer('profile_id');
+integer('country_id');
+dateTime('issued_at')->nullable();
+dateTime('expires_at')->nullable();
+string('remarks')->nullable();
+integer('rank_id')
+integer('country_id')
 
 company_types
 
@@ -158,9 +161,9 @@ integer('step')->default(0);
 datetime('expires_at')->nullable();
 
 text('description')->nullable();
-            
+
 string('rotation')->nullable();
-            
+
 string('slug')->nullable();
 string('salary')->nullable();
 integer('visibility')->default(1);  // 1 - visible, 2 - private, 3 - confidential company
@@ -191,7 +194,7 @@ profiles
 integer('user_id');
 integer('country_of_nationality');
 integer('education_level_id')->nullable();
-            
+
 integer('position_id');
 integer('profile_type_id');
 integer('ship_department_id')->nullable();
@@ -207,6 +210,13 @@ integer('english_level')->default(0);
 integer('native_language')->nullable();
 integer('registration_step')->default(0);
 
+  0 - initial step, missing phone validation
+  1 - basic info (phone validated)
+  2 - education
+  3 - seafaring
+  4 - certificates
+	5 - professional
+  10 - completed
 
 profile_certificates
 
@@ -228,7 +238,7 @@ profile_ships
 integer('profile_id');
 integer('profile_work_id');
 integer('ship_type_id');
-            
+
 integer('name')->nullable();
 
 
@@ -237,7 +247,7 @@ profile_works
 integer('profile_id');
 integer('position_id');
 string('company_name');
-            
+
 date('start_date');
 date('end_date')->nullable();
 
@@ -307,6 +317,10 @@ integer('recruiter_id');
 string('label');
 text('notes')->nullable();
 
+ranks
+
+string('label');
+string('code');
 
 ships
 
@@ -454,7 +468,7 @@ settings
 
 string('key');
 string('value')->nullable();
-            
+
 
 
 

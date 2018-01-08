@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Profile;
+namespace App\Http\Controllers\Api\Profile;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class ProfileEducationController extends Controller
+use App\Models\Profile\Coc;
+
+class CocController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,11 +37,7 @@ class ProfileEducationController extends Controller
      */
     public function store(Request $request)
     {
-        $profile = $request->user->profile;
-
-        $profile->education()->save($request->all());
-
-        return response()->json($profile->education);
+        //
     }
 
     /**
@@ -71,9 +69,18 @@ class ProfileEducationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $profile = $request->user()->profile;
+
+        // Checks if user has CoC
+        if(!$profile->coc) {
+          $profile->coc()->save(Coc::make());
+        }
+
+        $profile->coc()->update($request->only(['country_id','issued_at','expires_at','number','remarks']));
+
+        return response()->json($profile);
     }
 
     /**

@@ -35,23 +35,23 @@ class ProfileController extends Controller
     {
         if(request()->ajax())   {
 
-            $relationships = [
-                                'position',
-                                'coc.regulations.stcw_regulation', 'coc.country',
-                                'coes.country',
-                                'passports.country','visas.country',
-                                'seaman_books.seaman_book_type', 'seaman_books.country',
-                                'languages.language',
-                                'dp.dp_type',
-                                'ships.ship_type',
-                                'stcw_regulations.stcw_regulation',
-                                'certificates.certificate_type',
-                                'native_language',
-                                'nationality',
-                                'works.position', 'works.ships.ship_type',
-                             ];
+            $load = [
+                      'position',
+                      'coc.regulations.stcw_regulation', 'coc.country',
+                      'coes.country',
+                      'passports.country','visas.country',
+                      'seaman_books.seaman_book_type', 'seaman_books.country',
+                      'languages.language',
+                      'dp.dp_type',
+                      'ships.ship_type',
+                      'stcw_regulations.stcw_regulation',
+                      'certificates.certificate_type',
+                      'native_language',
+                      'nationality',
+                      'works.position', 'works.ships.ship_type',
+                   ];
 
-            return response()->json($profile->load($relationships));
+            return response()->json($profile->load($load));
         }
 
         return view('app.profiles.view', compact('profile'));
@@ -63,7 +63,7 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    
+
     /**
      * Update the specified resource in storage.
      *

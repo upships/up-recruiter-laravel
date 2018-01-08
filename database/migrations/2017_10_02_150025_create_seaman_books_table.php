@@ -16,15 +16,13 @@ class CreateSeamanBooksTable extends Migration
         Schema::create('seaman_books', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-
             $table->integer('profile_id');
-            $table->integer('seaman_book_type_id');
 
-            $table->string('number');
-
+            $table->integer('country_id')->nullable();
+            $table->integer('seaman_book_type_id')->nullable();
+            $table->string('number')->nullable();
             $table->dateTime('issued_at')->nullable();
-            $table->dateTime('expires_at');
-
+            $table->dateTime('expires_at')->nullable();
             $table->text('remarks')->nullable();
 
         });

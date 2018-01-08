@@ -8,7 +8,7 @@ class Coe extends Model
 {
 	protected $guarded = [];
 	protected $appends = ['expiration_date', 'issue_date'];
-	
+
     public function profile()	{
 
     	return $this->belongsTo('App\Models\Profile');
@@ -17,6 +17,11 @@ class Coe extends Model
     public function country()   {
 
         return $this->belongsTo('App\Models\Data\Country');
+    }
+
+		public function rank()	{
+
+    	return $this->belongsTo('App\Models\Data\Rank');
     }
 
     public function getExpirationDateAttribute()    {

@@ -18,7 +18,7 @@ class CreateCocsTable extends Migration
             $table->timestamps();
 
             $table->integer('profile_id');
-            
+
             $table->string('number')->nullable();
 
             $table->dateTime('issued_at')->nullable();
@@ -27,6 +27,9 @@ class CreateCocsTable extends Migration
             $table->text('remarks')->nullable();
 
             $table->text('file')->nullable();
+
+            $table->integer('rank_id')->nullable();
+            $table->integer('country_id')->nullable();
 
         });
     }

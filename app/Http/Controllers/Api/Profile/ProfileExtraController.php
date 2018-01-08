@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Profile;
+namespace App\Http\Controllers\Api\Profile;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class ProfileEducationController extends Controller
+class ProfileExtraController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,11 +35,7 @@ class ProfileEducationController extends Controller
      */
     public function store(Request $request)
     {
-        $profile = $request->user->profile;
-
-        $profile->education()->save($request->all());
-
-        return response()->json($profile->education);
+        //
     }
 
     /**

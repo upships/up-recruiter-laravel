@@ -6,6 +6,24 @@ use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
 {
+    protected $fillable = [
+                            'country_of_nationality',
+                            'education_level_id',
+                            'position_id',
+                            'profile_type_id',
+                            'ship_department_id',
+                            'gender',
+                            'birthday',
+                            'marital_status',
+                            'city',
+                            'state',
+                            'country_id',
+                            'passport',
+                            'passport_expires_at',
+                            'english_level',
+                            'native_language',
+                            'registration_step'
+                          ];
 
     protected $appends = ['name', 'properties', 'age', 'birth_date', 'gender_label', 'marital_status_label', 'location', 'phone'];
 
@@ -30,7 +48,7 @@ class Profile extends Model
     public function visas() {
         return $this->hasMany('App\Models\Profile\Visa');
     }
-    
+
     public function certificates()	{
     	return $this->hasMany('App\Models\Profile\ProfileCertificate');
     }
@@ -59,7 +77,7 @@ class Profile extends Model
     	return $this->hasMany('App\Models\Profile\ProfileExtra');
     }
 
-    
+
     public function languages()	{
     	return $this->hasMany('App\Models\Profile\ProfileLanguage');
     }
@@ -93,7 +111,7 @@ class Profile extends Model
     }
 
     public function stcw_regulations()	{
-    	
+
     	return $this->hasMany('App\Models\Profile\CocStcwRegulation');
     }
 
@@ -126,7 +144,7 @@ class Profile extends Model
     public function getPhoneAttribute() {
 
         if($this->user->phone_country & $this->user->phone) {
-            
+
             return '(+' . $this->user->phone_country . ') ' . $this->user->phone;
         }
         else {
@@ -140,17 +158,17 @@ class Profile extends Model
         $location_items = [];
 
         if($this->city) {
-            
+
             $location_items[] = $this->city;
         }
 
         if($this->state) {
-            
+
             $location_items[] = $this->state;
         }
 
         if($this->country) {
-            
+
             $location_items[] = $this->country->name;
         }
 
@@ -165,7 +183,7 @@ class Profile extends Model
     public function getMaritalStatusLabelAttribute() {
 
         switch($this->marital_status) {
-            
+
             case 0:
                 $label = 'Not informed';
 
@@ -194,14 +212,14 @@ class Profile extends Model
             default:
                 $label = 'Not informed';
         }
-        
+
         return $label;
     }
 
     public function getGenderLabelAttribute() {
 
         switch($this->gender) {
-            
+
             case 0:
                 $label = 'Not informed';
 
@@ -225,7 +243,7 @@ class Profile extends Model
             default:
                 $label = 'Not informed';
         }
-        
+
         return $label;
     }
 
@@ -264,7 +282,8 @@ class Profile extends Model
                                 'type' => 'value',
                                 'values' => $this->seaman_books()->get()->map( function($item) {
 
-                                                return ['id' => $item->seaman_book_type->id, 'value' => $item->seaman_book_type->label, 'country' => null, 'valid' => true];
+                                                //return ['id' => $item->seaman_book_type->id, 'value' => $item->seaman_book_type->label, 'country' => null, 'valid' => true];
+                                                return ['id' => null, 'value' => null, 'country' => $item->country->name, 'valid' => true];
                                             }),
                             ];
         }

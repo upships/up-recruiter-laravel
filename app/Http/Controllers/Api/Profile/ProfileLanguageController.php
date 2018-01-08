@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Profile;
+namespace App\Http\Controllers\Api\Profile;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class ProfileEducationController extends Controller
+class ProfileLanguageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -33,14 +33,16 @@ class ProfileEducationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        $profile = $request->user->profile;
+     public function store(Request $request)
+     {
+         $profile = $request->user()->profile;
+         $coe = Coe::make($request->all());
+         $profile->coes()->save($coe);
 
-        $profile->education()->save($request->all());
+         $profile = $request->user()->profile;
 
-        return response()->json($profile->education);
-    }
+         return response()->json($profile->load(config('profile.load')));
+     }
 
     /**
      * Display the specified resource.

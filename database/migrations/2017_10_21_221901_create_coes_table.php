@@ -18,12 +18,14 @@ class CreateCoesTable extends Migration
             $table->timestamps();
 
             $table->integer('profile_id');
-            $table->integer('country_id');
 
             $table->dateTime('issued_at')->nullable();
             $table->dateTime('expires_at')->nullable();
 
             $table->string('remarks')->nullable();
+
+            $table->integer('rank_id')->nullable();
+            $table->integer('country_id')->nullable();
 
         });
     }

@@ -83,7 +83,7 @@ Route::group(['prefix' => 'json', 'middleware' => 'auth'], function()	{
 
 	Route::get('job/{job}', 'Job\JobController@show');
 	Route::patch('job/{job}', 'Job\JobController@update');	// Returns the Request fields
-	
+
 	/**
 	 *	Selections (API)
 	 *
@@ -123,7 +123,7 @@ Route::group(['prefix' => 'json', 'middleware' => 'auth'], function()	{
 
 	Route::get('profile/{profile}/documents', 'Profile\ProfileDocumentController@index');
 	Route::get('document/{document}', 'Profile\ProfileDocumentController@show');
-	
+
 	// Include an "action" = refuse and a "message", then triggers an event that sends a notification
 	// Return the request fields
 
@@ -172,7 +172,7 @@ Route::group(['middleware' => 'auth'], function()	{
 	Route::get('company/edit', 'Company\CompanyController@edit');
 
 	Route::patch('company', 'Company\CompanyController@update');
-	
+
 	Route::get('company/recruiter', 'Company\RecruiterController@index');
 	Route::get('company/recruiter/add', 'Company\RecruiterController@create');
 	Route::post('company/recruiter', 'Company\RecruiterController@store');
@@ -190,7 +190,7 @@ Route::group(['middleware' => 'auth'], function()	{
 	Route::get('crew/{crew}/edit', 'Company\CrewController@edit');
 	Route::patch('crew/{crew}', 'Company\CrewController@update');
 	Route::delete('crew/{crew}', 'Company\CrewController@destroy');
-	
+
 	/**
 	 *	Documents
 	 *
@@ -220,14 +220,14 @@ Route::group(['middleware' => 'auth'], function()	{
 	Route::get('job', 'Job\JobController@index');
 	Route::post('job', 'Job\JobController@store');
 	Route::get('job/add', 'Job\JobController@create');
-	
+
 	Route::get('job/{job}', 'Job\JobController@show');
 	Route::get('job/{job}/edit', 'Job\JobController@edit');
 
 	Route::patch('job/{job}', 'Job\JobController@update');
 
 	Route::delete('job/{job}', 'Job\JobController@destroy');
-	
+
 	Route::get('job/{job}/close', 'Job\JobClosingController@show');
 	Route::patch('job/{job}/close', 'Job\JobClosingController@update');
 
@@ -315,17 +315,22 @@ Route::group(['prefix' => 'recruiting', 'middleware' => 'auth'], function()	{
 
 	Route::get('message', 'Recruiting\MessageController@create');
 	Route::post('message', 'Recruiting\MessageController@store');
-	
+
 });
 
 Route::group(['prefix' => 'data', 'middleware' => 'auth'], function()	{
 
 	/**
+	*	Dashboard home
+	*
+	*/
+	
+	Route::get('/', 'Data\DataController');
+
+	/**
 	 *	Positions
 	 *
 	 */
-
-	Route::get('/', 'Data\DataController');
 
 	Route::get('position', 'Data\PositionController@index');
 	Route::get('position/{position}', 'Data\PositionController@edit');
@@ -333,6 +338,18 @@ Route::group(['prefix' => 'data', 'middleware' => 'auth'], function()	{
 	Route::patch('position/{position}', 'Data\PositionController@update');
 	Route::post('position', 'Data\PositionController@store');
 	Route::delete('position/{position}', 'Data\PositionController@destroy');
+
+	/**
+	 *	Ranks
+	 *
+	 */
+
+	Route::get('rank', 'Data\RankController@index');
+ 	Route::get('rank/{rank}', 'Data\RankController@edit');
+ 	Route::get('rank/{rank}/edit', 'Data\RankController@edit');
+ 	Route::patch('rank/{rank}', 'Data\RankController@update');
+ 	Route::post('rank', 'Data\RankController@store');
+ 	Route::delete('rank/{rank}', 'Data\RankController@destroy');
 
 	/**
 	 *	Languages
@@ -405,7 +422,7 @@ Route::group(['prefix' => 'data', 'middleware' => 'auth'], function()	{
 	Route::patch('seaman_book_type/{bookCategory}', 'Data\SeamanBookTypeController@update');
 	Route::post('seaman_book_type', 'Data\SeamanBookTypeController@store');
 	Route::delete('seaman_book_type/{bookCategory}', 'Data\SeamanBookTypeController@destroy');
-		
+
 	/**
 	 *	STCW Regulations
 	 *
@@ -422,7 +439,7 @@ Route::group(['prefix' => 'data', 'middleware' => 'auth'], function()	{
 	 *	Countries
 	 *
 	 */
-	
+
 	Route::get('country', 'Data\CountryController@index');
 	Route::get('country/{country}', 'Data\CountryController@edit');
 	Route::get('country/{country}/edit', 'Data\CountryController@edit');
