@@ -7,9 +7,9 @@ $factory->define(App\Models\Data\Country::class, function (Faker $faker) {
 	$country = strtolower($faker->countryCode);
 
     return [
-        
-        'name' => $country,
-        'code' => $country,
+
+        'name' => strtoupper($country) . ' ' . $country,
+        'code' => strtoupper($country),
         'icon' => "<span class='flag-icon flag-icon-$country' ></span>",
     ];
 });

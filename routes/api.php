@@ -24,6 +24,9 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'profile'], function() {
   Route::get('/', 'Api\ProfileController@show');
   Route::patch('/', 'Api\ProfileController@update');
 
+  Route::patch('phone', 'Api\Profile\PhoneController@update');
+  Route::patch('validate_phone', 'Api\Profile\PhoneController@verify');
+
   Route::get('education', 'Api\Profile\ProfileEducationController@index');
 
   Route::patch('coc', 'Api\Profile\CocController@update');
