@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Dp extends Model
 {
+	protected $guarded = ['profile_id'];
 	protected $appends = ['expiration_date', 'issue_date'];
 
     public function profile()	{

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Coe extends Model
 {
-	protected $guarded = [];
+	protected $guarded = ['profile_id'];
 	protected $appends = ['expiration_date', 'issue_date'];
 
     public function profile()	{
