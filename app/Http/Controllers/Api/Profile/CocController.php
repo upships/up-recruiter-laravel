@@ -78,9 +78,9 @@ class CocController extends Controller
           $profile->coc()->save(Coc::make());
         }
 
-        $profile->coc()->update($request->only(['country_id','issued_at','expires_at','number','remarks']));
+        $profile->coc()->update($request->only(['country_id','issued_at','expires_at','number','remarks', 'rank_id']));
 
-        return response()->json($profile);
+        return response()->json($profile->load(config('profile.load')));
     }
 
     /**
