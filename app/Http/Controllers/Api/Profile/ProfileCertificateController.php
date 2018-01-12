@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\Profile;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\Profile\ProfileCertificate;
+
 class ProfileCertificateController extends Controller
 {
     /**
@@ -35,7 +37,13 @@ class ProfileCertificateController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $profile = $request->user()->profile;
+        $certificate = ProfileCertificate::make($request->all());
+        $profile->certificates()->save($certificate);
+
+        $profile = $request->user()->profile;
+
+        return response()->json($profile->load(config('profile.load')));
     }
 
     /**

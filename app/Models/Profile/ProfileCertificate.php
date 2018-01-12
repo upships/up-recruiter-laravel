@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProfileCertificate extends Model
 {
+	protected $guarded = ['profile_id'];
 	protected $appends = ['expiration_date', 'issue_date'];
-	
+
     public function profile()	{
 
     	return $this->belongsTo('App\Models\Profile');

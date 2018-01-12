@@ -248,8 +248,8 @@ integer('profile_id');
 integer('position_id');
 string('company_name');
 
-date('start_date');
-date('end_date')->nullable();
+date('started_at');
+date('ended_at')->nullable();
 
 text('description')->nullable();
 
