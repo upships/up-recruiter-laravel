@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProfileShip extends Model
 {
+    protected $guarded = ['profile_id'];
+
     public function profile()	{
 
     	return $this->belongsTo('App\Models\Profile');

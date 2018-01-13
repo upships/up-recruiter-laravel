@@ -32,6 +32,11 @@ class ProfileController extends Controller
           $profile->registration_step++;
           $profile->save();
         break;
+
+        case 'finishOnboarding':
+          $profile->registration_step = 10;
+          $profile->save();
+        break;
       }
 
       return response()->json($profile->load(config('profile.load')));

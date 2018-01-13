@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Api\Profile;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\Profile\ProfileWork;
+use App\Models\Profile\ProfileShip;
+
 class ProfileWorkController extends Controller
 {
     /**
@@ -33,10 +36,28 @@ class ProfileWorkController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
+     public function store(Request $request)
+     {
+         $profile = $request->user()->profile;
+         $basic = $request->input('work.basic');
+         $ship = $request->input('work.ship');
+
+         $item = ProfileWork::make($basic);
+         $profile->works()->save($item);
+
+         // Add ship
+         if($request->input('work.ship')) {
+
+           $workShip = ProfileShip::make($ship);
+           $workShip->profile_id = $profile->id;
+
+           $item->ships()->save($workShip);
+         }
+
+         $profile = $request->user()->profile;
+
+         return response()->json($profile->load(config('profile.load')));
+     }
 
     /**
      * Display the specified resource.

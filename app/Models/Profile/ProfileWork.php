@@ -7,7 +7,8 @@ use \Carbon\Carbon;
 
 class ProfileWork extends Model
 {
-	protected $appends = ['duration', 'start_date', 'end_date'];
+		protected $guarded = ['profile_id'];
+		protected $appends = ['duration', 'start_date', 'end_date'];
 
     public function profile()	{
 
@@ -55,7 +56,7 @@ class ProfileWork extends Model
     		$start = new Carbon($this->started_at);
 
     		if($this->is_current)	{
-    			
+
     			$end = Carbon();
     		}
     		else {
